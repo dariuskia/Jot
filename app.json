@@ -1,0 +1,12 @@
+{
+  "name": "journal",
+  "displayName": "journal",
+  "expo": {
+    "name": "journal",
+    "slug": "journal",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
