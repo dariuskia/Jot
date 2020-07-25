@@ -1,1 +1,1 @@
-# Journaling App
+# Jot
