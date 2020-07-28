@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -13,6 +13,11 @@ const Goals = () => {
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
+   }
+   const [textValue, setValue] = useState(null);
+
+   const onSubmit = () => {
+	   setValue(null)
    }
 
    return (
@@ -39,10 +44,13 @@ const Goals = () => {
                <TextInput
                   style={styles.input}
                   placeholder={placeholder}
+				  value={textValue}
                   onEndEditing={(val) => {
                     setGoals(prevGoals => (
-                    	[...prevGoals, { body: val.nativeEvent.text, completed: false, key: nextKey++ }]
-					))
+                    	[...prevGoals, { body: val.nativeEvent.text, completed: false, key: Math.random() }]
+                    ))
+                    console.log(val.nativeEvent.text, "textValue")
+					onSubmit();
 				  }}
                />
             </View>
