@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import Goals from './Goals';
 
 const Body = () => {
 	return (
-		<View style={styles.body}>
-			<Text>Hello</Text>
-		</View>
+		<SafeAreaView style={styles.body}>
+			<Text style={styles.heading}>Goals</Text>
+			<Goals />
+		</SafeAreaView>
 	)
 }
 
@@ -17,6 +19,11 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: 30,
 		borderTopRightRadius: 30,
 		padding: 35,
+	},
+	heading: {
+		fontSize: 25,
+		color: '#4B5189',
+		fontFamily: 'Ubuntu Medium',
 	}
 })
 

@@ -25,12 +25,13 @@ const styles = StyleSheet.create({
     buttonTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#fff',
+		color: '#fff',
+		fontFamily: 'Rubik Medium',
     },
     buttonText: {
         fontSize: 15,
         color: '#fff',
-        
+        fontFamily: 'Rubik',
     }
 })
 

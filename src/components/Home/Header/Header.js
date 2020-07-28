@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import Actions from '../Actions/Actions'
+import Icon from 'react-native-vector-icons/Ionicons';
+import Actions from '../Actions/Actions';
 
 const Header = () => {
 	return (
@@ -12,7 +13,7 @@ const Header = () => {
 					<Text style={styles.name}>John</Text>
 				</View>
 				<View>
-					<Text style={{color: 'white'}}>Settings</Text>
+					<Icon name="ios-cog" size={30} color="#7C81B4" />
 				</View>
 			</View>
 			<View style={styles.buttonContainer}>
@@ -35,19 +36,21 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 	},
-	greeting: {	
+	greeting: {
 		color: '#add8e6',
 		fontSize: 20,
+		fontFamily: 'Rubik Medium',
 	},
 	name: {
 		color: '#fff',
 		fontSize: 30,
 		fontWeight: 'bold',
+		fontFamily: 'Ubuntu Medium',
 	},
 	buttonContainer: {
 		flexDirection: 'row',
 		marginTop: 20,
 	}
 })
- 
+
 export default Header;

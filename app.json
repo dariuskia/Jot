@@ -1,10 +1,10 @@
 {
-  "name": "journal",
-  "displayName": "journal",
+  "name": "Jot",
+  "displayName": "Jot",
   "expo": {
-    "name": "journal",
-    "slug": "journal",
-    "version": "1.0.0",
+    "name": "Jot",
+    "slug": "Jot",
+    "version": "0.0.1",
     "assetBundlePatterns": [
       "**/*"
     ]
