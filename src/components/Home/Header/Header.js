@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
 	},
 	greeting: {	
 		color: '#add8e6',
-		fontSize: 20
+		fontSize: 20,
 	},
 	name: {
 		color: '#fff',
 		fontSize: 30,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
 	},
 	buttonContainer: {
 		flex: 1,
