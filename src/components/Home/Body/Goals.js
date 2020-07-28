@@ -7,27 +7,28 @@ const Goals = () => {
    let nextKey = 0;
    const [goals, setGoals] = useState(
       [
-         { body: 'go outside', completed: false, key: nextKey++ },
-         { body: 'see friends', completed: true, key: nextKey++ },
-      ]);
+	]);
 
-   const [addGoal, setPlaceholder] = useState('+ Add a goal');
+   const [placeholder, setPlaceholder] = useState('+ Add a goal');
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
 
    return (
-      <KeyboardAvoidingView behavior="padding">
+    <KeyboardAvoidingView
+    style={{flex: 1}}
+    behavior={'position'}>
+		
          <View style={styles.container}>
             <View style={styles.titleContainer}>
                <Text style={styles.heading}>Goals</Text>
                <Text style={styles.numGoals}>{goals.length.toString() + " goals"}</Text>
             </View>
             <ScrollView>
-               {goals.map((goal) => (
+               {goals.length != 0 && goals.map((goal) => (
                   <View style={styles.goalContainer}>
-                     <Text style={styles.text}>{goal.body + goal.key.toString()}</Text>
+                     <Text editable="true" style={styles.text}>{goal.body}</Text>
                      <TouchableOpacity onPress={() => removeGoal(goal.key)}>
                         <Icon name="ios-close" size={30} color="#ff8989" />
                      </TouchableOpacity>
@@ -37,20 +38,16 @@ const Goals = () => {
             <View>
                <TextInput
                   style={styles.input}
-                  placeholder={addGoal}
-                  onFocus={(val) => {
-                     setPlaceholder('Enter anything');
-                     setGoals(prevGoals => (
-                        [...prevGoals], { body: val, completed: false, key: nextKey++ }
-                     ))
-                  }}
-                  onBlur={() => {
-                     setPlaceholder('+ Add a goal')
-                  }}
+                  placeholder={placeholder}
+                  onEndEditing={(val) => {
+                    setGoals(prevGoals => (
+                    	[...prevGoals, { body: val.nativeEvent.text, completed: false, key: nextKey++ }]
+					))
+				  }}
                />
             </View>
          </View>
-      </KeyboardAvoidingView>
+         </KeyboardAvoidingView>
    );
 }
 
