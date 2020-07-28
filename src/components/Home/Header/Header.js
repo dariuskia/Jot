@@ -30,18 +30,18 @@ const styles = StyleSheet.create({
 	},
 	greeting: {	
 		color: '#add8e6',
-		fontSize: 20
+		fontSize: 20,
 	},
 	name: {
 		color: '#ffffff',
 		fontSize: 30,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
 	},
 	buttonContainer: {
 		width: '100%',
 		flex: 1,
 		flexDirection: 'row',
-		backgroundColor: 'red'
+		backgroundColor: 'red',
 	}
 })
  
