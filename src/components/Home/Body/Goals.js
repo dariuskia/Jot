@@ -1,42 +1,56 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Goals = () => {
+   let nextKey = 0;
    const [goals, setGoals] = useState(
       [
-         { body: 'go outside', completed: false, key: 0 },
-         { body: 'see friends', completed: true, key: 1 },
-	  ]);
-	  
-	const [addGoal, setPlaceholder] = useState('+ Add a goal');
+         { body: 'go outside', completed: false, key: nextKey++ },
+         { body: 'see friends', completed: true, key: nextKey++ },
+      ]);
+
+   const [addGoal, setPlaceholder] = useState('+ Add a goal');
+
+   const removeGoal = (key) => {
+      setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
+   }
+
    return (
-      <View style={styles.container}>
-         <View style={styles.titleContainer}>
-            <Text style={styles.heading}>Goals</Text>
-            <Text style={styles.numGoals}>{goals.length.toString() + " goals"}</Text>
+      <KeyboardAvoidingView behavior="padding">
+         <View style={styles.container}>
+            <View style={styles.titleContainer}>
+               <Text style={styles.heading}>Goals</Text>
+               <Text style={styles.numGoals}>{goals.length.toString() + " goals"}</Text>
+            </View>
+            <ScrollView>
+               {goals.map((goal) => (
+                  <View style={styles.goalContainer}>
+                     <Text style={styles.text}>{goal.body + goal.key.toString()}</Text>
+                     <TouchableOpacity onPress={() => removeGoal(goal.key)}>
+                        <Icon name="ios-close" size={30} color="#ff8989" />
+                     </TouchableOpacity>
+                  </View>
+               ))}
+            </ScrollView>
+            <View>
+               <TextInput
+                  style={styles.input}
+                  placeholder={addGoal}
+                  onFocus={(val) => {
+                     setPlaceholder('Enter anything');
+                     setGoals(prevGoals => (
+                        [...prevGoals], { body: val, completed: false, key: nextKey++ }
+                     ))
+                  }}
+                  onBlur={() => {
+                     setPlaceholder('+ Add a goal')
+                  }}
+               />
+            </View>
          </View>
-         <ScrollView>
-            {goals.map((goal) => (
-               <View style={styles.goalContainer}>
-                  <Text style={styles.text}>{goal.body}</Text>
-                    <TouchableOpacity>
-                      <Icon name="ios-close" size={30} color="#ff8989" />
-                    </TouchableOpacity>
-               </View>
-            ))}
-         </ScrollView>
-         <View>
-            <TextInput
-               style={styles.input}
-			   placeholder={addGoal}
-			   onClick={() => {
-				   setPlaceholder('Enter anything')
-			   }}
-            />
-         </View>
-      </View>
+      </KeyboardAvoidingView>
    );
 }
 
