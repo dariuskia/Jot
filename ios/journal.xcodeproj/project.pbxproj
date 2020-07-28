@@ -17,6 +17,7 @@
 		16C1E886D14548CB8A31378E /* Rubik Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 764D475829214C2FAD60B79E /* Rubik Medium.ttf */; };
 		A9FF84332ACE419CB5243D62 /* Ubuntu Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D19A1642ED94790BAB67E27 /* Ubuntu Medium.ttf */; };
 		9E6BE0417556499583F6A321 /* Rowdies.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E48681D6CD534D898EEADE2D /* Rowdies.ttf */; };
+		A95BCA6C7520417BBA90F6DB /* Rubik.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 232714ED399C417D8C9D8427 /* Rubik.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		764D475829214C2FAD60B79E /* Rubik Medium.ttf */ = {isa = PBXFileReference; name = "Rubik Medium.ttf"; path = "../assets/fonts/Rubik Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5D19A1642ED94790BAB67E27 /* Ubuntu Medium.ttf */ = {isa = PBXFileReference; name = "Ubuntu Medium.ttf"; path = "../assets/fonts/Ubuntu Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E48681D6CD534D898EEADE2D /* Rowdies.ttf */ = {isa = PBXFileReference; name = "Rowdies.ttf"; path = "../assets/fonts/Rowdies.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		232714ED399C417D8C9D8427 /* Rubik.ttf */ = {isa = PBXFileReference; name = "Rubik.ttf"; path = "../assets/fonts/Rubik.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				764D475829214C2FAD60B79E /* Rubik Medium.ttf */,
 				5D19A1642ED94790BAB67E27 /* Ubuntu Medium.ttf */,
 				E48681D6CD534D898EEADE2D /* Rowdies.ttf */,
+				232714ED399C417D8C9D8427 /* Rubik.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				16C1E886D14548CB8A31378E /* Rubik Medium.ttf in Resources */,
 				A9FF84332ACE419CB5243D62 /* Ubuntu Medium.ttf in Resources */,
 				9E6BE0417556499583F6A321 /* Rowdies.ttf in Resources */,
+				A95BCA6C7520417BBA90F6DB /* Rubik.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
