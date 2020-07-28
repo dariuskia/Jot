@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native';
 import Goals from './Goals';
 
 const Body = () => {
 	return (
 		<SafeAreaView style={styles.body}>
-			<Text style={styles.heading}>Goals</Text>
 			<Goals />
 		</SafeAreaView>
 	)
@@ -20,11 +19,6 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 30,
 		padding: 35,
 	},
-	heading: {
-		fontSize: 25,
-		color: '#4B5189',
-		fontFamily: 'Ubuntu Medium',
-	}
 })
 
 export default Body;
