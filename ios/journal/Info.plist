@@ -60,7 +60,10 @@
 		<string>Rubik Medium.ttf</string>
 		<string>Ubuntu Medium.ttf</string>
 		<string>Rowdies.ttf</string>
+<<<<<<< Updated upstream
 		<string>Rubik.ttf</string>
+=======
+>>>>>>> Stashed changes
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
