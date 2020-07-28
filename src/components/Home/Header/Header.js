@@ -6,8 +6,15 @@ import Actions from '../Actions/Actions'
 const Header = () => {
 	return (
 		<View style={styles.header}>
-			<Text style={styles.greeting}>Good evening</Text>
-			<Text style={styles.name}>John</Text>
+			<View style={styles.headingContainer}>
+				<View>
+					<Text style={styles.greeting}>Good evening</Text>
+					<Text style={styles.name}>John</Text>
+				</View>
+				<View>
+					<Text style={{color: 'white'}}>Settings</Text>
+				</View>
+			</View>
 			<View style={styles.buttonContainer}>
 				<Actions buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" />
 				<Actions buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" />
@@ -22,8 +29,11 @@ const styles = StyleSheet.create({
 		width: '100%',
 		paddingHorizontal: 25,
 		paddingVertical: 50,
-		flex: 1,
-		backgroundColor: 'red'
+	},
+	headingContainer: {
+		paddingHorizontal: 10,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
 	},
 	greeting: {	
 		color: '#add8e6',
@@ -35,7 +45,6 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	buttonContainer: {
-		flex: 1,
 		flexDirection: 'row',
 		marginTop: 20,
 	}

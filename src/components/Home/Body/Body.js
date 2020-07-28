@@ -11,9 +11,12 @@ const Body = () => {
 
 const styles = StyleSheet.create({
 	body: {
-		backgroundColor: '#fff',
 		width: '100%',
-		flex: 1,
+		backgroundColor: '#fff',
+		height: '100%',
+		borderTopLeftRadius: 30,
+		borderTopRightRadius: 30,
+		padding: 35,
 	}
 })
 
