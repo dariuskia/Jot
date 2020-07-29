@@ -17,8 +17,8 @@ const Header = () => {
 				</View>
 			</View>
 			<View style={styles.buttonContainer}>
-				<Actions buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" />
-				<Actions buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" />
+				<Actions buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" iconName="ios-book" />
+				<Actions buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" iconName="ios-calendar" />
 			</View>
 		</View>
 	);

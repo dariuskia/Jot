@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import Checkbox from './Checkbox'
 
 const Goals = () => {
    const [goals, setGoals] = useState(
@@ -12,23 +13,12 @@ const Goals = () => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
 
-   const updateGoal = (key, updatedGoal) => {
-      goals.forEach(goal => {
-         if (goal.key === key) {
-            goal.body = updatedGoal
-         }
-      })
-   }
-
    const input = React.createRef();
-   const editGoal = useRef();
    
    const [nextKey, setNextKey] = useState(0);
 
    return (
-    <KeyboardAvoidingView
-    style={{flex: 1}}
-    behavior={'position'}>
+      <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
          <View style={styles.container}>
             <View>
                <View style={styles.titleContainer}>
@@ -38,19 +28,24 @@ const Goals = () => {
             </View>
             <ScrollView>
                <View>
-                  {goals.length != 0 && goals.map((goal) => (
+                  {goals.length != 0 && goals.map((goal) => {
+                     let textStyles = [styles.text];
+                     if (goal.completed) textStyles.push({textDecorationLine: 'line-through'});
+                     return (
                      <View style={styles.goalContainer}>
-                        
-                        <Text 
-                           key={goal.key} 
-                           style={styles.text}>
-                           {goal.body}
-                        </Text>
+                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                           <Checkbox />
+                           <Text 
+                              key={goal.key} 
+                              style={textStyles}>
+                              {goal.body}
+                           </Text>
+                        </View>
                         <TouchableOpacity onPress={() => removeGoal(goal.key)}>
                            <Icon name="ios-close" size={30} color="#ff8989" />
                         </TouchableOpacity>
                      </View>
-                  ))}
+                  )})}
                </View>
                <View>
                   <TextInput
@@ -71,7 +66,7 @@ const Goals = () => {
                </View>
             </ScrollView>
          </View>
-         </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
    );
 }
 
