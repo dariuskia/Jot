@@ -35,11 +35,13 @@ const Goals = () => {
     style={{flex: 1}}
     behavior={'position'}>
          <View style={styles.container}>
-            <ScrollView>
+            <View>
                <View style={styles.titleContainer}>
                   <Text style={styles.heading}>Goals</Text>
                   <Text style={styles.numGoals}>{goals.length.toString() + " goals"}</Text>
                </View>
+            </View>
+            <ScrollView>
                <View>
                   {goals.length != 0 && goals.map((goal) => (
                      <View style={styles.goalContainer}>
@@ -75,6 +77,7 @@ const Goals = () => {
 const styles = StyleSheet.create({
    container: {
       flex: -1,
+      paddingBottom: 25,
    },
    heading: {
       fontSize: 25,
