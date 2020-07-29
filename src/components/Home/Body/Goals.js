@@ -7,6 +7,16 @@ const Goals = () => {
    let nextKey = 0;
    const [goals, setGoals] = useState(
       [
+          {body: "go outside", key: 0.2342341},
+          {body: "go outside", key: 0.234234234},
+          {body: "go outside", key: 0.2334235},
+          {body: "go outside", key: 0.6132},
+          {body: "go outside", key: 0.83452},
+          {body: "go outside", key: 0.276745},
+          {body: "go outside", key: 0.453467},
+          {body: "go outside", key: 0.23412},
+          {body: "go outside", key: 0.613136},
+          {body: "go outside", key: 0.2342341},
 	]);
 
    const [placeholder, setPlaceholder] = useState('+ Add a goal');
@@ -24,7 +34,6 @@ const Goals = () => {
     <KeyboardAvoidingView
     style={{flex: 1}}
     behavior={'position'}>
-		
          <View style={styles.container}>
             <View style={styles.titleContainer}>
                <Text style={styles.heading}>Goals</Text>
@@ -46,10 +55,12 @@ const Goals = () => {
                   placeholder={placeholder}
 				  value={textValue}
                   onEndEditing={(val) => {
-                    setGoals(prevGoals => (
-                    	[...prevGoals, { body: val.nativeEvent.text, completed: false, key: Math.random() }]
-                    ))
-                    console.log(val.nativeEvent.text, "textValue")
+                    let txt = val.nativeEvent.text
+                    if (txt.length > 2) {
+                     setGoals(prevGoals => (
+                        [...prevGoals, { body: txt, completed: false, key: Math.random() }]
+                     ))
+                    }
 					onSubmit();
 				  }}
                />
