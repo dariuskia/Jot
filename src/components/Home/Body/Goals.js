@@ -57,7 +57,7 @@ const Goals = () => {
                value={textValue}
                      onEndEditing={(val) => {
                      let txt = val.nativeEvent.text
-                     if (txt.length > 2) {
+                     if (txt.length > 0) {
                         setGoals(prevGoals => (
                            [...prevGoals, { body: txt, completed: false, key: Math.random() }]
                         ))
