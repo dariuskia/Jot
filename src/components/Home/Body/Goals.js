@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const Goals = () => {
    const [goals, setGoals] = useState(
       [
-	   ]);
+      ]);
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
@@ -22,13 +22,13 @@ const Goals = () => {
 
    const input = React.createRef();
    const editGoal = useRef();
-   
+
    const [nextKey, setNextKey] = useState(0);
 
    return (
-    <KeyboardAvoidingView
-    style={{flex: 1}}
-    behavior={'position'}>
+      <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={'position'}>
          <View style={styles.container}>
             <View>
                <View style={styles.titleContainer}>
@@ -40,9 +40,9 @@ const Goals = () => {
                <View>
                   {goals.length != 0 && goals.map((goal) => (
                      <View style={styles.goalContainer}>
-                        
-                        <Text 
-                           key={goal.key} 
+
+                        <Text
+                           key={goal.key}
                            style={styles.text}>
                            {goal.body}
                         </Text>
@@ -58,20 +58,20 @@ const Goals = () => {
                      placeholder='+ Add a goal'
                      ref={input}
                      onEndEditing={(val) => {
-                     let txt = val.nativeEvent.text
-                     if (txt.length > 0) {
-                        setGoals(prevGoals => (
-                           [...prevGoals, { body: txt, completed: false, key: nextKey }]
-                        ));
-                        input.current.clear();
-                        setNextKey((prevKey) => (prevKey+1));
-                     }
+                        let txt = val.nativeEvent.text
+                        if (txt.length > 0) {
+                           setGoals(prevGoals => (
+                              [...prevGoals, { body: txt, completed: false, key: nextKey }]
+                           ));
+                           input.current.clear();
+                           setNextKey((prevKey) => (prevKey + 1));
+                        }
                      }}
                   />
                </View>
             </ScrollView>
          </View>
-         </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
    );
 }
 
