@@ -7,17 +7,7 @@ const Goals = () => {
    let nextKey = 0;
    const [goals, setGoals] = useState(
       [
-          {body: "go outside", key: 0.2342341},
-          {body: "go outside", key: 0.234234234},
-          {body: "go outside", key: 0.2334235},
-          {body: "go outside", key: 0.6132},
-          {body: "go outside", key: 0.83452},
-          {body: "go outside", key: 0.276745},
-          {body: "go outside", key: 0.453467},
-          {body: "go outside", key: 0.23412},
-          {body: "go outside", key: 0.613136},
-          {body: "go outside", key: 0.2342341},
-	]);
+	   ]);
 
    const [placeholder, setPlaceholder] = useState('+ Add a goal');
 
@@ -25,6 +15,8 @@ const Goals = () => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
    const [textValue, setValue] = useState(null);
+
+   const input = React.createRef();
 
    const onSubmit = () => {
 	   setValue(null)
@@ -56,13 +48,15 @@ const Goals = () => {
                   <TextInput
                      style={styles.input}
                      placeholder={placeholder}
-               value={textValue}
+                     value={textValue}
+                     ref={input}
                      onEndEditing={(val) => {
                      let txt = val.nativeEvent.text
                      if (txt.length > 0) {
                         setGoals(prevGoals => (
                            [...prevGoals, { body: txt, completed: false, key: Math.random() }]
-                        ))
+                        ));
+                        input.current.clear();
                      }
                   onSubmit();
                }}
