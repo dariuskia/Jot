@@ -55,10 +55,12 @@ const Goals = () => {
                   placeholder={placeholder}
 				  value={textValue}
                   onEndEditing={(val) => {
-                    setGoals(prevGoals => (
-                    	[...prevGoals, { body: val.nativeEvent.text, completed: false, key: Math.random() }]
-                    ))
-                    console.log(val.nativeEvent.text, "textValue")
+                    let txt = val.nativeEvent.text
+                    if (txt.length > 2) {
+                     setGoals(prevGoals => (
+                        [...prevGoals, { body: txt, completed: false, key: Math.random() }]
+                     ))
+                    }
 					onSubmit();
 				  }}
                />
