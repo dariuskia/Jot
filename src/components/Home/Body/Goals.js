@@ -4,23 +4,15 @@ import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, Keyboa
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Goals = () => {
-   let nextKey = 0;
    const [goals, setGoals] = useState(
       [
 	   ]);
 
-   const [placeholder, setPlaceholder] = useState('+ Add a goal');
-
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
-   const [textValue, setValue] = useState(null);
 
    const input = React.createRef();
-
-   const onSubmit = () => {
-	   setValue(null)
-   }
 
    return (
     <KeyboardAvoidingView
@@ -37,7 +29,7 @@ const Goals = () => {
                <View>
                   {goals.length != 0 && goals.map((goal) => (
                      <View style={styles.goalContainer}>
-                        <Text editable="true" style={styles.text}>{goal.body}</Text>
+                        <Text editable="true" key={goal.key} style={styles.text}>{goal.body}</Text>
                         <TouchableOpacity onPress={() => removeGoal(goal.key)}>
                            <Icon name="ios-close" size={30} color="#ff8989" />
                         </TouchableOpacity>
@@ -47,8 +39,7 @@ const Goals = () => {
                <View>
                   <TextInput
                      style={styles.input}
-                     placeholder={placeholder}
-                     value={textValue}
+                     placeholder='+ Add a goal'
                      ref={input}
                      onEndEditing={(val) => {
                      let txt = val.nativeEvent.text
@@ -58,8 +49,7 @@ const Goals = () => {
                         ));
                         input.current.clear();
                      }
-                  onSubmit();
-               }}
+                     }}
                   />
                </View>
             </ScrollView>
