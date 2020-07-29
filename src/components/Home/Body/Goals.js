@@ -58,7 +58,7 @@ const Goals = () => {
                            [...prevGoals, { body: txt, completed: false, key: nextKey }]
                         ));
                         input.current.clear();
-                        // setNextKey((prevKey) => prevKey+1);
+                        setNextKey((prevKey) => prevKey+1);
                      }
                   onSubmit();
                }}
