@@ -2,17 +2,20 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
 const NavBar = () => {
    const focusedColor = '#102456';
    const unfocusedColor = '#C3C8D4';
 
    return (
-      <View style={styles.container}>
-         <Icon name="md-home" size={30} color={focusedColor} />
-         <Icon name="md-bookmark" size={30} color={unfocusedColor} />
-         <Icon name="md-calendar" size={30} color={unfocusedColor} />
-      </View>
+      <HideWithKeyboard>
+         <View style={styles.container}>
+            <Icon name="md-home" size={30} color={focusedColor} />
+            <Icon name="md-bookmark" size={30} color={unfocusedColor} />
+            <Icon name="md-calendar" size={30} color={unfocusedColor} />
+         </View>
+      </HideWithKeyboard>
    )
 }
 
