@@ -25,8 +25,6 @@ const Goals = () => {
    
    const [nextKey, setNextKey] = useState(0);
 
-   const [isEditing, toggleEdit] = useState(false);
-
    return (
     <KeyboardAvoidingView
     style={{flex: 1}}
@@ -42,31 +40,12 @@ const Goals = () => {
                <View>
                   {goals.length != 0 && goals.map((goal) => (
                      <View style={styles.goalContainer}>
-                        {isEditing ? (
-                           <TextInput 
-                              key={goal.key} 
-                              style={styles.text}
-                              ref={editGoal}
-                              onEndEditing={(key, val) => {
-                                 console.log(val.nativeEvent.text);
-                                 if (txt.length > 0) {
-                                    setGoals(prevGoals => (
-                                       [...prevGoals, { body: txt, completed: false, key: nextKey }]
-                                    ))
-                                 }
-                                 else {
-                                    updateGoal(key, txt)
-                                 }
-                                 toggleEdit(false)
-                              }}
-                              >{goal.body}</TextInput>
-                        ) : (
-                           <Text 
-                              key={goal.key} 
-                              style={styles.text}
-                              onPress={() => toggleEdit(true)}
-                              >{goal.body}</Text>
-                        )}
+                        
+                        <Text 
+                           key={goal.key} 
+                           style={styles.text}>
+                           {goal.body}
+                        </Text>
                         <TouchableOpacity onPress={() => removeGoal(goal.key)}>
                            <Icon name="ios-close" size={30} color="#ff8989" />
                         </TouchableOpacity>
@@ -85,7 +64,7 @@ const Goals = () => {
                            [...prevGoals, { body: txt, completed: false, key: nextKey }]
                         ));
                         input.current.clear();
-                        setNextKey((prevKey) => prevKey+1);
+                        setNextKey((prevKey) => (prevKey+1));
                      }
                      }}
                   />
@@ -122,6 +101,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between'
    },
    textContainer: {
+
    },
    text: {
       fontFamily: 'Rubik',
