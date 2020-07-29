@@ -35,36 +35,38 @@ const Goals = () => {
     style={{flex: 1}}
     behavior={'position'}>
          <View style={styles.container}>
-            <View style={styles.titleContainer}>
-               <Text style={styles.heading}>Goals</Text>
-               <Text style={styles.numGoals}>{goals.length.toString() + " goals"}</Text>
-            </View>
             <ScrollView>
-               {goals.length != 0 && goals.map((goal) => (
-                  <View style={styles.goalContainer}>
-                     <Text editable="true" style={styles.text}>{goal.body}</Text>
-                     <TouchableOpacity onPress={() => removeGoal(goal.key)}>
-                        <Icon name="ios-close" size={30} color="#ff8989" />
-                     </TouchableOpacity>
-                  </View>
-               ))}
+               <View style={styles.titleContainer}>
+                  <Text style={styles.heading}>Goals</Text>
+                  <Text style={styles.numGoals}>{goals.length.toString() + " goals"}</Text>
+               </View>
+               <View>
+                  {goals.length != 0 && goals.map((goal) => (
+                     <View style={styles.goalContainer}>
+                        <Text editable="true" style={styles.text}>{goal.body}</Text>
+                        <TouchableOpacity onPress={() => removeGoal(goal.key)}>
+                           <Icon name="ios-close" size={30} color="#ff8989" />
+                        </TouchableOpacity>
+                     </View>
+                  ))}
+               </View>
+               <View>
+                  <TextInput
+                     style={styles.input}
+                     placeholder={placeholder}
+               value={textValue}
+                     onEndEditing={(val) => {
+                     let txt = val.nativeEvent.text
+                     if (txt.length > 2) {
+                        setGoals(prevGoals => (
+                           [...prevGoals, { body: txt, completed: false, key: Math.random() }]
+                        ))
+                     }
+                  onSubmit();
+               }}
+                  />
+               </View>
             </ScrollView>
-            <View>
-               <TextInput
-                  style={styles.input}
-                  placeholder={placeholder}
-				  value={textValue}
-                  onEndEditing={(val) => {
-                    let txt = val.nativeEvent.text
-                    if (txt.length > 2) {
-                     setGoals(prevGoals => (
-                        [...prevGoals, { body: txt, completed: false, key: Math.random() }]
-                     ))
-                    }
-					onSubmit();
-				  }}
-               />
-            </View>
          </View>
          </KeyboardAvoidingView>
    );
