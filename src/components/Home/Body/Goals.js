@@ -16,6 +16,8 @@ const Goals = () => {
    }
    const [textValue, setValue] = useState(null);
 
+   const input = React.createRef();
+
    const onSubmit = () => {
 	   setValue(null)
    }
@@ -46,13 +48,15 @@ const Goals = () => {
                   <TextInput
                      style={styles.input}
                      placeholder={placeholder}
-               value={textValue}
+                     value={textValue}
+                     ref={input}
                      onEndEditing={(val) => {
                      let txt = val.nativeEvent.text
                      if (txt.length > 0) {
                         setGoals(prevGoals => (
                            [...prevGoals, { body: txt, completed: false, key: Math.random() }]
-                        ))
+                        ));
+                        input.current.clear();
                      }
                   onSubmit();
                }}
