@@ -4,7 +4,6 @@ import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, Keyboa
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Goals = () => {
-   let nextKey = 0;
    const [goals, setGoals] = useState(
       [
 	   ]);
@@ -21,6 +20,8 @@ const Goals = () => {
    const onSubmit = () => {
 	   setValue(null)
    }
+   
+   const [nextKey, setNextKey] = useState(0);
 
    return (
     <KeyboardAvoidingView
@@ -54,9 +55,10 @@ const Goals = () => {
                      let txt = val.nativeEvent.text
                      if (txt.length > 0) {
                         setGoals(prevGoals => (
-                           [...prevGoals, { body: txt, completed: false, key: Math.random() }]
+                           [...prevGoals, { body: txt, completed: false, key: nextKey }]
                         ));
                         input.current.clear();
+                        // setNextKey((prevKey) => prevKey+1);
                      }
                   onSubmit();
                }}
