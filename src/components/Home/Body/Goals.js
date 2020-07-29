@@ -7,18 +7,19 @@ import Checkbox from './Checkbox'
 const Goals = () => {
    const [goals, setGoals] = useState(
       [
-	   ]);
+      ]);
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
 
    const input = React.createRef();
-   
    const [nextKey, setNextKey] = useState(0);
 
    return (
-      <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
+      <KeyboardAvoidingView
+         style={{ flex: 1 }}
+         behavior={'position'}>
          <View style={styles.container}>
             <View>
                <View style={styles.titleContainer}>
@@ -53,14 +54,14 @@ const Goals = () => {
                      placeholder='+ Add a goal'
                      ref={input}
                      onEndEditing={(val) => {
-                     let txt = val.nativeEvent.text
-                     if (txt.length > 0) {
-                        setGoals(prevGoals => (
-                           [...prevGoals, { body: txt, completed: false, key: nextKey }]
-                        ));
-                        input.current.clear();
-                        setNextKey((prevKey) => (prevKey+1));
-                     }
+                        let txt = val.nativeEvent.text
+                        if (txt.length > 0) {
+                           setGoals(prevGoals => (
+                              [...prevGoals, { body: txt, completed: false, key: nextKey }]
+                           ));
+                           input.current.clear();
+                           setNextKey((prevKey) => (prevKey + 1));
+                        }
                      }}
                   />
                </View>
