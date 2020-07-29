@@ -4,6 +4,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 
 import Header from './src/components/Home/Header/Header'
 import Body from './src/components/Home/Body/Body'
+import NavBar from './src/components/NavBar/NavBar'
 
 export default function App() {
   return (
@@ -13,6 +14,8 @@ export default function App() {
       <Header />
 
       <Body />
+
+      <NavBar />
     </View >
   );
 }
