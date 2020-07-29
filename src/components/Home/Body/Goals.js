@@ -13,6 +13,18 @@ const Goals = () => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
 
+   const toggleCompleted = (key) => {
+      setGoals(prevGoals => (
+         prevGoals.map(goal => {
+            if (goal.key == key) {
+               console.log(goal.body, goal.completed);
+               return {body: goal.body, completed: !goal.completed, key: goal.key};
+            }
+            else return goal;
+         })
+      ))
+   }
+
    const input = React.createRef();
    const [nextKey, setNextKey] = useState(0);
 
@@ -35,7 +47,7 @@ const Goals = () => {
                      return (
                      <View style={styles.goalContainer}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                           <Checkbox />
+                           <Checkbox onCheck={() => toggleCompleted(goal.key)} />
                            <Text 
                               key={goal.key} 
                               style={textStyles}>
