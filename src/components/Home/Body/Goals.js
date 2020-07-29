@@ -12,7 +12,20 @@ const Goals = () => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
 
+   const updateGoal = (key, updatedGoal) => {
+      goals.forEach(goal => {
+         if (goal.key === key) {
+            goal.body = updatedGoal
+         }
+      })
+   }
+
    const input = React.createRef();
+   const editGoal = useRef();
+   
+   const [nextKey, setNextKey] = useState(0);
+
+   const [isEditing, toggleEdit] = useState(false);
 
    return (
     <KeyboardAvoidingView
@@ -29,7 +42,31 @@ const Goals = () => {
                <View>
                   {goals.length != 0 && goals.map((goal) => (
                      <View style={styles.goalContainer}>
-                        <Text editable="true" key={goal.key} style={styles.text}>{goal.body}</Text>
+                        {isEditing ? (
+                           <TextInput 
+                              key={goal.key} 
+                              style={styles.text}
+                              ref={editGoal}
+                              onEndEditing={(key, val) => {
+                                 console.log(val.nativeEvent.text);
+                                 if (txt.length > 0) {
+                                    setGoals(prevGoals => (
+                                       [...prevGoals, { body: txt, completed: false, key: nextKey }]
+                                    ))
+                                 }
+                                 else {
+                                    updateGoal(key, txt)
+                                 }
+                                 toggleEdit(false)
+                              }}
+                              >{goal.body}</TextInput>
+                        ) : (
+                           <Text 
+                              key={goal.key} 
+                              style={styles.text}
+                              onPress={() => toggleEdit(true)}
+                              >{goal.body}</Text>
+                        )}
                         <TouchableOpacity onPress={() => removeGoal(goal.key)}>
                            <Icon name="ios-close" size={30} color="#ff8989" />
                         </TouchableOpacity>
@@ -45,9 +82,10 @@ const Goals = () => {
                      let txt = val.nativeEvent.text
                      if (txt.length > 0) {
                         setGoals(prevGoals => (
-                           [...prevGoals, { body: txt, completed: false, key: Math.random() }]
+                           [...prevGoals, { body: txt, completed: false, key: nextKey }]
                         ));
                         input.current.clear();
+                        setNextKey((prevKey) => prevKey+1);
                      }
                      }}
                   />
