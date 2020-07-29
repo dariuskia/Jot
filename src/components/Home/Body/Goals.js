@@ -11,6 +11,7 @@ const Goals = () => {
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
+      console.log(goals)
    }
 
    const input = React.createRef();
@@ -35,7 +36,7 @@ const Goals = () => {
                      return (
                      <View style={styles.goalContainer}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                           <Checkbox />
+                           <Checkbox key={goal.key} />
                            <Text 
                               key={goal.key} 
                               style={textStyles}>

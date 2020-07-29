@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const Checkbox = () => {
@@ -7,7 +7,7 @@ const Checkbox = () => {
 
 	return (
 		<View>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => toggleCheckbox(!checked)}>
 				{checked ? (
 					<Icon 
 					name={'ios-checkbox-outline'} 
