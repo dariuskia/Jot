@@ -12,7 +12,7 @@ export default function Header({ navigation }) {
 					<Text style={styles.greeting}>Good evening,</Text>
 					<Text style={styles.name}>John</Text>
 				</View>
-				<TouchableOpacity pressHandler={() => { navigation.navigate('Settings') }}>
+				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
 					<Ionicons name="ios-cog" size={30} color="#7C81B4" />
 				</TouchableOpacity>
 			</View>
