@@ -23,7 +23,7 @@ export default function RoomScreen() {
       messages={messages}
       onSend={newMessage => handleSend(newMessage)}
       user={{ _id: 1, name: 'Herobrine' }}
-      placeholder='penispenispenis'
+      placeholder='Type a message'
       showUserAvatar
       alwaysShowSend
     />
