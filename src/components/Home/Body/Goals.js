@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import Checkbox from './Checkbox'
 
 const Goals = () => {
    const [goals, setGoals] = useState(
@@ -12,6 +11,7 @@ const Goals = () => {
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
    }
+   
 
    const toggleCompleted = (key) => {
       setGoals(prevGoals => (
@@ -47,7 +47,21 @@ const Goals = () => {
                      return (
                      <View style={styles.goalContainer}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                           <Checkbox onCheck={() => toggleCompleted(goal.key)} key={goal.key} />
+                           <View>
+                              <TouchableOpacity onPress = {() => toggleCompleted(goal.key)}>
+                                 {goal.completed ? (
+                                    <Icon 
+                                    name={'ios-checkbox-outline'} 
+                                    size={20} 
+                                    color='#8084A4' />
+                                 ) : (
+                                    <Icon 
+                                    name={'ios-square-outline'} 
+                                    size={25} 
+                                    color='#8084A4' />
+                                 )}
+                              </TouchableOpacity>
+                           </View>
                            <Text 
                               key={goal.key} 
                               style={textStyles}>
