@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
-import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
-
+import { TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import styles from './Styles'
 import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -9,13 +9,14 @@ export default function Goals() {
       [
       ])
 
-   const addGoal = (txt) => {
+   const addGoal = async (txt) => {
       if (txt.length > 0) {
          setGoals(prevGoals => (
             [...prevGoals, { body: txt, completed: false, key: nextKey }]
          ))
          input.current.clear()
          setNextKey((prevKey) => (prevKey + 1))
+         setTimeout(() => console.log(goals), 0)
       }
    }
 
@@ -105,43 +106,3 @@ export default function Goals() {
       </KeyboardAvoidingView>
    )
 }
-
-const styles = StyleSheet.create({
-   container: {
-      // position: 'absolute',
-      // bottom: 0,
-      flex: -1,
-      paddingBottom: 25,
-   },
-   heading: {
-      fontSize: 25,
-      color: '#4B5189',
-      fontFamily: 'Ubuntu Medium',
-   },
-   numGoals: {
-      fontSize: 15,
-      fontFamily: 'Rubik',
-   },
-   titleContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'baseline',
-      paddingBottom: 15,
-   },
-   goalContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-   },
-   text: {
-      fontFamily: 'Rubik',
-      fontSize: 18,
-      color: '#8084A4',
-      padding: 5,
-   },
-   input: {
-      fontSize: 18,
-      fontFamily: 'Rubik',
-      color: '#8084A4'
-   }
-})

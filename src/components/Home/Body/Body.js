@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native'
-import Goals from './Goals'
+import styles from './Styles'
+import { Text, View, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native'
+import Goals from './Goals/Goals'
 
 export default function Body() {
 	return (
@@ -9,16 +10,3 @@ export default function Body() {
 		</SafeAreaView>
 	)
 }
-
-const styles = StyleSheet.create({
-	body: {
-		flex: 1,
-		width: '100%',
-		backgroundColor: '#fff',
-		height: '100%',
-		borderTopLeftRadius: 30,
-		borderTopRightRadius: 30,
-		padding: 35,
-		paddingBottom: 40,
-	},
-})
