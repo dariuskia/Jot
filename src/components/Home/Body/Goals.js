@@ -11,7 +11,6 @@ const Goals = () => {
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
-      console.log(goals)
    }
 
    const toggleCompleted = (key) => {
