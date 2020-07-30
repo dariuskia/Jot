@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Actions from '../Actions/Actions';
 
-export default function Header() {
+export default function Header({ navigation }) {
 	return (
 		<View style={styles.header}>
 			<View style={styles.headingContainer}>
@@ -17,8 +17,8 @@ export default function Header() {
 				</View>
 			</View>
 			<View style={styles.buttonContainer}>
-				<Actions buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" iconName="ios-book" />
-				<Actions buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" iconName="ios-calendar" />
+				<Actions pressHandler={() => navigation.navigate('Journal')} buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" iconName="ios-book" />
+				<Actions pressHandler={() => navigation.navigate('Calendar')} buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" iconName="ios-calendar" />
 			</View>
 		</View>
 	);

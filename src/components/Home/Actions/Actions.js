@@ -1,16 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function Actions({buttonTitle, description, buttonColor, iconName}) {
+export default function Actions({pressHandler, buttonTitle, description, buttonColor, iconName}) {
 	return (
 		<View style={styles.buttonContainer}>
-			<View style={[styles.button, {backgroundColor: buttonColor}]} onPress={e => console.log('hi')} >
-				<Text style={styles.buttonTitle}>{buttonTitle}</Text>
-				<Text style={styles.buttonText}>{description}</Text>
-				<Icon name={iconName} color="#0000000D" size={65} style={styles.icon} />
-			</View>
+			<TouchableOpacity onPress={pressHandler}>
+				<View style={[styles.button, {backgroundColor: buttonColor}]} onPress={e => console.log('hi')} >
+					<Text style={styles.buttonTitle}>{buttonTitle}</Text>
+					<Text style={styles.buttonText}>{description}</Text>
+					<Icon name={iconName} color="#0000000D" size={65} style={styles.icon} />
+				</View>
+			</TouchableOpacity>
 		</View>
 	);
 }
