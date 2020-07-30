@@ -12,7 +12,7 @@ const NavBar = () => {
       <HideWithKeyboard>
          <View style={styles.container}>
             <Icon name="md-home" size={30} color={focusedColor} />
-            <Icon name="md-bookmark" size={30} color={unfocusedColor} />
+            <Icon name="md-book" size={30} color={unfocusedColor} />
             <Icon name="md-calendar" size={30} color={unfocusedColor} />
          </View>
       </HideWithKeyboard>
