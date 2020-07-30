@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Actions from '../Actions/Actions';
 
 export default function Header({ navigation }) {
@@ -13,7 +13,7 @@ export default function Header({ navigation }) {
 					<Text style={styles.name}>John</Text>
 				</View>
 				<View>
-					<Icon name="ios-cog" size={30} color="#7C81B4" />
+					<Ionicons name="ios-cog" size={30} color="#7C81B4" />
 				</View>
 			</View>
 			<View style={styles.buttonContainer}>
