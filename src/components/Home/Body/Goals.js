@@ -3,14 +3,14 @@ import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, Keyboa
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Goals = () => {
+export default function Goals() {
    const [goals, setGoals] = useState(
       [
       ]);
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
-   }
+   };
    
 
    const toggleCompleted = (key) => {
@@ -22,7 +22,7 @@ const Goals = () => {
             else return goal;
          })
       ))
-   }
+   };
 
    const input = React.createRef();
    const [nextKey, setNextKey] = useState(0);
@@ -136,5 +136,3 @@ const styles = StyleSheet.create({
       color: '#8084A4'
    }
 })
-
-export default Goals;

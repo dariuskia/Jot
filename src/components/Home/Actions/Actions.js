@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Actions = ({buttonTitle, description, buttonColor, iconName}) => {
+export default function Actions({buttonTitle, description, buttonColor, iconName}) {
 	return (
 		<View style={styles.buttonContainer}>
 			<View style={[styles.button, {backgroundColor: buttonColor}]} onPress={e => console.log('hi')} >
@@ -12,7 +12,7 @@ const Actions = ({buttonTitle, description, buttonColor, iconName}) => {
 				<Icon name={iconName} color="#0000000D" size={65} style={styles.icon} />
 			</View>
 		</View>
-	)
+	);
 }
 
 const styles = StyleSheet.create({
@@ -42,6 +42,4 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		right: 0,
 	}
-})
-
-export default Actions;
+});

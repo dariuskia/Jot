@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Actions from '../Actions/Actions';
 
-const Header = () => {
+export default function Header() {
 	return (
 		<View style={styles.header}>
 			<View style={styles.headingContainer}>
@@ -53,5 +53,3 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 	}
 })
-
-export default Header;

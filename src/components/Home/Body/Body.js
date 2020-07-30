@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native';
 import Goals from './Goals';
 
-const Body = () => {
+export default function Body() {
 	return (
 		<SafeAreaView style={styles.body}>
 			<Goals />
 		</SafeAreaView>
-	)
+	);
 }
 
 const styles = StyleSheet.create({
@@ -21,6 +21,4 @@ const styles = StyleSheet.create({
 		padding: 35,
 		paddingBottom: 40,
 	},
-})
-
-export default Body;
+});
