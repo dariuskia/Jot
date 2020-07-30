@@ -26,5 +26,17 @@ export default StyleSheet.create({
 	buttonContainer: {
 		flexDirection: 'row',
 		marginTop: 20,
+	},
+	circle: {
+		borderRadius: 999,
+		//backgroundColor: 'red',
+		borderColor: '#22264d',
+		borderWidth: 40,
+		height: 200,
+		width: 200,
+		position: 'absolute',
+		top: -50,
+		right: -50,
+		zIndex: -99,
 	}
 })
