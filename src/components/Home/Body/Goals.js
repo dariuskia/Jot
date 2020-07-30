@@ -11,6 +11,7 @@ const Goals = () => {
 
    const removeGoal = (key) => {
       setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
+      console.log(goals)
    }
 
    const toggleCompleted = (key) => {
@@ -47,7 +48,7 @@ const Goals = () => {
                      return (
                      <View style={styles.goalContainer}>
                         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                           <Checkbox onCheck={() => toggleCompleted(goal.key)} />
+                           <Checkbox onCheck={() => toggleCompleted(goal.key)} key={goal.key} />
                            <Text 
                               key={goal.key} 
                               style={textStyles}>
