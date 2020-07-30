@@ -1,51 +1,71 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import styles from './Styles'
 import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Goals() {
-   const [goals, setGoals] = useState(
-      [
-      ])
+  
+   const [storageReceived, alreadyReceived] = useState(false)
+   
+   const [goals, setGoals] = useState([])
 
    const addGoal = async (txt) => {
+      let newGoals = [...goals, { body: txt, completed: false, key: nextKey }]
       if (txt.length > 0) {
-         setGoals(prevGoals => (
-            [...prevGoals, { body: txt, completed: false, key: nextKey }]
-         ))
-         input.current.clear()
+         setGoals(newGoals)
+         updateGoals(newGoals)
          setNextKey((prevKey) => (prevKey + 1))
-         setTimeout(() => console.log(goals), 0)
+         input.current.clear()
       }
    }
 
    const removeGoal = (key) => {
-      setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)))
+      let newGoals = goals.filter(goal => goal.key != key)
+      setGoals(newGoals)
+      updateGoals(newGoals)
    }
 
-   const storeGoals = async () => {
+   const updateGoals = async (listOfGoals) => {
       try {
-         console.log(JSON.stringify(goals))
-         // await AsyncStorage.setItem('@goals', JSON.stringify(goals))
+         await AsyncStorage.setItem('@goals', JSON.stringify(goals))
+         console.log("updated", JSON.stringify(goals))
       } catch (error) {
-         console.log("whoopsies")
+         console.log(error)
+      }
+   }
+
+   const recvGoals = async () => {
+      try {
+         let listOfGoals = await AsyncStorage.getItem('@goals')
+         if (listOfGoals != null) {
+            setGoals(JSON.parse(listOfGoals))
+            console.log("imported goals: ", listOfGoals)
+         }
+         alreadyReceived(true)
+      } catch (error) {
+         console.log(error)
       }
    }
 
    const toggleCompleted = (key) => {
-      setGoals(prevGoals => (
-         prevGoals.map(goal => {
-            if (goal.key == key) {
-               return {body: goal.body, completed: !goal.completed, key: goal.key}
-            }
-            else return goal
-         })
-      ))
+      let newGoals = goals.map(goal => {
+         if (goal.key == key) {
+            return {body: goal.body, completed: !goal.completed, key: goal.key}
+         }
+         else return goal
+      })
+      setGoals(newGoals)
+      updateGoals(newGoals)
    }
 
    const input = React.createRef()
    const [nextKey, setNextKey] = useState(0)
+
+   if (!storageReceived) {
+      console.log("did run")
+      recvGoals()
+   }
 
    return (
       <KeyboardAvoidingView
