@@ -5,12 +5,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Actions from '../Actions/Actions';
 
 export default function Header({ navigation }) {
+	let userName = 'Herobrine';
+
 	return (
 		<View style={styles.header}>
 			<View style={styles.headingContainer}>
 				<View>
 					<Text style={styles.greeting}>Good evening,</Text>
-					<Text style={styles.name}>John</Text>
+					<Text style={styles.name}>{userName}</Text>
 				</View>
 				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
 					<Ionicons name="ios-cog" size={30} color="#7C81B4" />
@@ -27,10 +29,10 @@ export default function Header({ navigation }) {
 
 const styles = StyleSheet.create({
 	header: {
-		flex: 1,
+		flex: 2,
 		width: '100%',
 		paddingHorizontal: 25,
-		paddingTop: 50,
+		paddingTop: 60,
 	},
 	headingContainer: {
 		paddingHorizontal: 10,
