@@ -22,11 +22,11 @@ export default function App() {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused ? 'md-home' : 'md-home'; // outline icons instead?
+              iconName = focused ? 'ios-home' : 'ios-home'; // outline icons instead?
             } else if (route.name === 'Journal') {
-              iconName = focused ? 'md-book' : 'md-book';
+              iconName = focused ? 'ios-book' : 'ios-book';
             } else if (route.name === 'Calendar') {
-              iconName = focused ? 'md-calendar' : 'md-calendar';
+              iconName = focused ? 'ios-calendar' : 'ios-calendar';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
