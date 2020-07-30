@@ -1,23 +1,31 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
 
-export default function JournalPage() {
-	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>
-				Journal Page!
-			</Text>
-		</View>
-	)
+const JOT = {
+	_id: 2,
+	name: 'Jot'
+
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	text: {
-		fontSize: 20,
-	}
-})
+export default function RoomScreen() {
+  const [messages, setMessages] = useState([
+   	{
+   		_id: 1,
+   		text: 'sup brother',
+   		user: JOT
+   	},
+  ]);
+  // helper method that is sends a message
+  function handleSend(newMessage = []) {
+    setMessages(GiftedChat.append(messages, newMessage));
+  }
+  return (
+    <GiftedChat
+      messages={messages}
+      onSend={newMessage => handleSend(newMessage)}
+      user={{ _id: 1, name: 'Herobrine' }}
+      placeholder='penispenispenis'
+      showUserAvatar
+      alwaysShowSend
+    />
+  );
+}
