@@ -35,6 +35,10 @@ function HomeTabs() {
         activeTintColor: '#102456',
         inactiveTintColor: '#C3C8D4',
         keyboardHidesTabBar: true,
+        showLabel: false,
+        style: {
+          height: 65,
+        }
       }}
       backBehavior="initialRoute"
     >
