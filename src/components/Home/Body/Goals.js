@@ -68,7 +68,7 @@ const Goals = () => {
                               {goal.body}
                            </Text>
                         </View>
-                        <TouchableOpacity onPress={() => removeGoal(goal.key)}>
+                        <TouchableOpacity style={{paddingHorizontal: 10}} onPress={() => removeGoal(goal.key)}>
                            <Icon name="ios-close" size={30} color="#ff8989" />
                         </TouchableOpacity>
                      </View>
