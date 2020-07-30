@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Actions({ pressHandler, buttonTitle, description, buttonColor, iconName }) {
 	return (
@@ -14,7 +14,7 @@ export default function Actions({ pressHandler, buttonTitle, description, button
 				</View>
 			</TouchableOpacity>
 		</View>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		right: 0,
 	}
-});
+})

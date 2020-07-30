@@ -1,36 +1,55 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useRef } from 'react'
+import { StyleSheet, TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Goals() {
    const [goals, setGoals] = useState(
       [
-      ]);
+      ])
+
+   const addGoal = (txt) => {
+      if (txt.length > 0) {
+         setGoals(prevGoals => (
+            [...prevGoals, { body: txt, completed: false, key: nextKey }]
+         ))
+         input.current.clear()
+         setNextKey((prevKey) => (prevKey + 1))
+      }
+   }
 
    const removeGoal = (key) => {
-      setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)));
-   };
-   
+      setGoals(prevGoals => (prevGoals.filter(goal => goal.key != key)))
+   }
+
+   const storeGoals = async () => {
+      try {
+         console.log(JSON.stringify(goals))
+         // await AsyncStorage.setItem('@goals', JSON.stringify(goals))
+      } catch (error) {
+         console.log("whoopsies")
+      }
+   }
 
    const toggleCompleted = (key) => {
       setGoals(prevGoals => (
          prevGoals.map(goal => {
             if (goal.key == key) {
-               return {body: goal.body, completed: !goal.completed, key: goal.key};
+               return {body: goal.body, completed: !goal.completed, key: goal.key}
             }
-            else return goal;
+            else return goal
          })
       ))
-   };
+   }
 
-   const input = React.createRef();
-   const [nextKey, setNextKey] = useState(0);
+   const input = React.createRef()
+   const [nextKey, setNextKey] = useState(0)
 
    return (
       <KeyboardAvoidingView
          style={{ flex: 1 }}
-         behavior={'position'}>
+         behavior='position'>
          <View style={styles.container}>
             <View>
                <View style={styles.titleContainer}>
@@ -41,22 +60,22 @@ export default function Goals() {
             <ScrollView>
                <View>
                   {goals.length != 0 && goals.map((goal) => {
-                     let textStyles = [styles.text];
-                     if (goal.completed) textStyles.push({textDecorationLine: 'line-through'});
+                     let textStyles = [styles.text]
+                     if (goal.completed) textStyles.push({textDecorationLine: 'line-through'})
                      return (
                      <View style={styles.goalContainer}>
-                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                        <TouchableOpacity style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} onPress = {() => toggleCompleted(goal.key)}>
                            <View>
                               <TouchableOpacity onPress = {() => toggleCompleted(goal.key)}>
                                  {goal.completed ? (
                                     <Icon 
-                                    name={'ios-checkbox-outline'} 
+                                    name={'checkbox-marked'} 
                                     size={20} 
                                     color='#8084A4' />
                                  ) : (
                                     <Icon 
-                                    name={'ios-square-outline'} 
-                                    size={25} 
+                                    name={'checkbox-blank-outline'} 
+                                    size={20} 
                                     color='#8084A4' />
                                  )}
                               </TouchableOpacity>
@@ -66,9 +85,9 @@ export default function Goals() {
                               style={textStyles}>
                               {goal.body}
                            </Text>
-                        </View>
+                        </TouchableOpacity>
                         <TouchableOpacity style={{paddingHorizontal: 10}} onPress={() => removeGoal(goal.key)}>
-                           <Icon name="ios-close" size={30} color="#ff8989" />
+                           <Icon name="close" size={20} color="#ff8989" />
                         </TouchableOpacity>
                      </View>
                   )})}
@@ -78,26 +97,19 @@ export default function Goals() {
                      style={styles.input}
                      placeholder='+ Add a goal'
                      ref={input}
-                     onEndEditing={(val) => {
-                        let txt = val.nativeEvent.text
-                        if (txt.length > 0) {
-                           setGoals(prevGoals => (
-                              [...prevGoals, { body: txt, completed: false, key: nextKey }]
-                           ));
-                           input.current.clear();
-                           setNextKey((prevKey) => (prevKey + 1));
-                        }
-                     }}
+                     onEndEditing={(val) => addGoal(val.nativeEvent.text)}
                   />
                </View>
             </ScrollView>
          </View>
       </KeyboardAvoidingView>
-   );
+   )
 }
 
 const styles = StyleSheet.create({
    container: {
+      // position: 'absolute',
+      // bottom: 0,
       flex: -1,
       paddingBottom: 25,
    },
@@ -120,9 +132,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between'
-   },
-   textContainer: {
-
    },
    text: {
       fontFamily: 'Rubik',
