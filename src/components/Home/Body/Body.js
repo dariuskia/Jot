@@ -12,7 +12,7 @@ export default function Body() {
 
 const styles = StyleSheet.create({
 	body: {
-		flex: 3,
+		flex: 2,
 		width: '100%',
 		backgroundColor: '#fff',
 		height: '100%',
