@@ -17,7 +17,6 @@ const Goals = () => {
       setGoals(prevGoals => (
          prevGoals.map(goal => {
             if (goal.key == key) {
-               console.log(goal.body, goal.completed);
                return {body: goal.body, completed: !goal.completed, key: goal.key};
             }
             else return goal;
