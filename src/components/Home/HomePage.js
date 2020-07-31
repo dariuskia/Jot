@@ -5,7 +5,7 @@ import { StyleSheet, View, Button } from 'react-native'
 import Header from './Header/Header'
 import Body from './Body/Body'
 
-import { TIME } from '../../../Time'
+import { TIME } from '../../utils/Time'
 
 export default function HomePage({ navigation }) {
   return (

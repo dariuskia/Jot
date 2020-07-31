@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Styles'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Actions from '../Actions/Actions'
 
-import { TIME } from '../../../../Time'
+import { TIME } from '../../../utils/Time'
+
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default function Header({ navigation }) {
-	let userName = 'Herobrine'
+	const [userName, setUsername] = useState(null)
+	
+	const runFirst = async () => {
+		let user = await AsyncStorage.getItem('@username')
+		setUsername(user)
+	}
+	runFirst()
 
 	return (
 		<View style={styles.header}>

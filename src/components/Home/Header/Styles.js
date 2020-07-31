@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import { TIME } from '../../../../Time'
+import { TIME } from '../../../utils/Time'
 
 export default StyleSheet.create({
 	header: {
@@ -30,7 +30,6 @@ export default StyleSheet.create({
 	},
 	circle: {
 		borderRadius: 999,
-		//backgroundColor: 'red',
 		borderColor: (TIME == "NIGHT") ? '#22264d' : 'rgba(0, 0, 0, 0.03)',
 		borderWidth: 40,
 		height: 200,
