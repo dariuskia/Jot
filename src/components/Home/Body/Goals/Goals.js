@@ -18,12 +18,18 @@ export default function Goals() {
          setNextKey((prevKey) => (prevKey + 1))
          input.current.clear()
       }
+      AsyncStorage.setItem('@lastDate', new Date().toDateString())
    }
 
    const removeGoal = (key) => {
       let newGoals = goals.filter(goal => goal.key != key)
       setGoals(newGoals)
       updateGoals(newGoals)
+   }
+
+   const clearGoals= async () => {
+      setGoals([])
+      await AsyncStorage.removeItem('@goals')
    }
 
    const updateGoals = async (listOfGoals) => {
@@ -60,9 +66,16 @@ export default function Goals() {
    const input = React.createRef()
    const [nextKey, setNextKey] = useState(0)
 
-   if (!storageReceived) {
-      recvGoals()
+   const runFirst = async () => {
+      if (!storageReceived) {
+         recvGoals()
+         let lastDate = await AsyncStorage.getItem('@lastDate')
+         if (lastDate != null)
+            if (lastDate != new Date().toDateString())
+               clearGoals()
+      }
    }
+   runFirst()
 
    return (
       <KeyboardAvoidingView
