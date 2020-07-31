@@ -28,8 +28,7 @@ export default function Goals() {
 
    const updateGoals = async (listOfGoals) => {
       try {
-         await AsyncStorage.setItem('@goals', JSON.stringify(goals))
-         console.log("updated", JSON.stringify(goals))
+         await AsyncStorage.setItem('@goals', JSON.stringify(listOfGoals))
       } catch (error) {
          console.log(error)
       }
@@ -40,7 +39,6 @@ export default function Goals() {
          let listOfGoals = await AsyncStorage.getItem('@goals')
          if (listOfGoals != null) {
             setGoals(JSON.parse(listOfGoals))
-            console.log("imported goals: ", listOfGoals)
          }
          alreadyReceived(true)
       } catch (error) {
@@ -63,7 +61,6 @@ export default function Goals() {
    const [nextKey, setNextKey] = useState(0)
 
    if (!storageReceived) {
-      console.log("did run")
       recvGoals()
    }
 
