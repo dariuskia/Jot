@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native'
+import { TIME } from '../../../../Time'
 
 export default StyleSheet.create({
 	header: {
@@ -13,7 +14,7 @@ export default StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	greeting: {
-		color: '#add8e6',
+		color: (TIME == "NIGHT") ? '#add8e6' : 'rgba(255, 255, 255, 0.5)',
 		fontSize: 20,
 		fontFamily: 'Rubik Medium',
 	},
@@ -30,7 +31,7 @@ export default StyleSheet.create({
 	circle: {
 		borderRadius: 999,
 		//backgroundColor: 'red',
-		borderColor: '#22264d',
+		borderColor: (TIME == "NIGHT") ? '#22264d' : 'rgba(0, 0, 0, 0.03)',
 		borderWidth: 40,
 		height: 200,
 		width: 200,

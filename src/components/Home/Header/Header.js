@@ -4,6 +4,8 @@ import { Text, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Actions from '../Actions/Actions'
 
+import { TIME } from '../../../../Time'
+
 export default function Header({ navigation }) {
 	let userName = 'Herobrine'
 
@@ -11,11 +13,11 @@ export default function Header({ navigation }) {
 		<View style={styles.header}>
 			<View style={styles.headingContainer}>
 				<View>
-					<Text style={styles.greeting}>Good evening,</Text>
+					<Text style={styles.greeting}>{(function() {if (TIME == "DAY") return "Good morning,"; if (TIME == "AFTERNOON") return "Good afternoon,"; if (TIME == "NIGHT") return "Good evening,"}())}</Text>
 					<Text style={styles.name}>{userName}</Text>
 				</View>
 				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
-					<Icon name="settings" size={30} color="#7C81B4" />
+					<Icon name="settings" size={30} color={(TIME == "NIGHT") ? "#7C81B4" : "#bbb"} />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.buttonContainer}>
