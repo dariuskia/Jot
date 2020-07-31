@@ -6,4 +6,4 @@ export const TIME = (function() {
     } else {
         return "NIGHT"
     }
-}())
+})()
