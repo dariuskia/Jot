@@ -3,6 +3,16 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { TextInput } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
+function genID(length=30) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 const JOT = {
   _id: 2,
   name: 'Jot'
@@ -15,27 +25,9 @@ const USER = {
 const initialMessages = [
   {
     _id: 1,
-    text: 'sup brother',
-   user: JOT,
-   createdAt: new Date(2020, 5, 3, 4, 20),
-  },
-  {
-    _id: 2,
-    text: 'hello sexy boy',
-    user: USER,
-    createdAt: new Date(2020, 5, 3, 4, 21),
-  },
-  {
-    _id: 4,
-    text: 'com back',
+    text: 'Hi there! Type some messages to get started.',
     user: JOT,
-    createdAt: new Date(2020, 5, 3, 4, 21),
-  },
-  {
-    _id: 3,
-    text: 'goodbye',
-    user: USER,
-    createdAt: new Date(2020, 5, 3, 4, 30),
+    createdAt: new Date(2020, 5, 3, 4, 20),
   },
 ].reverse()
 
@@ -53,8 +45,17 @@ export default function RoomScreen() {
 
   // helper method that sends a message
   function handleSend(newMessage = []) {
-    setMessages(GiftedChat.append(messages, newMessage))
-    console.log(newMessage)
+    setMessages(prevMessages => GiftedChat.append(prevMessages, newMessage))
+    text = newMessage[0].text
+    console.log("TEXT", text)
+    if (text == "gm") {
+      setTimeout(() => setMessages(prevMessages => GiftedChat.append(prevMessages, {
+        _id: genID(),
+        createdAt: new Date(),
+        text: "good morning!",
+        user: JOT
+      })), 1000)
+    }
   }
   return (
     <GiftedChat
