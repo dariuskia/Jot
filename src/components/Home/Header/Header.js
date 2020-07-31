@@ -17,7 +17,7 @@ export default function Header({ navigation }) {
 					<Text style={styles.name}>{userName}</Text>
 				</View>
 				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
-					<Icon name="settings" size={30} color={(TIME == "NIGHT") ? "#7C81B4" : "#bbb"} />
+					<Icon name="settings" size={30} color={(TIME == "NIGHT") ? "#7C81B4" : "#2D66BC"} />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.buttonContainer}>
