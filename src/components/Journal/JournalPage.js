@@ -80,9 +80,9 @@ export default function RoomScreen() {
   const run = (async () => {
     getUsername()
     let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
-    if (lastDate != null) {
-      if (lastDate != new Date().toDateString())
-          clearGoals()
+    if (firstMessageDate != null) {
+      if (firstMessageDate != new Date().toDateString())
+          clearMessages()
       else if (!storageReceived) {
         recvMessages()
         alreadyReceived(true)
@@ -93,7 +93,10 @@ export default function RoomScreen() {
   
 
   // helper method that sends a message
-  function handleSend(msg = []) {
+  async function handleSend(msg = []) {
+    if (messages.length == 0) {
+      await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
+    }
     let newMessages = [msg[0], ...messages]
     // setMessages(prevMessages => GiftedChat.append(prevMessages, msg))
     setMessages(newMessages)
