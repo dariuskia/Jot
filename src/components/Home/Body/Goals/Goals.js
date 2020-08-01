@@ -30,7 +30,7 @@ export default function Goals() {
          updateGoals(newGoals)
          input.current.clear()
       }
-      AsyncStorage.setItem('@lastDate', new Date().toDateString())
+      AsyncStorage.setItem('@lastGoalDate', new Date().toDateString())
    }
 
    const removeGoal = (key) => {
@@ -78,7 +78,7 @@ export default function Goals() {
    const runFirst = async () => {
       if (!storageReceived) {
          recvGoals()
-         let lastDate = await AsyncStorage.getItem('@lastDate')
+         let lastDate = await AsyncStorage.getItem('@lastGoalDate')
          if (lastDate != null)
             if (lastDate != new Date().toDateString())
                clearGoals()

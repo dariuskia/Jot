@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat';
 import { TextInput } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import { View, Text } from 'react-native'
+import Header from '../Global/Header/Header'
 import { TIME } from '../../utils/Time'
+
+import { db } from '../../environment/config'
 
 function genID(length=30) {
   var result = ''
@@ -25,20 +28,26 @@ const USER = {
 }
 
 export default function RoomScreen() {
+  // const messageRef = db.collection('messages').doc('tay86GEpVCQYq2m9rk8q')
+  // const doc = await messageRef.get()
   const greeting = [
     {
       _id: 1,
       text: 'Hi there! Type some messages to get started.',
+      // text: doc.data().toString(),
       user: JOT,
       createdAt: new Date(),
     }
   ].reverse()
   const [username, setUsername] = useState(null)
-  const [messages, setMessages] = useState(greeting)
+  const [messages, setMessages] = useState()
   const [storageReceived, alreadyReceived] = useState(false)
+  
+  const clearMessages = async () => {
+    setMessages([])
+    await AsyncStorage.removeItem('@messages')
+  }
 
-  
-  
   const updateMessages = async (newMessages) => {
     try {
       await AsyncStorage.setItem('@messages', JSON.stringify(newMessages))
@@ -68,23 +77,35 @@ export default function RoomScreen() {
     setUsername(val)
   }
 
-  const run = (() => {
+  const run = (async () => {
     getUsername()
+    let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
+    if (lastDate != null) {
+      if (lastDate != new Date().toDateString())
+          clearGoals()
+      else if (!storageReceived) {
+        recvMessages()
+        alreadyReceived(true)
+      }
+    } 
   })()
+  USER.name = username
   
-  USER.name = username 
 
   // helper method that sends a message
-  function handleSend(newMessage = []) {
-    setMessages(prevMessages => GiftedChat.append(prevMessages, newMessage))
-    text = newMessage[0].text
+  function handleSend(msg = []) {
+    let newMessages = [msg[0], ...messages]
+    // setMessages(prevMessages => GiftedChat.append(prevMessages, msg))
+    setMessages(newMessages)
+    updateMessages(newMessages)
+    let text = msg[0].text
     if (text == "gm") {
-      setTimeout(() => setMessages(prevMessages => GiftedChat.append(prevMessages, {
+      setMessages(prevMessages => GiftedChat.append(prevMessages, {
         _id: genID(),
         createdAt: new Date(),
         text: "good morning!",
         user: JOT
-      })), 1000)
+      }))
     }
   }
 
@@ -97,7 +118,15 @@ export default function RoomScreen() {
             backgroundColor: '#272B580D',
           },
           right: {
-            backgroundColor: (TIME == 'NIGHT') ? '#4F5ADE' : '#63A1FF',
+            backgroundColor: (TIME == 'NIGHT') ? '#4F5ADE' : '#3278FF',
+          }
+        }}
+        textStyle={{
+          left: {
+            
+          },
+          right: {
+
           }
         }}
         />
@@ -105,7 +134,9 @@ export default function RoomScreen() {
     }
   
   return (
-    <GiftedChat
+    <View style={{flex: 1}}>
+      <Header title="Jot" page="Journal" />
+      <GiftedChat
       messages={messages}
       onSend={newMessage => handleSend(newMessage)}
       // renderInputToolbar={() => {
@@ -116,6 +147,7 @@ export default function RoomScreen() {
       showUserAvatar
       renderBubble={renderBubble}
       // alwaysShowSend
-    />
+      />
+    </View>
   );
 }

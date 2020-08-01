@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "24210504562",
+    "firebase_url": "https://jot-app-80b8e.firebaseio.com",
+    "project_id": "jot-app-80b8e",
+    "storage_bucket": "jot-app-80b8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24210504562:android:2151fdaca5e09450373beb",
+        "android_client_info": {
+          "package_name": "com.jotapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24210504562-ucm8rhsvl6oeunsjljhvs3mjobjj410t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jotapp",
+            "certificate_hash": "c442ca9c7e3700271e4a448ddd090365b02ad6f7"
+          }
+        },
+        {
+          "client_id": "24210504562-grka12t1lc8fqbabm4aeqnk2f9s2s8bu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMCwlK3M1V6VHuBdRhUbii-vg_6H8d0H4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24210504562-grka12t1lc8fqbabm4aeqnk2f9s2s8bu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
