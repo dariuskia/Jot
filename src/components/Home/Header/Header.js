@@ -15,6 +15,7 @@ export default function Header({ navigation }) {
 		let user = await AsyncStorage.getItem('@username')
 		setUsername(user)
 	}
+
 	runFirst()
 
 	return (

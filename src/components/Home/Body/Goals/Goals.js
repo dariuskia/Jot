@@ -4,18 +4,30 @@ import styles from './Styles'
 import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+function genID(length=30) {
+   var result = ''
+   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+   var charactersLength = characters.length
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength))
+   }
+   return result
+ }
+
 export default function Goals() {
   
    const [storageReceived, alreadyReceived] = useState(false)
    
    const [goals, setGoals] = useState([])
 
+   const input = React.createRef()
+
    const addGoal = async (txt) => {
-      let newGoals = [...goals, { body: txt, completed: false, key: nextKey }]
+      let id = genID()
+      let newGoals = [...goals, { body: txt, completed: false, key: id }]
       if (txt.length > 0) {
          setGoals(newGoals)
          updateGoals(newGoals)
-         setNextKey((prevKey) => (prevKey + 1))
          input.current.clear()
       }
       AsyncStorage.setItem('@lastDate', new Date().toDateString())
@@ -63,9 +75,6 @@ export default function Goals() {
       updateGoals(newGoals)
    }
 
-   const input = React.createRef()
-   const [nextKey, setNextKey] = useState(0)
-
    const runFirst = async () => {
       if (!storageReceived) {
          recvGoals()
@@ -94,20 +103,22 @@ export default function Goals() {
                      let textStyles = [styles.text]
                      if (goal.completed) textStyles.push({textDecorationLine: 'line-through'})
                      return (
-                     <View style={styles.goalContainer}>
-                        <TouchableOpacity style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} onPress = {() => toggleCompleted(goal.key)}>
-                           <View>
-                              <TouchableOpacity onPress = {() => toggleCompleted(goal.key)}>
+                     <View key={goal.key} style={styles.goalContainer}>
+                        <TouchableOpacity key={goal.key} style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} onPress = {() => toggleCompleted(goal.key)}>
+                           <View key={goal.key}>
+                              <TouchableOpacity key={goal.key} onPress = {() => toggleCompleted(goal.key)}>
                                  {goal.completed ? (
                                     <Icon 
                                     name={'checkbox-marked'} 
                                     size={20} 
-                                    color='#8084A4' />
+                                    color='#8084A4'
+                                    key={goal.key} />
                                  ) : (
                                     <Icon 
                                     name={'checkbox-blank-outline'} 
                                     size={20} 
-                                    color='#8084A4' />
+                                    color='#8084A4'
+                                    key={goal.key} />
                                  )}
                               </TouchableOpacity>
                            </View>
@@ -117,7 +128,7 @@ export default function Goals() {
                               {goal.body}
                            </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{paddingHorizontal: 10}} onPress={() => removeGoal(goal.key)}>
+                        <TouchableOpacity key={goal.key} style={{paddingHorizontal: 10}} onPress={() => removeGoal(goal.key)}>
                            <Icon name="close" size={20} color="#ff8989" />
                         </TouchableOpacity>
                      </View>

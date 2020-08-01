@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat';
 import { TextInput } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
+import { TIME } from '../../utils/Time'
+
 function genID(length=30) {
-  var result           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
+  var result = ''
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  var charactersLength = characters.length
   for ( var i = 0; i < length; i++ ) {
-     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+     result += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
-  return result;
+  return result
 }
 
 const JOT = {
@@ -22,32 +24,60 @@ const USER = {
   name: '',
 }
 
-const initialMessages = [
-  {
-    _id: 1,
-    text: 'Hi there! Type some messages to get started.',
-    user: JOT,
-    createdAt: new Date(2020, 5, 3, 4, 20),
-  },
-].reverse()
-
 export default function RoomScreen() {
+  const greeting = [
+    {
+      _id: 1,
+      text: 'Hi there! Type some messages to get started.',
+      user: JOT,
+      createdAt: new Date(),
+    }
+  ].reverse()
   const [username, setUsername] = useState(null)
-  const [messages, setMessages] = useState(initialMessages)
+  const [messages, setMessages] = useState(greeting)
+  const [storageReceived, alreadyReceived] = useState(false)
+
   
-  const runFirst = async () => {
+  
+  const updateMessages = async (newMessages) => {
+    try {
+      await AsyncStorage.setItem('@messages', JSON.stringify(newMessages))
+    } catch (error) {
+      throw new Error(error)
+      console.log(error)
+    }
+  }
+  
+  const recvMessages = async () => {
+    try {
+      let newMessages = await AsyncStorage.getItem('@messages')
+      if (newMessages != null) {
+        setMessages(JSON.parse(newMessages))
+      } else {
+        setMessages(greeting)
+        await AsyncStorage.setItem('@messages', JSON.stringify(greeting))
+      }
+    } catch (error) {
+      throw new Error(error)
+      console.log(error)
+    }
+  }
+
+  const getUsername = async () => {
     let val = await AsyncStorage.getItem('@username')
     setUsername(val)
   }
+
+  const run = (() => {
+    getUsername()
+  })()
   
-  runFirst()
   USER.name = username 
 
   // helper method that sends a message
   function handleSend(newMessage = []) {
     setMessages(prevMessages => GiftedChat.append(prevMessages, newMessage))
     text = newMessage[0].text
-    console.log("TEXT", text)
     if (text == "gm") {
       setTimeout(() => setMessages(prevMessages => GiftedChat.append(prevMessages, {
         _id: genID(),
@@ -57,6 +87,23 @@ export default function RoomScreen() {
       })), 1000)
     }
   }
+
+  
+    const renderBubble = (props) => {
+      return (
+        <Bubble {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: '#272B580D',
+          },
+          right: {
+            backgroundColor: (TIME == 'NIGHT') ? '#4F5ADE' : '#63A1FF',
+          }
+        }}
+        />
+      )
+    }
+  
   return (
     <GiftedChat
       messages={messages}
@@ -65,8 +112,9 @@ export default function RoomScreen() {
       //   <TextInput editable={false} />
       // }}
       user={USER}
-      placeholder='Type a message'
+      placeholder='Type a message...'
       showUserAvatar
+      renderBubble={renderBubble}
       // alwaysShowSend
     />
   );
