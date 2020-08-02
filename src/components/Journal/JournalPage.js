@@ -57,14 +57,15 @@ export default function RoomScreen() {
     }
   }
   
-  const recvMessages = async () => {
+  const recvMessages = async (initialMessages) => {
     try {
       let newMessages = await AsyncStorage.getItem('@messages')
       if (newMessages != null) {
         setMessages(JSON.parse(newMessages))
       } else {
-        setMessages(greeting)
-        await AsyncStorage.setItem('@messages', JSON.stringify(greeting))
+        setMessages(initialMessages)
+        await AsyncStorage.setItem('@messages', JSON.stringify(initialMessages))
+        await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
       }
     } catch (error) {
       throw new Error(error)
@@ -73,32 +74,41 @@ export default function RoomScreen() {
   }
 
   const getUsername = async () => {
-    let val = await AsyncStorage.getItem('@username')
-    setUsername(val)
+    try {
+      let val = await AsyncStorage.getItem('@username')
+      setUsername(val)
+    } catch (error) {
+      throw new Error(error)
+      console.log(error)
+    }
   }
 
   const run = (async () => {
-    getUsername()
-    let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
-    if (firstMessageDate != null) {
-      if (firstMessageDate != new Date().toDateString())
+    try {
+      getUsername()
+      let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
+      if (firstMessageDate != null) {
+        if (firstMessageDate != new Date().toDateString()) {
           clearMessages()
-      else if (!storageReceived) {
+          recvMessages(greeting)
+          await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
+        }
+      }
+      if (!storageReceived) {
         recvMessages()
         alreadyReceived(true)
       }
-    } 
+    } catch (error) {
+      throw new Error(error)
+      console.log(error)
+    }
   })()
   USER.name = username
   
 
   // helper method that sends a message
-  async function handleSend(msg = []) {
-    if (messages.length == 0) {
-      await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
-    }
+  function handleSend(msg = []) {
     let newMessages = [msg[0], ...messages]
-    // setMessages(prevMessages => GiftedChat.append(prevMessages, msg))
     setMessages(newMessages)
     updateMessages(newMessages)
     let text = msg[0].text
