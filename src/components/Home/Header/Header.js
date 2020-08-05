@@ -7,6 +7,7 @@ import Actions from '../Actions/Actions'
 import { TIME } from '../../../utils/Time'
 
 import AsyncStorage from '@react-native-community/async-storage'
+import COLORS from '../../../utils/Colors'
 
 export default function Header({ navigation }) {
 	const [userName, setUsername] = useState(null)
@@ -26,7 +27,7 @@ export default function Header({ navigation }) {
 					<Text style={styles.name}>{userName}</Text>
 				</View>
 				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
-					<Icon name="settings" size={30} color={(TIME == "NIGHT") ? "#7C81B4" : "#2D66BC"} />
+					<Icon name="settings" size={30} color={/*(TIME == "NIGHT") ? "#7C81B4" : "#2D66BC"*/ COLORS.themed.secondary} />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.buttonContainer}>

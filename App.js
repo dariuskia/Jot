@@ -7,8 +7,10 @@ import HomePage from './src/components/Home/HomePage'
 import JournalPage from './src/components/Journal/JournalPage'
 import CalendarPage from './src/components/Calendar/CalendarPage'
 import SettingsPage from './src/components/Settings/SettingsPage'
+import { TIME } from './src/utils/Time.js'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import COLORS from './src/utils/Colors'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -32,8 +34,8 @@ function HomeTabs() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: '#102456',
-        inactiveTintColor: '#C3C8D4',
+        activeTintColor: COLORS.themed.primary,
+        inactiveTintColor: COLORS.inactiveGray,
         keyboardHidesTabBar: true,
         showLabel: false,
         style: {

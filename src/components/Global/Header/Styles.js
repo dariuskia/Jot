@@ -2,11 +2,12 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 
 import { TIME } from '../../../utils/Time'
+import COLORS from '../../../utils/Colors'
 
 export default StyleSheet.create({
 	container: {
 		height: 90,
-		backgroundColor: '#272B58',
+		backgroundColor: COLORS.themed.primary,
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -17,6 +18,7 @@ export default StyleSheet.create({
 	title: {
 		color: '#fff',
 		fontSize: 24,
+		fontFamily: 'Ubuntu Medium',
 	},
 	back: page => {
 		display: 'flex'

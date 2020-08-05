@@ -4,7 +4,7 @@ import { TextInput } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { View, Text } from 'react-native'
 import Header from '../Global/Header/Header'
-import { TIME } from '../../utils/Time'
+import COLORS from '../../utils/Colors'
 
 function genID(length = 30) {
   var result = ''
@@ -123,10 +123,10 @@ export default function RoomScreen() {
       <Bubble {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: '#272B580D',
+            backgroundColor: COLORS.backgroundGray,
           },
           right: {
-            backgroundColor: (TIME == 'NIGHT') ? '#4F5ADE' : '#3278FF',
+            backgroundColor: COLORS.themed.primary,
           }
         }}
         textStyle={{
@@ -143,7 +143,7 @@ export default function RoomScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header title="Jot" page="Journal" locked={true} />
+      <Header title="Jot" page="Journal" locked={false} />
       <GiftedChat
         messages={messages}
         onSend={newMessage => handleSend(newMessage)}

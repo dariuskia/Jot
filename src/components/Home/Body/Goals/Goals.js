@@ -3,21 +3,22 @@ import { TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingVi
 import styles from './Styles'
 import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import COLORS from '../../../../utils/Colors'
 
-function genID(length=30) {
+function genID(length = 30) {
    var result = ''
    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
    var charactersLength = characters.length
-   for ( var i = 0; i < length; i++ ) {
+   for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength))
    }
    return result
- }
+}
 
 export default function Goals() {
-  
+
    const [storageReceived, alreadyReceived] = useState(false)
-   
+
    const [goals, setGoals] = useState([])
 
    const input = React.createRef()
@@ -39,7 +40,7 @@ export default function Goals() {
       updateGoals(newGoals)
    }
 
-   const clearGoals= async () => {
+   const clearGoals = async () => {
       setGoals([])
       await AsyncStorage.removeItem('@goals')
    }
@@ -67,7 +68,7 @@ export default function Goals() {
    const toggleCompleted = (key) => {
       let newGoals = goals.map(goal => {
          if (goal.key == key) {
-            return {body: goal.body, completed: !goal.completed, key: goal.key}
+            return { body: goal.body, completed: !goal.completed, key: goal.key }
          }
          else return goal
       })
@@ -101,38 +102,31 @@ export default function Goals() {
                <View>
                   {goals.length != 0 && goals.map((goal) => {
                      let textStyles = [styles.text]
-                     if (goal.completed) textStyles.push({textDecorationLine: 'line-through'})
+                     if (goal.completed) textStyles.push({ textDecorationLine: 'line-through' })
                      return (
-                     <View key={goal.key} style={styles.goalContainer}>
-                        <TouchableOpacity key={goal.key} style={{flex: 1, flexDirection: 'row', alignItems: 'center'}} onPress = {() => toggleCompleted(goal.key)}>
-                           <View key={goal.key}>
-                              <TouchableOpacity key={goal.key} onPress = {() => toggleCompleted(goal.key)}>
-                                 {goal.completed ? (
-                                    <Icon 
-                                    name={'checkbox-marked'} 
-                                    size={20} 
-                                    color='#8084A4'
-                                    key={goal.key} />
-                                 ) : (
-                                    <Icon 
-                                    name={'checkbox-blank-outline'} 
-                                    size={20} 
-                                    color='#8084A4'
-                                    key={goal.key} />
-                                 )}
-                              </TouchableOpacity>
-                           </View>
-                           <Text 
-                              key={goal.key} 
-                              style={textStyles}>
-                              {goal.body}
-                           </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity key={goal.key} style={{paddingHorizontal: 10}} onPress={() => removeGoal(goal.key)}>
-                           <Icon name="close" size={20} color="#ff8989" />
-                        </TouchableOpacity>
-                     </View>
-                  )})}
+                        <View key={goal.key} style={styles.goalContainer}>
+                           <TouchableOpacity key={goal.key} style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }} onPress={() => toggleCompleted(goal.key)}>
+                              <View key={goal.key}>
+                                 <TouchableOpacity key={goal.key} onPress={() => toggleCompleted(goal.key)}>
+                                    <Icon
+                                       name={goal.completed ? 'checkbox-marked' : 'checkbox-blank-outline'}
+                                       size={20}
+                                       color={'#8084A4'}
+                                       key={goal.key} />
+                                 </TouchableOpacity>
+                              </View>
+                              <Text
+                                 key={goal.key}
+                                 style={textStyles}>
+                                 {goal.body}
+                              </Text>
+                           </TouchableOpacity>
+                           <TouchableOpacity key={goal.key} style={{ paddingHorizontal: 10 }} onPress={() => removeGoal(goal.key)}>
+                              <Icon name="close" size={20} color={COLORS.red} />
+                           </TouchableOpacity>
+                        </View>
+                     )
+                  })}
                </View>
                <View>
                   <TextInput
