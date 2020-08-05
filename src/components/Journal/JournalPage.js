@@ -6,8 +6,6 @@ import { View, Text } from 'react-native'
 import Header from '../Global/Header/Header'
 import { TIME } from '../../utils/Time'
 
-import { db } from '../../environment/config'
-
 function genID(length=30) {
   var result = ''
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -28,13 +26,10 @@ const USER = {
 }
 
 export default function RoomScreen() {
-  // const messageRef = db.collection('messages').doc('tay86GEpVCQYq2m9rk8q')
-  // const doc = await messageRef.get()
   const greeting = [
     {
       _id: 1,
       text: 'Hi there! Type some messages to get started.',
-      // text: doc.data().toString(),
       user: JOT,
       createdAt: new Date(),
     }
