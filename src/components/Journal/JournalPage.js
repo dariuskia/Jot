@@ -39,15 +39,6 @@ export default function RoomScreen() {
   const [storageReceived, alreadyReceived] = useState(false)
 
   const clearMessages = async () => {
-    // try {
-    //   setMessages([])
-    //   await AsyncStorage.removeItem('@messages')
-    // catch (error) {
-    //   throw new Error(error)
-    //   console.log(error)
-    // } finally {
-    //   console.log('dog')
-    // }
     try {
       setMessages([])
       await AsyncStorage.removeItem('@messages')
@@ -163,7 +154,6 @@ export default function RoomScreen() {
         placeholder='Type a message...'
         showUserAvatar
         renderBubble={renderBubble}
-      // alwaysShowSend
       />
     </View>
   );

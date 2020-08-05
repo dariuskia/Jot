@@ -1,17 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './Styles'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-//import PropTypes from 'prop-types'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default Header = ({ title, page, locked }) => {
-	//TO DO:
-	// Change header based on page passed
-	// Journal page no chevron, center title and right lock
-	// Calendar page chevron, center title and right lock (for some)
+	const toggleLock = function () {
+		console.log("hello there")
+	}
 	return (
 		<View style={styles.container}>
-			<Icon name="chevron-left" size={30} color="white" style={styles(page).back} />
+			<BackButton pageName={page} />
+
 			<Text style={styles.title}>{title}</Text>
 
 			<TouchableOpacity onPress={toggleLock}>
@@ -21,8 +20,11 @@ export default Header = ({ title, page, locked }) => {
 	)
 }
 
-// Header.propTypes = {
-// 	title: PropTypes.string.isRequired,
-// 	type: PropTypes.string,
-// 	tlocked: PropTypes.boolean,
-// }
+function BackButton(props) {
+	if (props.pageName === "Journal") return <View style={{ width: 30, height: 30 }} />
+	return (
+		<TouchableOpacity>
+			<Icon name="chevron-left" size={30} color="white" style={styles.back("Journal")} />
+		</TouchableOpacity>
+	)
+}
