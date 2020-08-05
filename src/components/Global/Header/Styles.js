@@ -1,27 +1,26 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native'
 
-import { TIME } from '../../../utils/Time'
+import {TIME} from '../../../utils/Time'
 
-export default StyleSheet.create({
+export default styles = ({ page }) => StyleSheet.create({
 	container: {
-		height: 90,
+		width: '100%',
+		height: 80,
 		backgroundColor: '#272B58',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		flexDirection: 'row',
-		paddingHorizontal: 15,
-		paddingTop: 15,
+		paddingHorizontal: 15
 	},
 	title: {
 		color: '#fff',
 		fontSize: 24,
 	},
-	back: page => {
-		display: 'flex'
+	back: {
+		display: (page == 'Journal') ? 'none' : 'flex'
 	},
 	lock: {
-
 	},
 })
