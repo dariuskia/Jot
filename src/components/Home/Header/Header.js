@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 export default function Header({ navigation }) {
 	const [userName, setUsername] = useState(null)
-	
+
 	const runFirst = async () => {
 		let user = await AsyncStorage.getItem('@username')
 		setUsername(user)
@@ -22,7 +22,7 @@ export default function Header({ navigation }) {
 		<View style={styles.header}>
 			<View style={styles.headingContainer}>
 				<View>
-					<Text style={styles.greeting}>{(function() {if (TIME == "DAY") return "Good morning,"; if (TIME == "AFTERNOON") return "Good afternoon,"; if (TIME == "NIGHT") return "Good evening,"}())}</Text>
+					<Text style={styles.greeting}>{(function () { if (TIME == "DAY") return "Good morning,"; if (TIME == "AFTERNOON") return "Good afternoon,"; if (TIME == "NIGHT") return "Good evening," }())}</Text>
 					<Text style={styles.name}>{userName}</Text>
 				</View>
 				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
@@ -34,7 +34,7 @@ export default function Header({ navigation }) {
 				<Actions pressHandler={() => navigation.navigate('Calendar')} buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" iconName="calendar-outline" />
 			</View>
 			<View style={styles.circle}>
-				
+
 			</View>
 		</View>
 	)
