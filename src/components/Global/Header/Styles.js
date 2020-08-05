@@ -7,7 +7,7 @@ export default styles = ({ page }) => StyleSheet.create({
 	container: {
 		width: '100%',
 		height: 80,
-		backgroundColor: (TIME == 'NIGHT') ? '#272B58' : '#5391EF',
+		backgroundColor: '#272B58',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',

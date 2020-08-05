@@ -143,7 +143,7 @@ export default function RoomScreen() {
   
   return (
     <View style={{flex: 1}}>
-      <Header title="Jot" page="Journal" />
+      <Header title="Jot" page="Journal" locked={true} />
       <GiftedChat
       messages={messages}
       onSend={newMessage => handleSend(newMessage)}
