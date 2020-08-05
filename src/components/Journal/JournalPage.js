@@ -6,12 +6,12 @@ import { View, Text } from 'react-native'
 import Header from '../Global/Header/Header'
 import { TIME } from '../../utils/Time'
 
-function genID(length=30) {
+function genID(length = 30) {
   var result = ''
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   var charactersLength = characters.length
-  for ( var i = 0; i < length; i++ ) {
-     result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
   }
   return result
 }
@@ -37,33 +37,44 @@ export default function RoomScreen() {
   const [username, setUsername] = useState(null)
   const [messages, setMessages] = useState()
   const [storageReceived, alreadyReceived] = useState(false)
-  
+
   const clearMessages = async () => {
-    setMessages([])
-    await AsyncStorage.removeItem('@messages')
+    // try {
+    //   setMessages([])
+    //   await AsyncStorage.removeItem('@messages')
+    // catch (error) {
+    //   throw new Error(error)
+    //   console.log(error)
+    // } finally {
+    //   console.log('dog')
+    // }
+    try {
+      setMessages([])
+      await AsyncStorage.removeItem('@messages')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const updateMessages = async (newMessages) => {
     try {
       await AsyncStorage.setItem('@messages', JSON.stringify(newMessages))
     } catch (error) {
-      throw new Error(error)
       console.log(error)
     }
   }
-  
+
   const recvMessages = async (initialMessages) => {
     try {
       let newMessages = await AsyncStorage.getItem('@messages')
       if (newMessages != null) {
         setMessages(JSON.parse(newMessages))
       } else {
-        setMessages(initialMessages)
+        setMessages(greeting)
         await AsyncStorage.setItem('@messages', JSON.stringify(initialMessages))
         await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
       }
     } catch (error) {
-      throw new Error(error)
       console.log(error)
     }
   }
@@ -73,7 +84,6 @@ export default function RoomScreen() {
       let val = await AsyncStorage.getItem('@username')
       setUsername(val)
     } catch (error) {
-      throw new Error(error)
       console.log(error)
     }
   }
@@ -94,12 +104,11 @@ export default function RoomScreen() {
         alreadyReceived(true)
       }
     } catch (error) {
-      throw new Error(error)
       console.log(error)
     }
   })()
   USER.name = username
-  
+
 
   // helper method that sends a message
   function handleSend(msg = []) {
@@ -117,10 +126,10 @@ export default function RoomScreen() {
     }
   }
 
-  
-    const renderBubble = (props) => {
-      return (
-        <Bubble {...props}
+
+  const renderBubble = (props) => {
+    return (
+      <Bubble {...props}
         wrapperStyle={{
           left: {
             backgroundColor: '#272B580D',
@@ -131,29 +140,29 @@ export default function RoomScreen() {
         }}
         textStyle={{
           left: {
-            
+
           },
           right: {
 
           }
         }}
-        />
-      )
-    }
-  
+      />
+    )
+  }
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header title="Jot" page="Journal" locked={true} />
       <GiftedChat
-      messages={messages}
-      onSend={newMessage => handleSend(newMessage)}
-      // renderInputToolbar={() => {
-      //   <TextInput editable={false} />
-      // }}
-      user={USER}
-      placeholder='Type a message...'
-      showUserAvatar
-      renderBubble={renderBubble}
+        messages={messages}
+        onSend={newMessage => handleSend(newMessage)}
+        // renderInputToolbar={() => {
+        //   <TextInput editable={false} />
+        // }}
+        user={USER}
+        placeholder='Type a message...'
+        showUserAvatar
+        renderBubble={renderBubble}
       // alwaysShowSend
       />
     </View>
