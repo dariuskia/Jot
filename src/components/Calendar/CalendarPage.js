@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 export default function CalendarPage() {
 	(async () => {
-		const ref = await firestore().collection('messages').doc('years').collection('yearList').doc('2020').collection('months').doc('August').collection('days').get()
+		const ref = await firestore().collection('messages').doc('years').collection('yearList').doc('2020').collection('months').get()
 		console.log(ref.docs.map(doc => doc.data()))
 	})()
 
