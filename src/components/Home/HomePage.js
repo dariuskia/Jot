@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { StyleSheet, View, Button } from 'react-native'
 
-import Header from './Header/Header'
+import HomeHeader from './HomeHeader/HomeHeader'
 import Body from './Body/Body'
 
 import { TIME } from '../../utils/Time'
@@ -11,7 +11,7 @@ export default function HomePage({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Header navigation={navigation} />
+      <HomeHeader navigation={navigation} />
       <Body />
     </View >
   )

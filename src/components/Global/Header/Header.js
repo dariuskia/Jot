@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import styles from './Styles'
+import styles from './StylesHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default Header = ({ title, page, locked }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
-import styles from './Styles'
+import styles from './StylesCalendarPage'
 import { createStackNavigator } from '@react-navigation/stack';
 import Month from './Month/Month'
 import Header from '../Global/Header/Header'
@@ -23,14 +23,14 @@ export default function CalendarPage() {
 		<View style={{ flex: 1 }}>
 			<Header title="Calendar" page="Calendar" />
 			{months.map(month => {
-				return <Month month={month} year={year}/>
+				return <Month month={month} year={year} />
 			})}
 		</View>
 	) : (
-		<View style={{ flex: 1 }}>
-			<Header title="Calendar" page="Calendar" />
-			<Text>Couldn't find any entries. Start writing in the journal!</Text>
-		</View>
-	))
+			<View style={{ flex: 1 }}>
+				<Header title="Calendar" page="Calendar" />
+				<Text>Couldn't find any entries. Start writing in the journal!</Text>
+			</View>
+		))
 
 }

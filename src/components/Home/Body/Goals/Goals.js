@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { TextInput, View, ScrollView, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
-import styles from './Styles'
+import styles from './StylesGoals'
 import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from '../../../../utils/Colors'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Button, Text } from 'react-native'
-import { styles } from './Styles'
+import { styles } from './StylesMonth'
 
 export default function Month({ navigation, month, year }) {
 

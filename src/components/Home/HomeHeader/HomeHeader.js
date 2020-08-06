@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from './Styles'
+import styles from './StylesHomeHeader'
 import { Text, View, TouchableOpacity, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Actions from '../Actions/Actions'

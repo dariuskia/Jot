@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
-import styles from "./Styles"
+import styles from "./StylesActions"
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 

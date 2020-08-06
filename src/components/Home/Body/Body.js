@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Styles'
+import styles from './StylesBody'
 import { Text, View, SafeAreaView, ScrollView, KeyboardAvoidingView } from 'react-native'
 import Goals from './Goals/Goals'
 
