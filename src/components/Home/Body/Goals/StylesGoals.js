@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { TIME } from '../../../../utils/Time'
+import COLORS from '../../../../utils/Colors'
 
 export default StyleSheet.create({
 	container: {
@@ -8,8 +8,7 @@ export default StyleSheet.create({
 	},
 	heading: {
 		fontSize: 25,
-		// color: '#4B5189',
-		color: (TIME === "NIGHT") ? '#272B58' : '#5391EF',
+		color: COLORS.themed.primary,
 		fontFamily: 'Ubuntu Medium',
 	},
 	numGoals: {
@@ -30,12 +29,12 @@ export default StyleSheet.create({
 	text: {
 		fontFamily: 'Rubik',
 		fontSize: 18,
-		color: '#8084A4',
+		color: COLORS.textGray,
 		padding: 5,
 	},
 	input: {
 		fontSize: 18,
 		fontFamily: 'Rubik',
-		color: '#8084A4'
+		color: COLORS.textGray,
 	}
 })

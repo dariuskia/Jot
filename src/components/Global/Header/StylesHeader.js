@@ -1,7 +1,5 @@
-import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { TIME } from '../../../utils/Time'
 import COLORS from '../../../utils/Colors'
 
 export default StyleSheet.create({

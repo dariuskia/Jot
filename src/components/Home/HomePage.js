@@ -4,8 +4,7 @@ import { StyleSheet, View, Button } from 'react-native'
 
 import HomeHeader from './HomeHeader/HomeHeader'
 import Body from './Body/Body'
-
-import { TIME } from '../../utils/Time'
+import COLORS from '../../utils/Colors'
 
 export default function HomePage({ navigation }) {
   return (
@@ -20,6 +19,6 @@ export default function HomePage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: (TIME == "NIGHT") ? '#272B58' : '#5391EF',
+    backgroundColor: COLORS.themed.primary,
   },
 })

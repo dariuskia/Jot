@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import COLORS from '../../utils/Colors'
 
 export default StyleSheet.create({
    container: {
@@ -15,7 +16,7 @@ export default StyleSheet.create({
    },
 
    monthContainer: {
-      backgroundColor: 'rgba(39, 43, 88, 0.05)',
+      backgroundColor: COLORS.backgroundGray,
       height: 55,
       margin: 10,
       borderRadius: 10,
@@ -23,8 +24,8 @@ export default StyleSheet.create({
       borderColor: 'red'
    },
    monthText: {
-      color: '#272b58',
-      fontFamily: 'Ubuntu Medium',
+      color: 'black',
+      fontFamily: 'Rubik Medium',
       fontSize: 18,
    },
 })

@@ -131,10 +131,12 @@ export default function RoomScreen() {
         }}
         textStyle={{
           left: {
-
+            fontFamily: "Rubik",
+            fontSize: 16,
           },
           right: {
-
+            fontFamily: "Rubik",
+            fontSize: 16,
           }
         }}
       />

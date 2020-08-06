@@ -1,19 +1,22 @@
 import { StyleSheet } from 'react-native'
+import COLORS from '../../../utils/Colors'
 
 export const styles = (color = null) => StyleSheet.create({
    container: {
-      backgroundColor: 'rgba(39, 43, 88, 0.05)',
+      backgroundColor: COLORS.backgroundGray,
       height: 55,
       margin: 10,
       borderRadius: 10,
-      borderLeftWidth: 4,
-      borderColor: color,
+      // borderLeftWidth: 4,
+      // borderColor: color,
+      borderColor: COLORS.themed.primary,
+      borderWidth: 1,
       paddingHorizontal: 20,
       textAlign: 'left',
       justifyContent: 'center',
    },
    text: {
-      color: '#272b58',
+      color: COLORS.themed.text,
       fontFamily: 'Rubik Medium',
       fontSize: 18,
    },

@@ -23,11 +23,19 @@ export default function Header({ navigation }) {
 		<View style={styles.header}>
 			<View style={styles.headingContainer}>
 				<View>
-					<Text style={styles.greeting}>{(function () { if (TIME == "DAY") return "Good morning,"; if (TIME == "AFTERNOON") return "Good afternoon,"; if (TIME == "NIGHT") return "Good evening," }())}</Text>
+					<Text style={styles.greeting}>{(function () {
+						switch (TIME) {
+							case "MORNING": return "Good morning, "
+							case "AFTERNOON": return "Good afternoon, "
+							case "EVENING": return "Good evening, "
+							case "NIGHT": return "Good night, "
+							default: return "Hello, "
+						}
+					}())}</Text>
 					<Text style={styles.name}>{userName}</Text>
 				</View>
 				<TouchableOpacity onPress={() => { navigation.navigate('Settings') }}>
-					<Icon name="settings" size={30} color={/*(TIME == "NIGHT") ? "#7C81B4" : "#2D66BC"*/ COLORS.themed.secondary} />
+					<Icon name="settings" size={30} color={COLORS.themed.home.settings} />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.buttonContainer}>

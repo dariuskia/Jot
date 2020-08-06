@@ -2,10 +2,11 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './StylesHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import COLORS from '../../../utils/Colors'
 
 export default Header = ({ title, page, locked }) => {
 	const toggleLock = function () {
-		console.log("hello there")
+		locked = !locked 	// doesn't work
 	}
 	return (
 		<View style={styles.container}>
@@ -14,7 +15,7 @@ export default Header = ({ title, page, locked }) => {
 			<Text style={styles.title}>{title}</Text>
 
 			<TouchableOpacity onPress={toggleLock}>
-				{page === 'Journal' ? (<Icon name={locked ? "lock" : "lock-open"} size={30} color={locked ? "#2D66BC" : "#FFFFFF40"} style={styles.lock} />) : <View style={{ height: 30, width: 30 }} />}
+				{page === 'Journal' ? (<Icon name={locked ? "lock" : "lock-open"} size={30} color={locked ? COLORS.themed.secondary : 'rgba(255, 255, 255, 0.8)'} style={styles.lock} />) : <View style={{ height: 30, width: 30 }} />}
 			</TouchableOpacity>
 		</View>
 	)
