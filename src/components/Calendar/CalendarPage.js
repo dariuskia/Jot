@@ -22,9 +22,11 @@ export default function CalendarPage() {
 	return (months.length != 0 ? (
 		<View style={{ flex: 1 }}>
 			<Header title="Calendar" page="Calendar" />
-			{months.map(month => {
-				return <Month month={month} year={year} />
-			})}
+			<View style={{ marginTop: 15 }}>
+				{months.map(month => {
+					return <Month month={month} year={year} key={month+year} />
+				})}
+			</View>
 		</View>
 	) : (
 			<View style={{ flex: 1 }}>
