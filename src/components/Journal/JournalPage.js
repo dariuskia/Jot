@@ -63,7 +63,7 @@ export default function RoomScreen() {
       } else {
         setMessages(greeting)
         await AsyncStorage.setItem('@messages', JSON.stringify(initialMessages))
-        await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
+        // await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
       }
     } catch (error) {
       console.log(error)
@@ -82,13 +82,16 @@ export default function RoomScreen() {
   const run = (async () => {
     try {
       getUsername()
-      let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
+      let firstMessageDate = new Date(messages[messages.length-1]["createdAt"]).toDateString()
+      // let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
       if (firstMessageDate != null) {
         if (firstMessageDate != new Date().toDateString()) {
           clearMessages()
           recvMessages(greeting)
-          await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
+          // await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
         }
+      } else {
+        recvMessages(greeting)
       }
       if (!storageReceived) {
         recvMessages()
