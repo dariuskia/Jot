@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat';
 import { TextInput } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
@@ -79,28 +79,30 @@ export default function RoomScreen() {
     }
   }
 
-  const run = (async () => {
-    try {
-      getUsername()
-      // let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
-      if (messages != null) {
-        let firstMessageDate = new Date(messages[messages.length-1]["createdAt"]).toDateString()
-        if (firstMessageDate != new Date().toDateString()) {
-          clearMessages()
+  useEffect(() => {
+    (async () => {
+      try {
+        getUsername()
+        // let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
+        if (messages != null) {
+          let firstMessageDate = new Date(messages[messages.length-1]["createdAt"]).toDateString()
+          if (firstMessageDate != new Date().toDateString()) {
+            clearMessages()
+            recvMessages(greeting)
+            // await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
+          }
+        } else {
           recvMessages(greeting)
-          // await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
         }
-      } else {
-        recvMessages(greeting)
+        if (!storageReceived) {
+          recvMessages()
+          alreadyReceived(true)
+        }
+      } catch (error) {
+        console.log(error)
       }
-      if (!storageReceived) {
-        recvMessages()
-        alreadyReceived(true)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  })()
+    })()
+  })
   USER.name = username
 
 
