@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Button, Text } from 'react-native'
+import { View, Text } from 'react-native'
 import { styles } from './StylesMonth'
 
 // This can probably just be a general list item component that we pass a prop into to determine if it's a month or day
 
-export default function Month({ navigation, month, year }) {
+export default function Month({ month, year }) {
    // TODO: make the colors a circular progression (rainbow or gradient)
    let colors = {
       January: '#8b0000',

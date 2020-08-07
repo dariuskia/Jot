@@ -1,20 +1,44 @@
-import React, { useState } from 'react'
-import { Text, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Text, View, TouchableOpacity } from 'react-native'
 //import styles from './Styles'
 import { createStackNavigator } from '@react-navigation/stack';
-//import Month from './Month/Month'
+import Day from './Day/Day'
 import Header from '../Global/Header/Header'
 import firestore from '@react-native-firebase/firestore'
 
 
-export default function DaysPage({ navigation }) {
-	return(
+export default function DaysPage({ route, navigation }) {
+	const [year, setYear] = useState(new Date().getFullYear().toString())
+	const [month, setMonth] = useState(route.params.month)
+	const [days, setDays] = useState([])
+	const [storageReceived, setReceived] = useState(false)
+	
+	useEffect(() => {
+		(async function() {
+			let messagesRef = firestore().collection('users').doc('Soeonz5yjvXhkofc8KKsmpyQbtB3').collection('messages')
+			let monthsRef = messagesRef.doc(year).collection('months')
+			let daysRef = monthsRef.doc(month.monthNum.toString()).collection('days')
+			let daysDoc = await daysRef.get()
+			let output = daysDoc.docs.map(doc => doc.data())
+			setDays(output)
+		})()
+	}, [])
+	
+	return (days.length != 0 ? (
 		<View style={{ flex: 1 }}>
-            <Header title="july 21" page="DaysPage" nav={navigation} />
+            <Header title={month.monthName} page="DaysPage" nav={navigation} />
 			<View style={{ marginTop: 15 }}>
-                <Text>Days page</Text>
+				{days.map(day => (
+					<TouchableOpacity key={day.dayNum}>
+						<Day day={day} month={month} key={day.dayNum} />
+					</TouchableOpacity>
+				))}
 			</View>
 		</View>
-	)
-
+	) : (
+		<View style={{ flex: 1 }}>
+			<Header title={month.monthName} page="DaysPage" nav={navigation} />
+			<Text>Couldn't find any entries. Start writing in the journal!</Text>
+		</View>
+	))
 }
