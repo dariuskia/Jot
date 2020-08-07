@@ -4,13 +4,13 @@ import styles from './StylesHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from '../../../utils/Colors'
 
-export default Header = ({ title, page, locked }) => {
+export default Header = ({ title, page, navigation, locked }) => {
 	const toggleLock = function () {
 		console.log('lock')
 	}
 	return (
 		<View style={styles.container}>
-			<BackButton pageName={page} />
+			<BackButton pageName={page} navigation={navigation} />
 
 			<Text style={styles.title}>{title}</Text>
 
@@ -21,8 +21,8 @@ export default Header = ({ title, page, locked }) => {
 	)
 }
 
-function BackButton(props) {
-	if (props.pageName === "Journal") return <View style={{ width: 30, height: 30 }} />
+function BackButton({ pageName, navigation }) {
+	if (pageName === "Journal") return <View style={{ width: 30, height: 30 }} />
 	return (
 		<TouchableOpacity>
 			<Icon name="chevron-left" size={30} color="white" style={styles.back("Journal")} />

@@ -30,4 +30,19 @@ export default {
    red: '#ff8989',
 
    themed: (TIME === "NIGHT" || TIME === "EVENING") ? dark : light,
+
+   months: {
+      jan: '#92278f',
+      feb: '#ec008c',
+      mar: '#ed145b',
+      apr: '#ed1c24',
+      may: '#f7941e',
+      jun: '#fff200',
+      jul: '#8cc63f',
+      aug: '#00a651',
+      sep: '#00a99d',
+      oct: '#00aeef',
+      nov: '#0072bc',
+      dec: '#2e3192',
+   },
 }

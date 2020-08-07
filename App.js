@@ -5,9 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import HomePage from './src/components/Home/HomePage'
 import JournalPage from './src/components/Journal/JournalPage'
-import MonthsPage from './src/components/Entries/MonthsPage'
-import DaysPage from './src/components/Entries/DaysPage'
 import SettingsPage from './src/components/Settings/SettingsPage'
+import Entries from './src/components/Entries/Entries'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from './src/utils/Colors'
@@ -23,7 +22,7 @@ function HomeTabs() {
           let iconName
 
           if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline' // outline icons instead?
+            iconName = focused ? 'home' : 'home-outline'
           } else if (route.name === 'Journal') {
             iconName = focused ? 'pencil' : 'pencil-outline'
           } else if (route.name === 'Entries') {
@@ -46,7 +45,13 @@ function HomeTabs() {
     >
       <Tab.Screen name="Home" component={HomePage} />
       <Tab.Screen name="Journal" component={JournalPage} />
-      <Tab.Screen name="Entries" component={MonthsPage} />
+      {/* <Tab.Screen name="Entries" children={() => (
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen name="Months" component={MonthsPage} />
+            <Stack.Screen name="Days" component={DaysPage} />
+          </Stack.Navigator>
+        )}  */}
+        <Tab.Screen name="Entries" component={Entries} />
     </Tab.Navigator>
   )
 }
