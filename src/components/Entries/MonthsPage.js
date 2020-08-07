@@ -21,9 +21,11 @@ export default function MonthsPage({ navigation }) {
 		<View style={{ flex: 1 }}>
 			<Header title="Entries" page="Entries" />
 			<View style={{ marginTop: 15 }}>
-				{months.map(month => {
-					return <TouchableOpacity onPress={() => navigation.navigate("DaysPage")}><Month month={month} year={year} key={month + year} /></TouchableOpacity>
-				})}
+				{months.map(month => (
+					<TouchableOpacity onPress={() => navigation.navigate("DaysPage")} key={month+year} >
+						<Month month={month} year={year} key={month+year} />
+					</TouchableOpacity>
+				))}
 			</View>
 		</View>
 	) : (
