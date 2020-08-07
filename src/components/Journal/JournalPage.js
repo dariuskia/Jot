@@ -82,9 +82,9 @@ export default function RoomScreen() {
   const run = (async () => {
     try {
       getUsername()
-      let firstMessageDate = new Date(messages[messages.length-1]["createdAt"]).toDateString()
       // let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
-      if (firstMessageDate != null) {
+      if (messages != null) {
+        let firstMessageDate = new Date(messages[messages.length-1]["createdAt"]).toDateString()
         if (firstMessageDate != new Date().toDateString()) {
           clearMessages()
           recvMessages(greeting)
