@@ -1,25 +1,25 @@
 import { TIME } from './Time'
 
-const light = {
-   primary: '#5391EF',
-   secondary: 'rgba(255, 255, 255, 0.5)',
-   tertiary: 'rgba(255, 255, 255, 0.25)',
-   text: '#3F3F3F',
-   home: {
-      circle: 'rgba(0, 0, 0, 0.03)',
-      greeting: 'rgba(255, 255, 255, 0.5)',
-      settings: 'rgba(255, 255, 255, 0.5)',
-   },
-}
 const dark = {
    primary: '#272B58',
-   secondary: 'rgba(255, 255, 255, 0.5)',
-   tertiary: 'rgba(255, 255, 255, 0.25)',
+   lighter: 'rgba(255, 255, 255, 0.5)',
+   secondary: '#4F5ADE',
    text: '#333333',
    home: {
       circle: '#22264d',
       greeting: '#add8e6',
       settings: '#7C81B4',
+   },
+}
+const light = {
+   primary: '#5391EF',
+   lighter: 'rgba(255, 255, 255, 0.5)',
+   secondary: '#30CEF0',
+   text: '#3F3F3F',
+   home: {
+      circle: 'rgba(0, 0, 0, 0.03)',
+      greeting: 'rgba(255, 255, 255, 0.5)',
+      settings: 'rgba(255, 255, 255, 0.5)',
    },
 }
 

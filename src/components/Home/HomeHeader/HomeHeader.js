@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './StylesHomeHeader'
 import { Text, View, TouchableOpacity, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Actions from '../Actions/Actions'
+import Actions from './Actions/Actions'
 
 import { TIME } from '../../../utils/Time'
 
@@ -40,7 +40,7 @@ export default function Header({ navigation }) {
 			</View>
 			<View style={styles.buttonContainer}>
 				<Actions pressHandler={() => navigation.navigate('Journal')} buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" iconName="pencil-outline" />
-				<Actions pressHandler={() => navigation.navigate('Calendar')} buttonTitle="Calendar" description="View previous entries" buttonColor="#FCC573" iconName="calendar-outline" />
+				<Actions pressHandler={() => navigation.navigate('Entries')} buttonTitle="Entries" description="View previous entries" buttonColor="#FCC573" iconName="notebook-outline" />
 			</View>
 			<View style={styles.circle}>
 

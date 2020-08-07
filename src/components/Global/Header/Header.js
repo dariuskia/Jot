@@ -15,7 +15,7 @@ export default Header = ({ title, page, locked }) => {
 			<Text style={styles.title}>{title}</Text>
 
 			<TouchableOpacity onPress={toggleLock}>
-				{page === 'Journal' ? (<Icon name={locked ? "lock" : "lock-open"} size={30} color={locked ? COLORS.themed.secondary : 'rgba(255, 255, 255, 0.8)'} style={styles.lock} />) : <View style={{ height: 30, width: 30 }} />}
+				{page === 'Journal' ? (<Icon name={locked ? "lock" : "lock-open"} size={30} color={locked ? COLORS.themed.lighter : 'rgba(255, 255, 255, 0.8)'} style={styles.lock} />) : <View style={{ height: 30, width: 30 }} />}
 			</TouchableOpacity>
 		</View>
 	)

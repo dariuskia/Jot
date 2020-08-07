@@ -126,7 +126,7 @@ export default function RoomScreen() {
             backgroundColor: COLORS.backgroundGray,
           },
           right: {
-            backgroundColor: COLORS.themed.primary,
+            backgroundColor: COLORS.themed.secondary,
           }
         }}
         textStyle={{
