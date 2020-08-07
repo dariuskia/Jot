@@ -10,8 +10,7 @@ import firestore from '@react-native-firebase/firestore'
 export default function DaysPage({ navigation }) {
 	return(
 		<View style={{ flex: 1 }}>
-            <Header title="july 21" page="DaysPage" navigation={navigation} />
-			
+            <Header title="july 21" page="DaysPage" nav={navigation} />
 			<View style={{ marginTop: 15 }}>
                 <Text>Days page</Text>
 			</View>
