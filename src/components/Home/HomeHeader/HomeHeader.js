@@ -40,7 +40,7 @@ export default function Header({ navigation }) {
 			</View>
 			<View style={styles.buttonContainer}>
 				<Actions pressHandler={() => navigation.navigate('Journal')} buttonTitle="Write" description="Write in today's entry" buttonColor="#25D1E7" iconName="pencil-outline" />
-				<Actions pressHandler={() => navigation.navigate('Entries')} buttonTitle="Entries" description="View previous entries" buttonColor="#FCC573" iconName="notebook-outline" />
+				<Actions pressHandler={() => navigation.navigate('Entries')} buttonTitle="Entries" description="View previous entries" buttonColor="#FCC573" iconName="bookmark-outline" />
 			</View>
 			<View style={styles.circle}>
 

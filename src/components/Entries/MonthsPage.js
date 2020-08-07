@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
-import styles from './StylesEntriesMonth'
+import styles from './Styles'
 import { createStackNavigator } from '@react-navigation/stack';
 import Month from './Month/Month'
 import Header from '../Global/Header/Header'

@@ -6,7 +6,7 @@ import COLORS from '../../../utils/Colors'
 
 export default Header = ({ title, page, locked }) => {
 	const toggleLock = function () {
-		locked = !locked 	// doesn't work
+		console.log('lock')
 	}
 	return (
 		<View style={styles.container}>
