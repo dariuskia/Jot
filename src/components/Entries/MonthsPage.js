@@ -11,28 +11,19 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 ];
 
 export default function MonthsPage({ navigation }) {
-	const [year, setYear] = useState(new Date().getFullYear().toString())
+	const [year, setYear] = useState(new Date().getFullYear().toString()) // Make year hook modifiable
 	const [months, setMonths] = useState([])
 
 	useEffect(() => {
 		(async function() {
-			// const testDate = new Date(2020, 7, 2)
-			// let [entryYear, entryMonth, entryDay] = [testDate.getFullYear(), testDate.getMonth(), testDate.getDate()].map(num => num.toString())
-			
-			// let messagesRef = firestore().collection('users').doc('Soeonz5yjvXhkofc8KKsmpyQbtB3').collection('messages')
-			// let monthRef = messagesRef.doc(entryYear).collection('months').doc(entryMonth)
-			// let newEntryRef = monthRef.collection('days').doc(entryDay)
-		
-			// await monthRef.set({monthName: monthNames[parseInt(entryMonth)], monthNum: parseInt(entryMonth)})
-			// await newEntryRef.set({messages: JSON.stringify([{text: "", user: "JOT"}, {text: "hi yep", user: "User"}]), dayNum: parseInt(entryDay)})
-
+			console.log('useeffect ran')
 			let messagesRef = firestore().collection('users').doc('Soeonz5yjvXhkofc8KKsmpyQbtB3').collection('messages')
 			let monthsRef = messagesRef.doc(year).collection('months')
 			let monthsDoc = await monthsRef.get()
 			let output = monthsDoc.docs.map(doc => doc.data())
 			setMonths(output)
 		})()
-	}, [])
+	}, [year])
 
 	return (months.length != 0 ? (
 		<View style={{ flex: 1 }}>

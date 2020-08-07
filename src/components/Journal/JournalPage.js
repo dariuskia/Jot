@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat';
-import { TextInput } from 'react-native'
+import { View } from 'react-native'
+
+import firestore from '@react-native-firebase/firestore'
 import AsyncStorage from '@react-native-community/async-storage'
-import { View, Text } from 'react-native'
+
 import Header from '../Global/Header/Header'
 import COLORS from '../../utils/Colors'
 
@@ -47,6 +49,18 @@ export default function RoomScreen() {
     }
   }
 
+  const storeMessages = async () => {
+    let firstMessageDate = new Date(messages[messages.length-1]["createdAt"])
+    let [entryYear, entryMonth, entryDay] = [firstMessageDate.getFullYear(), firstMessageDate.getMonth(), firstMessageDate.getDate()].map(num => num.toString())
+    
+    let messagesRef = firestore().collection('users').doc('Soeonz5yjvXhkofc8KKsmpyQbtB3').collection('messages')
+    let monthRef = messagesRef.doc(entryYear).collection('months').doc(entryMonth)
+    let newEntryRef = monthRef.collection('days').doc(entryDay)
+  
+    await monthRef.set({monthName: monthNames[parseInt(entryMonth)], monthNum: parseInt(entryMonth)})
+    await newEntryRef.set({messages: JSON.stringify(messages), dayNum: parseInt(entryDay)})
+  }
+
   const updateMessages = async (newMessages) => {
     try {
       await AsyncStorage.setItem('@messages', JSON.stringify(newMessages))
@@ -83,10 +97,12 @@ export default function RoomScreen() {
     (async () => {
       try {
         getUsername()
+        USER.name = username
         // let firstMessageDate = await AsyncStorage.getItem('@firstMessageDate')
         if (messages != null) {
           let firstMessageDate = new Date(messages[messages.length-1]["createdAt"]).toDateString()
           if (firstMessageDate != new Date().toDateString()) {
+            storeMessages()
             clearMessages()
             recvMessages(greeting)
             // await AsyncStorage.setItem('@firstMessageDate', new Date().toDateString())
@@ -103,7 +119,6 @@ export default function RoomScreen() {
       }
     })()
   })
-  USER.name = username
 
 
   // helper method that sends a message
