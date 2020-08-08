@@ -14,7 +14,6 @@ export default function EntryPage({ navigation, route }) {
 
 	useEffect(() => {
 		;(async () => {
-			console.log('hi')
 			let val = AsyncStorage.getItem('@username')
 			setName(val)
 		})()
