@@ -15,54 +15,47 @@ const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
 function HomeTabs() {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName
+	return (
+		<Tab.Navigator
+			screenOptions={({ route }) => ({
+				tabBarIcon: ({ focused, color, size }) => {
+					let iconName
 
-          if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline'
-          } else if (route.name === 'Journal') {
-            iconName = focused ? 'pencil' : 'pencil-outline'
-          } else if (route.name === 'Entries') {
-            iconName = focused ? 'bookmark' : 'bookmark-outline'
-          }
+					if (route.name === 'Home') {
+						iconName = focused ? 'home' : 'home-outline'
+					} else if (route.name === 'Journal') {
+						iconName = focused ? 'pencil' : 'pencil-outline'
+					} else if (route.name === 'Entries') {
+						iconName = focused ? 'bookmark' : 'bookmark-outline'
+					}
 
-          return <Icon name={iconName} size={size} color={color} />
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: COLORS.themed.primary,
-        inactiveTintColor: COLORS.inactiveGray,
-        keyboardHidesTabBar: true,
-        showLabel: false,
-        style: {
-          height: 65,
-        }
-      }}
-      backBehavior="initialRoute"
-    >
-      <Tab.Screen name="Home" component={HomePage} />
-      <Tab.Screen name="Journal" component={JournalPage} />
-      {/* <Tab.Screen name="Entries" children={() => (
-          <Stack.Navigator headerMode="none">
-            <Stack.Screen name="Months" component={MonthsPage} />
-            <Stack.Screen name="Days" component={DaysPage} />
-          </Stack.Navigator>
-        )}  */}
-        <Tab.Screen name="Entries" component={Entries} />
-    </Tab.Navigator>
-  )
+					return <Icon name={iconName} size={size} color={color} />
+				},
+			})}
+			tabBarOptions={{
+				activeTintColor: COLORS.themed.primary,
+				inactiveTintColor: COLORS.inactiveGray,
+				keyboardHidesTabBar: true,
+				showLabel: false,
+				style: {
+					height: 65,
+				},
+			}}
+			backBehavior="initialRoute">
+			<Tab.Screen name="Home" component={HomePage} />
+			<Tab.Screen name="Journal" component={JournalPage} />
+			<Tab.Screen name="Entries" component={Entries} />
+		</Tab.Navigator>
+	)
 }
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="Home" component={HomeTabs} />
-        <Stack.Screen name="Settings" component={SettingsPage} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
+	return (
+		<NavigationContainer>
+			<Stack.Navigator headerMode="none">
+				<Stack.Screen name="Home" component={HomeTabs} />
+				<Stack.Screen name="Settings" component={SettingsPage} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	)
 }
