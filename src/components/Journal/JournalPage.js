@@ -201,7 +201,7 @@ export default function JournalPage() {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<Header title="Jot" page="Journal" locked={false} />
+			<Header title="Jot" locked={false} back={true} />
 			<GiftedChat
 				messages={messages}
 				onSend={(newMessage) => handleSend(newMessage)}

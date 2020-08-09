@@ -30,7 +30,7 @@ export default function MonthsPage({ navigation, route }) {
 
 	return months.length != 0 ? (
 		<View style={{ flex: 1 }}>
-			<Header title="Entries" page="MonthsPage" />
+			<Header title="Entries" />
 			<View style={{ marginTop: 15 }}>
 				<Picker
 					selectedValue={year}

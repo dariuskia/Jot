@@ -47,12 +47,7 @@ export default function EntryPage({ navigation, route }) {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<Header
-				title="Jot"
-				Page="EntryPage"
-				locked={false}
-				navigation={navigation}
-			/>
+			<Header title="Jot" locked={false} navigation={navigation} back />
 			<GiftedChat
 				messages={messages}
 				// onSend={(newMessage) => handleSend(newMessage)}

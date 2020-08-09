@@ -4,17 +4,17 @@ import styles from './StylesHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from '../../../utils/Colors'
 
-export default Header = ({ title, page, navigation, locked }) => {
+export default Header = ({ title, navigation, locked, back }) => {
 	const toggleLock = function () {
 		console.log('lock')
 	}
 
 	return (
 		<View style={styles.container}>
-			<BackButton pageName={page} navigation={navigation} />
+			<BackButton navigation={navigation} display={back} />
 			<Text style={styles.title}>{title}</Text>
 			<TouchableOpacity onPress={toggleLock}>
-				{page === 'Journal' ? (
+				{locked != null ? (
 					<Icon
 						name={locked ? 'lock' : 'lock-open'}
 						size={30}
@@ -29,9 +29,8 @@ export default Header = ({ title, page, navigation, locked }) => {
 	)
 }
 
-function BackButton({ pageName, navigation }) {
-	if (pageName === 'Journal' || pageName === 'MonthsPage')
-		return <View style={{ width: 30, height: 30 }} />
+function BackButton({ pageName, navigation, display }) {
+	if (!display) return <View style={{ width: 30, height: 30 }} />
 	return (
 		<TouchableOpacity onPress={() => navigation.goBack()}>
 			<Icon

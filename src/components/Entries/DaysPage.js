@@ -27,7 +27,7 @@ export default function DaysPage({ route, navigation }) {
 
 	return days.length != 0 ? (
 		<View style={{ flex: 1 }}>
-			<Header title={month.monthName} page="DaysPage" navigation={navigation} />
+			<Header title={month.monthName} navigation={navigation} back />
 			<View style={{ marginTop: 15 }}>
 				{days.map((day) => (
 					<TouchableOpacity
