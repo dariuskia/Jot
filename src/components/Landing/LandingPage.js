@@ -47,10 +47,13 @@ const styles = StyleSheet.create({
 	carouselContainer: {
 		flex: 3,
 		backgroundColor: 'blue',
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingVertical: 20,
 	},
 	loginContainer: {
 		flex: 2,
-		alignItems: 'center',
 		justifyContent: 'center',
+		alignItems: 'center',
 	},
 })
