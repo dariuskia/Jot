@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import LandingPage from './src/components/Landing/LandingPage'
 import HomePage from './src/components/Home/HomePage'
 import JournalPage from './src/components/Journal/JournalPage'
 import SettingsPage from './src/components/Settings/SettingsPage'
@@ -53,6 +54,7 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator headerMode="none">
+				<Stack.Screen name="Landing" component={LandingPage} />
 				<Stack.Screen name="Home" component={HomeTabs} />
 				<Stack.Screen name="Settings" component={SettingsPage} />
 			</Stack.Navigator>
