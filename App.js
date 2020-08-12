@@ -8,6 +8,7 @@ import HomePage from './src/components/Home/HomePage'
 import JournalPage from './src/components/Journal/JournalPage'
 import SettingsPage from './src/components/Settings/SettingsPage'
 import Entries from './src/components/Entries/Entries'
+import LoginWithEmail from './src/components/Landing/Login/LoginWithEmail'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from './src/utils/Colors'
@@ -55,6 +56,7 @@ export default function App() {
 		<NavigationContainer>
 			<Stack.Navigator headerMode="none">
 				<Stack.Screen name="Landing" component={LandingPage} />
+				<Stack.Screen name="LoginWithEmail" component={LoginWithEmail} />
 				<Stack.Screen name="Home" component={HomeTabs} />
 				<Stack.Screen name="Settings" component={SettingsPage} />
 			</Stack.Navigator>

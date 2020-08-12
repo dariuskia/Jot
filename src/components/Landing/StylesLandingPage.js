@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import COLORS from '../../utils/Colors'
 
 export default StyleSheet.create({
 	container: {
@@ -7,31 +8,53 @@ export default StyleSheet.create({
 	},
 	headingContainer: {
 		flex: 2,
-		justifyContent: 'flex-end',
-		backgroundColor: 'red',
+		justifyContent: 'center',
 		paddingHorizontal: 30,
 	},
 	header: {
 		color: 'white',
-		fontSize: 48,
+		fontSize: 35,
 		fontFamily: 'Ubuntu Medium',
 	},
 	subheading: {
-		color: 'rgba(255, 255, 255, 0.75)',
+		color: 'rgba(255, 255, 255, 0.65)',
 		fontFamily: 'Ubuntu',
-		fontSize: 15,
-		paddingBottom: 50,
+		marginTop: 10,
+		fontSize: 18,
 	},
 	carouselContainer: {
-		flex: 3,
-		backgroundColor: 'blue',
-		justifyContent: 'center',
+		flex: 4,
+		justifyContent: 'flex-start',
 		alignItems: 'center',
-		paddingVertical: 20,
+		marginHorizontal: 30,
+	},
+	carouselText: {
+		fontFamily: 'Ubuntu Medium',
+		fontSize: 20,
+		textAlign: 'center',
+		color: '#fff',
+		marginTop: 30,
+		lineHeight: 30,
 	},
 	loginContainer: {
 		flex: 2,
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		alignItems: 'center',
+		marginHorizontal: 30,
+		paddingBottom: 30,
+	},
+	loginButton: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderRadius: 5,
+		width: '100%',
+		marginVertical: 10,
+		paddingVertical: 25,
+	},
+	loginText: {
+		color: 'white',
+		fontFamily: 'Ubuntu Medium',
+		fontSize: 15,
 	},
 })
