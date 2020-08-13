@@ -10,7 +10,7 @@ import {
 import styles from './StylesLoginPage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import Arrow from '../../../../assets/img/landingarrow.svg'
+import ArrowIcon from '../../../../assets/img/landingarrow.svg'
 
 function Line() {
 	return (
@@ -20,6 +20,18 @@ function Line() {
 				borderBottomColor: 'rgba(255, 255, 255, 0.3)',
 				borderBottomWidth: 1,
 			}}></View>
+	)
+}
+
+function Arrow({ navigation, display }) {
+	return display ? (
+		<TouchableOpacity
+			style={{ padding: 15 }}
+			onPress={() => navigation.goBack()}>
+			<ArrowIcon />
+		</TouchableOpacity>
+	) : (
+		<View style={{ padding: 8 }}></View>
 	)
 }
 
@@ -40,12 +52,12 @@ function LoginButton({ color, text, iconName = null }) {
 	)
 }
 
-export default function LoginWithEmail({ navigation }) {
+export default function LoginPage({ navigation, route }) {
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<Arrow />
-			</TouchableOpacity>
+			<View style={{ position: 'absolute', left: 27, top: 20 }}>
+				<Arrow navigation={navigation} display={route.params.displayArrow} />
+			</View>
 			<View style={styles.header}>
 				<Text style={styles.heading}>Sign in</Text>
 			</View>

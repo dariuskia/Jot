@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import LandingPage from './src/components/Landing/LandingPage'
 import HomePage from './src/components/Home/HomePage'
@@ -52,11 +53,29 @@ function HomeTabs() {
 }
 
 export default function App() {
-	return (
+	const [firstOpen, setFirstOpen] = useState(true)
+
+	return firstOpen ? (
 		<NavigationContainer>
 			<Stack.Navigator headerMode="none">
 				<Stack.Screen name="Landing" component={LandingPage} />
-				<Stack.Screen name="Login" component={LoginPage} />
+				<Stack.Screen
+					name="Login"
+					component={LoginPage}
+					initialParams={{ displayArrow: true }}
+				/>
+				<Stack.Screen name="Home" component={HomeTabs} />
+				<Stack.Screen name="Settings" component={SettingsPage} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	) : (
+		<NavigationContainer>
+			<Stack.Navigator headerMode="none">
+				<Stack.Screen
+					name="Login"
+					component={LoginPage}
+					initialParams={{ displayArrow: false }}
+				/>
 				<Stack.Screen name="Home" component={HomeTabs} />
 				<Stack.Screen name="Settings" component={SettingsPage} />
 			</Stack.Navigator>
