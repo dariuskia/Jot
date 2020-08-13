@@ -25,7 +25,9 @@ export default function DaysPage({ route, navigation }) {
 		})()
 	}, [])
 
-	return days.length != 0 ? (
+	useEffect(() => (console.disableYellowBox = true), [])
+
+	return (
 		<View style={{ flex: 1 }}>
 			<Header title={month.monthName} navigation={navigation} back />
 			<View style={{ marginTop: 15 }}>
@@ -39,11 +41,6 @@ export default function DaysPage({ route, navigation }) {
 					</TouchableOpacity>
 				))}
 			</View>
-		</View>
-	) : (
-		<View style={{ flex: 1 }}>
-			<Header title={month.monthName} page="DaysPage" navigation={navigation} />
-			<Text>Couldn't find any entries. Start writing in the journal!</Text>
 		</View>
 	)
 }

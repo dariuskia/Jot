@@ -7,18 +7,18 @@ import Body from './Body/Body'
 import COLORS from '../../utils/Colors'
 
 export default function HomePage({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-      <HomeHeader navigation={navigation} />
-      <Body />
-    </View >
-  )
+	return (
+		<View style={styles.container}>
+			<StatusBar style="light" />
+			<HomeHeader navigation={navigation} />
+			<Body />
+		</View>
+	)
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.themed.primary,
-  },
+	container: {
+		flex: 1,
+		backgroundColor: COLORS.themed.primary,
+	},
 })
