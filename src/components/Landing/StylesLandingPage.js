@@ -20,7 +20,7 @@ export default StyleSheet.create({
 		color: 'rgba(255, 255, 255, 0.75)',
 		fontFamily: 'Ubuntu',
 		marginTop: 10,
-		fontSize: 18,
+		fontSize: 17,
 		lineHeight: 25,
 	},
 	carouselContainer: {
@@ -54,5 +54,10 @@ export default StyleSheet.create({
 		fontSize: 15,
 		fontFamily: 'Ubuntu',
 		color: 'white',
+	},
+	square: {
+		position: 'absolute',
+		top: 0,
+		right: 0,
 	},
 })

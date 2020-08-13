@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import styles from './StylesLoginPage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import Square from '../../../../assets/img/backgroundsquare.svg'
 import ArrowIcon from '../../../../assets/img/landingarrow.svg'
 
 function Line() {
@@ -35,7 +35,7 @@ function Arrow({ navigation, display }) {
 	)
 }
 
-function LoginButton({ color, text, iconName = null }) {
+export function LoginButton({ color, text, iconName = null }) {
 	return (
 		<View style={[styles.loginButton, { backgroundColor: color }]}>
 			<View style={{ position: 'absolute', left: 30 }}>
@@ -108,7 +108,7 @@ export default function LoginPage({ navigation, route }) {
 							marginHorizontal: 10,
 						}}>
 						<Text style={{ color: 'rgba(255, 255, 255, 0.3)', fontSize: 20 }}>
-							Or
+							or
 						</Text>
 					</View>
 					<Line />
@@ -127,7 +127,9 @@ export default function LoginPage({ navigation, route }) {
 					marginTop: 10,
 					padding: 8,
 				}}>
-				<TouchableOpacity style={{ padding: 10 }}>
+				<TouchableOpacity
+					onPress={() => navigation.navigate('Register')}
+					style={{ padding: 10 }}>
 					<Text style={{ color: 'white', fontSize: 15, fontFamily: 'Ubuntu' }}>
 						Don't have an account?
 					</Text>

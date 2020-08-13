@@ -2,12 +2,13 @@ import React from 'react'
 import { View, Button, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './StylesLandingPage.js'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
-import CarouselFirst from '../../../assets/img/carousel3.svg'
+import LandingCarousel from './Carousel/LandingCarousel'
+import Square from '../../../assets/img/backgroundsquare.svg'
 
 export default function LandingPage({ navigation }) {
 	return (
 		<View style={styles.container}>
+			<Square style={styles.square} />
 			<View style={styles.headingContainer}>
 				<Text style={styles.header}>Jot</Text>
 				<Text style={styles.subheading}>
@@ -15,11 +16,8 @@ export default function LandingPage({ navigation }) {
 				</Text>
 			</View>
 			<View style={styles.carouselContainer}>
-				<CarouselFirst width={270} height={220} />
-				<Text style={styles.carouselText}>
-					Write entries in a friendly chat interface.
-				</Text>
-				<View style={styles.carotuselButtons}></View>
+				<LandingCarousel />
+				{/* <CarouselFirst width={270} height={220} /> */}
 			</View>
 			<View style={styles.contContainer}>
 				<TouchableOpacity onPress={() => navigation.navigate('Login')}>
