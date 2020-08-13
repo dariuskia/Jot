@@ -15,7 +15,7 @@ export default function LandingPage({ navigation }) {
 				</Text>
 			</View>
 			<View style={styles.carouselContainer}>
-				<CarouselFirst width={220} height={220} />
+				<CarouselFirst width={270} height={220} />
 				<Text style={styles.carouselText}>
 					Write entries in a friendly chat interface.
 				</Text>
