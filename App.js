@@ -10,6 +10,7 @@ import JournalPage from './src/components/Journal/JournalPage'
 import SettingsPage from './src/components/Settings/SettingsPage'
 import Entries from './src/components/Entries/Entries'
 import LoginPage from './src/components/Landing/Login/LoginPage'
+import RegisterPage from './src/components/Landing/Register/RegisterPage'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from './src/utils/Colors'
@@ -64,6 +65,7 @@ export default function App() {
 					component={LoginPage}
 					initialParams={{ displayArrow: true }}
 				/>
+				<Stack.Screen name="Register" component={RegisterPage} />
 				<Stack.Screen name="Home" component={HomeTabs} />
 				<Stack.Screen name="Settings" component={SettingsPage} />
 			</Stack.Navigator>
@@ -76,6 +78,7 @@ export default function App() {
 					component={LoginPage}
 					initialParams={{ displayArrow: false }}
 				/>
+				<Stack.Screen name="Register" component={RegisterPage} />
 				<Stack.Screen name="Home" component={HomeTabs} />
 				<Stack.Screen name="Settings" component={SettingsPage} />
 			</Stack.Navigator>
