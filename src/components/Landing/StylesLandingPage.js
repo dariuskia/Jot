@@ -9,7 +9,7 @@ export default StyleSheet.create({
 	headingContainer: {
 		flex: 2,
 		justifyContent: 'center',
-		paddingHorizontal: 30,
+		paddingHorizontal: 50,
 	},
 	header: {
 		color: 'white',
@@ -17,10 +17,11 @@ export default StyleSheet.create({
 		fontFamily: 'Ubuntu Medium',
 	},
 	subheading: {
-		color: 'rgba(255, 255, 255, 0.65)',
+		color: 'rgba(255, 255, 255, 0.75)',
 		fontFamily: 'Ubuntu',
 		marginTop: 10,
 		fontSize: 18,
+		lineHeight: 25,
 	},
 	carouselContainer: {
 		flex: 4,
@@ -30,31 +31,28 @@ export default StyleSheet.create({
 	},
 	carouselText: {
 		fontFamily: 'Ubuntu Medium',
-		fontSize: 20,
+		fontSize: 25,
 		textAlign: 'center',
 		color: '#fff',
 		marginTop: 30,
-		lineHeight: 30,
+		lineHeight: 40,
 	},
-	loginContainer: {
-		flex: 2,
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		marginHorizontal: 30,
-		paddingBottom: 30,
-	},
-	loginButton: {
+	contContainer: {
 		flex: 1,
-		flexDirection: 'row',
-		alignItems: 'center',
-		borderRadius: 5,
-		width: '100%',
-		marginVertical: 10,
-		paddingVertical: 25,
+		justifyContent: 'flex-end',
+		alignItems: 'flex-end',
 	},
-	loginText: {
-		color: 'white',
-		fontFamily: 'Ubuntu Medium',
+	contButton: {
+		marginBottom: 40,
+		marginRight: 40,
+		borderRadius: 5,
+		paddingHorizontal: 25,
+		paddingVertical: 15,
+		backgroundColor: '#4B5189',
+	},
+	contText: {
 		fontSize: 15,
+		fontFamily: 'Ubuntu',
+		color: 'white',
 	},
 })
