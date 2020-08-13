@@ -22,7 +22,7 @@ export default function MonthsPage({ navigation, route }) {
 			setYears(yearsList)
 
 			let monthsRef = messagesRef.doc(year).collection('months')
-			let monthsDoc = await monthsRef.get()
+			let monthsDoc = await monthsRef.orderBy('monthNum', 'asc').get()
 			let monthsList = monthsDoc.docs.map((doc) => doc.data())
 			setMonths(monthsList)
 		})()

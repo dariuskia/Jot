@@ -19,7 +19,7 @@ export default function DaysPage({ route, navigation }) {
 				.collection('messages')
 			let monthsRef = messagesRef.doc(year).collection('months')
 			let daysRef = monthsRef.doc(month.monthNum.toString()).collection('days')
-			let daysDoc = await daysRef.get()
+			let daysDoc = await daysRef.orderBy('dayNum', 'asc').get()
 			let output = daysDoc.docs.map((doc) => doc.data())
 			setDays(output)
 		})()
