@@ -3,6 +3,7 @@ import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat'
 import { View } from 'react-native'
 
 import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import Header from '../Global/Header/Header'
@@ -119,13 +120,9 @@ export default function JournalPage() {
 		}
 	}
 
-	const getUsername = async () => {
-		try {
-			let val = await AsyncStorage.getItem('@username')
-			setUsername(val)
-		} catch (error) {
-			console.log(error)
-		}
+	const getUsername = () => {
+		let displayName = auth().currentUser.displayName
+		setUsername(displayName)
 	}
 
 	useEffect(() => {

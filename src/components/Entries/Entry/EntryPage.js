@@ -4,6 +4,7 @@ import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-community/async-storage'
+import auth from '@react-native-firebase/auth'
 
 import Header from '../../Global/Header/Header'
 import COLORS from '../../../utils/Colors'
@@ -13,10 +14,8 @@ export default function EntryPage({ navigation, route }) {
 	const [username, setName] = useState()
 
 	useEffect(() => {
-		;(async () => {
-			let val = AsyncStorage.getItem('@username')
-			setName(val)
-		})()
+		let displayName = auth().currentUser.displayName
+		setName(displayName)
 	}, [])
 
 	const renderBubble = (props) => {

@@ -14,19 +14,26 @@ export default function SettingsPage({ navigation, route }) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Settings Page!</Text>
-			<View>
+			<View style={{ flexDirection: 'row' }}>
 				<TextInput
+					style={{ flexDirection: 'row' }}
 					placeholder="Enter a new name"
 					onChangeText={(text) => updateName(text)}
 				/>
 				<Button
+					style={{ flexDirection: 'row' }}
 					title="Save"
 					onPress={() => {
 						if (name != null) setName(name)
-						setTimeout(() => {
-							route.params.onGoBack()
-							navigation.goBack()
-						}, 500)
+					}}
+				/>
+			</View>
+			<View>
+				<Button
+					title="Done"
+					onPress={() => {
+						route.params.onGoBack()
+						navigation.goBack()
 					}}
 				/>
 			</View>
