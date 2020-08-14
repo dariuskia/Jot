@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
 	View,
 	Button,
@@ -11,6 +11,7 @@ import styles from './StylesLoginPage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Square from '../../../../assets/img/backgroundsquare.svg'
 import ArrowIcon from '../../../../assets/img/landingarrow.svg'
+import auth from '@react-native-firebase/auth'
 
 function Line() {
 	return (
@@ -35,6 +36,14 @@ function Arrow({ navigation, display }) {
 	)
 }
 
+function login(email, password) {
+	auth()
+		.signInWithEmailAndPassword(email, password)
+		.catch(function (error) {
+			console.log(error.code, error.message)
+		})
+}
+
 export function LoginButton({ color, text, iconName = null }) {
 	return (
 		<View style={[styles.loginButton, { backgroundColor: color }]}>
@@ -53,6 +62,9 @@ export function LoginButton({ color, text, iconName = null }) {
 }
 
 export default function LoginPage({ navigation, route }) {
+	const [email, setEmail] = useState()
+	const [password, setPassword] = useState()
+
 	return (
 		<View style={styles.container}>
 			<View style={{ position: 'absolute', left: 27, top: 20 }}>
@@ -67,6 +79,9 @@ export default function LoginPage({ navigation, route }) {
 					placeholder="Email"
 					underlineColorAndroid="#A2A5BD"
 					placeholderTextColor="#A2A5BD"
+					onChangeText={(text) => {
+						setEmail(text)
+					}}
 				/>
 				<TextInput
 					style={styles.input}
@@ -74,6 +89,9 @@ export default function LoginPage({ navigation, route }) {
 					underlineColorAndroid="#A2A5BD"
 					placeholderTextColor="#A2A5BD"
 					secureTextEntry={true}
+					onChangeText={(text) => {
+						setPassword(text)
+					}}
 				/>
 				<View style={{ alignItems: 'flex-start' }}>
 					<TouchableOpacity
@@ -90,7 +108,7 @@ export default function LoginPage({ navigation, route }) {
 				</View>
 			</View>
 			<View style={styles.buttonContainer}>
-				<TouchableOpacity onPress={() => navigation.navigate('Home')}>
+				<TouchableOpacity onPress={() => login(email, password)}>
 					<LoginButton color="#5382C8" text="Login" />
 				</TouchableOpacity>
 				<View
