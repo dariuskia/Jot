@@ -67,7 +67,7 @@ export default function LoginPage({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View style={{ position: 'absolute', left: 27, top: 20 }}>
+			<View style={{ position: 'absolute', left: 27, top: 50 }}>
 				<Arrow navigation={navigation} display={route.params.displayArrow} />
 			</View>
 			<View style={styles.header}>

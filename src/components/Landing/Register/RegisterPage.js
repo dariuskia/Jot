@@ -54,11 +54,15 @@ export default function RegisterPage({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={{ padding: 10, position: 'absolute', left: 27, top: 20 }}
-				onPress={() => navigation.goBack()}>
-				<Arrow />
-			</TouchableOpacity>
+			<View style={{ position: 'absolute', left: 27, top: 50 }}>
+				<TouchableOpacity
+					style={{
+						padding: 15,
+					}}
+					onPress={() => navigation.goBack()}>
+					<Arrow />
+				</TouchableOpacity>
+			</View>
 			<View style={styles.header}>
 				<Text style={styles.heading}>Register</Text>
 			</View>
