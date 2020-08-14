@@ -111,7 +111,7 @@ export default function App() {
 						<Stack.Screen
 							name="Login"
 							component={LoginPage}
-							initialParams={{ displayArrow: true }}
+							initialParams={{ displayArrow: false }}
 						/>
 						<Stack.Screen name="Register" component={RegisterPage} />
 						<Stack.Screen name="Home" component={HomeTabs} />

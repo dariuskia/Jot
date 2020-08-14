@@ -20,7 +20,6 @@ export default function Header({ navigation }) {
 			.catch(function (error) {
 				console.log(error)
 			})
-		setLoggedIn(false)
 	}
 
 	function updateName() {
@@ -28,8 +27,6 @@ export default function Header({ navigation }) {
 			if (user) {
 				let user = auth().currentUser
 				if (user.displayName != null) setUsername(user.displayName)
-			} else {
-				console.log('hi')
 			}
 		})
 	}
