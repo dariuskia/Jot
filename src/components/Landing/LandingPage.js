@@ -17,10 +17,9 @@ export default function LandingPage({ navigation }) {
 			</View>
 			<View style={styles.carouselContainer}>
 				<LandingCarousel />
-				{/* <CarouselFirst width={270} height={220} /> */}
 			</View>
 			<View style={styles.contContainer}>
-				<TouchableOpacity onPress={() => navigation.navigate('Login')}>
+				<TouchableOpacity onPress={() => navigation.navigate('Login', {})}>
 					<View style={styles.contButton}>
 						<Text style={styles.contText}>Continue</Text>
 					</View>

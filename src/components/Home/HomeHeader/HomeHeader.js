@@ -3,24 +3,15 @@ import styles from './StylesHomeHeader'
 import { Text, View, TouchableOpacity, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Actions from './Actions/Actions'
+import auth from '@react-native-firebase/auth'
 
 import { TIME } from '../../../utils/Time'
 
-import AsyncStorage from '@react-native-community/async-storage'
 import COLORS from '../../../utils/Colors'
-import auth from '@react-native-firebase/auth'
 
 export default function Header({ navigation }) {
 	const [userName, setUsername] = useState()
 	const [loggedIn, setLoggedIn] = useState()
-
-	function logout() {
-		auth()
-			.signOut()
-			.catch(function (error) {
-				console.log(error)
-			})
-	}
 
 	function updateName() {
 		auth().onAuthStateChanged(function (user) {
@@ -37,7 +28,6 @@ export default function Header({ navigation }) {
 
 	return (
 		<View style={styles.header}>
-			<Button title="logout" onPress={() => logout()} />
 			<View style={styles.headingContainer}>
 				<View>
 					<Text style={styles.greeting}>

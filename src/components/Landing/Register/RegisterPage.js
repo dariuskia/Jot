@@ -99,7 +99,9 @@ export default function RegisterPage({ navigation }) {
 			</View>
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity
-					onPress={() => register(email, password, confirmPassword)}>
+					onPress={() => {
+						register(email, password, confirmPassword)
+					}}>
 					<LoginButton color="#318155" text="Create Account" />
 				</TouchableOpacity>
 			</View>

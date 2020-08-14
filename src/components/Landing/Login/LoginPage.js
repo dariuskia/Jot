@@ -65,6 +65,8 @@ export default function LoginPage({ navigation, route }) {
 	const [email, setEmail] = useState()
 	const [password, setPassword] = useState()
 
+	// useEffect(() => (console.disableYellowBox = true), [])
+
 	return (
 		<View style={styles.container}>
 			<View style={{ position: 'absolute', left: 27, top: 50 }}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import { NavigationContainer } from '@react-navigation/native'
@@ -6,27 +6,54 @@ import { NavigationContainer } from '@react-navigation/native'
 export default function SettingsPage({ navigation, route }) {
 	const [name, updateName] = useState()
 
-	setName = (name) => {
+	const setName = (name) => {
 		let user = auth().currentUser
 		user.updateProfile({ displayName: name })
 	}
 
+	function logout() {
+		auth()
+			.signOut()
+			.catch(function (error) {
+				console.log(error)
+			})
+	}
+
+	function testNav() {
+		navigation.reset({
+			index: 0,
+			routes: [{ name: 'Home' }],
+		})
+	}
+
+	useEffect(() => {
+		auth().onAuthStateChanged(function (user) {
+			if (!user) {
+				// navigation.reset({})
+			}
+		})
+	})
+
+	useEffect(() => (console.disableYellowBox = true), [])
+
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>Settings Page!</Text>
-			<View style={{ flexDirection: 'row' }}>
-				<TextInput
-					style={{ flexDirection: 'row' }}
-					placeholder="Enter a new name"
-					onChangeText={(text) => updateName(text)}
-				/>
-				<Button
-					style={{ flexDirection: 'row' }}
-					title="Save"
-					onPress={() => {
-						if (name != null) setName(name)
-					}}
-				/>
+			<View>
+				<Text style={styles.text}>Settings Page!</Text>
+				<View style={{ flexDirection: 'row' }}>
+					<TextInput
+						style={{ flexDirection: 'row' }}
+						placeholder="Enter a new name"
+						onChangeText={(text) => updateName(text)}
+					/>
+					<Button
+						style={{ flexDirection: 'row' }}
+						title="Save"
+						onPress={() => {
+							if (name != null) setName(name)
+						}}
+					/>
+				</View>
 			</View>
 			<View>
 				<Button
@@ -36,6 +63,9 @@ export default function SettingsPage({ navigation, route }) {
 						navigation.goBack()
 					}}
 				/>
+			</View>
+			<View>
+				<Button title="Logout" onPress={() => testNav()} />
 			</View>
 		</View>
 	)
