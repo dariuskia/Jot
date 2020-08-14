@@ -12,6 +12,7 @@ import SettingsPage from './src/components/Settings/SettingsPage'
 import Entries from './src/components/Entries/Entries'
 import LoginPage from './src/components/Landing/Login/LoginPage'
 import RegisterPage from './src/components/Landing/Register/RegisterPage'
+import PersonalizePage from './src/components/Landing/Personalize/PersonalizePage'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from './src/utils/Colors'
@@ -20,16 +21,6 @@ const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
 function HomeTabs({ navigation }) {
-	useEffect(() => {
-		auth().onAuthStateChanged(function (user) {
-			if (!user) {
-				navigation.reset({
-					index: 0,
-					routes: [{ name: 'Login' }],
-				})
-			}
-		})
-	})
 	return (
 		<Tab.Navigator
 			screenOptions={({ route }) => ({
@@ -67,38 +58,68 @@ function HomeTabs({ navigation }) {
 export default function App() {
 	const [firstOpen, setFirstOpen] = useState(false)
 	const [loggedIn, setLoggedIn] = useState()
+	const [displayName, setDisplayName] = useState()
+
+	const isFirstOpen = async () => {
+		try {
+			let recv = await AsyncStorage.getItem('@firstOpen')
+			return recv == null
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 	useEffect(() => {
 		auth().onAuthStateChanged(function (user) {
 			if (user) {
 				setLoggedIn(true)
+				setDisplayName(auth().currentUser.displayName)
 			} else {
 				setLoggedIn(false)
+				setDisplayName(null)
 			}
 		})
 	})
 
-	if (firstOpen) {
-		return (
-			<NavigationContainer>
-				<Stack.Navigator headerMode="none">
-					<Stack.Screen name="Landing" component={LandingPage} />
-					<Stack.Screen
-						name="Login"
-						component={LoginPage}
-						initialParams={{ displayArrow: true }}
-					/>
-					<Stack.Screen name="Register" component={RegisterPage} />
-					<Stack.Screen name="Home" component={HomeTabs} />
-					<Stack.Screen name="Settings" component={SettingsPage} />
-				</Stack.Navigator>
-			</NavigationContainer>
-		)
-	} else {
-		if (loggedIn) {
+	if (loggedIn) {
+		if (displayName == null) {
 			return (
 				<NavigationContainer>
 					<Stack.Navigator headerMode="none">
+						<Stack.Screen name="Personalize" component={PersonalizePage} />
+						<Stack.Screen name="Home" component={HomeTabs} />
+						<Stack.Screen name="Settings" component={SettingsPage} />
+					</Stack.Navigator>
+				</NavigationContainer>
+			)
+		} else {
+			return (
+				<NavigationContainer>
+					<Stack.Navigator headerMode="none">
+						<Stack.Screen name="Home" component={HomeTabs} />
+						<Stack.Screen name="Settings" component={SettingsPage} />
+					</Stack.Navigator>
+				</NavigationContainer>
+			)
+		}
+	} else {
+		// (async function () {
+		// 	setFirstOpen(isFirstOpen())
+		// })()
+		if (firstOpen) {
+			console.log('firstOpen')
+			return (
+				<NavigationContainer>
+					<Stack.Navigator headerMode="none">
+						<Stack.Screen name="Landing" component={LandingPage} />
+						<Stack.Screen
+							name="Login"
+							component={LoginPage}
+							initialParams={{
+								displayArrow: true,
+							}}
+						/>
+						<Stack.Screen name="Register" component={RegisterPage} />
 						<Stack.Screen name="Home" component={HomeTabs} />
 						<Stack.Screen name="Settings" component={SettingsPage} />
 					</Stack.Navigator>
