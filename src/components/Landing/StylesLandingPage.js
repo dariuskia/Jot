@@ -7,9 +7,10 @@ export default StyleSheet.create({
 		backgroundColor: '#272B58',
 	},
 	headingContainer: {
-		flex: 2,
-		justifyContent: 'center',
+		flex: 3,
+		justifyContent: 'flex-end',
 		paddingHorizontal: 50,
+		marginBottom: 20,
 	},
 	header: {
 		color: 'white',
@@ -24,7 +25,7 @@ export default StyleSheet.create({
 		lineHeight: 25,
 	},
 	carouselContainer: {
-		flex: 4,
+		flex: 8,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		marginHorizontal: 30,
@@ -38,7 +39,7 @@ export default StyleSheet.create({
 		lineHeight: 40,
 	},
 	contContainer: {
-		flex: 1,
+		flex: 2,
 		justifyContent: 'flex-end',
 		alignItems: 'flex-end',
 	},
