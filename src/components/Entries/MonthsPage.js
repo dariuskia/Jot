@@ -5,17 +5,25 @@ import Month from './Month/Month'
 import Header from '../Global/Header/Header'
 import firestore from '@react-native-firebase/firestore'
 import { Picker } from '@react-native-community/picker'
+import auth from '@react-native-firebase/auth'
 
 export default function MonthsPage({ navigation, route }) {
 	const { tabNavigation } = route.params
 	const [years, setYears] = useState()
 	const [year, setYear] = useState(new Date().getFullYear().toString())
 	const [months, setMonths] = useState([])
+
+	const getUUID = () => {
+		let uuid = auth().currentUser.uid
+		return uuid
+	}
+
 	useEffect(() => {
+		let uuid = getUUID()
 		;(async function () {
 			let messagesRef = firestore()
 				.collection('users')
-				.doc('Soeonz5yjvXhkofc8KKsmpyQbtB3')
+				.doc(uuid)
 				.collection('messages')
 			let yearsDoc = await messagesRef.get()
 			let yearsList = yearsDoc.docs.map((doc) => doc.data().yearName)
