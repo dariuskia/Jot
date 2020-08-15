@@ -60,13 +60,19 @@ export default function JournalPage() {
 	const clearMessages = async () => {
 		try {
 			setMessages([])
-			await AsyncStorage.removeItem('@messages')
+			await AsyncStorage.removeItem('@messages-' + UUID)
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
+	const getUUID = () => {
+		let uuid = auth().currentUser.uid
+		return uuid
+	}
+
 	const storeMessages = async () => {
+		let uuid = getUUID()
 		let firstMessageDate = new Date(messages[messages.length - 1]['createdAt'])
 		let [entryYear, entryMonth, entryDay] = [
 			firstMessageDate.getFullYear(),
@@ -74,15 +80,18 @@ export default function JournalPage() {
 			firstMessageDate.getDate(),
 		].map((num) => num.toString())
 
-		let messagesRef = firestore()
-			.collection('users')
-			.doc('Soeonz5yjvXhkofc8KKsmpyQbtB3')
-			.collection('messages')
+		let usersRef = firestore().collection('users')
+
+		let messagesRef = usersRef.doc(uuid).collection('messages')
 		let monthRef = messagesRef
 			.doc(entryYear)
 			.collection('months')
 			.doc(entryMonth)
 		let newEntryRef = monthRef.collection('days').doc(entryDay)
+
+		await usersRef.doc(uuid).set({
+			invisField: 'true',
+		})
 
 		await messagesRef.doc(entryYear).set({
 			yearName: entryYear,
@@ -99,21 +108,29 @@ export default function JournalPage() {
 	}
 
 	const updateMessages = async (newMessages) => {
+		let uuid = getUUID()
 		try {
-			await AsyncStorage.setItem('@messages', JSON.stringify(newMessages))
+			await AsyncStorage.setItem(
+				'@messages-' + uuid,
+				JSON.stringify(newMessages)
+			)
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
 	const recvMessages = async (initialMessages) => {
+		let uuid = getUUID()
 		try {
-			let newMessages = await AsyncStorage.getItem('@messages')
+			let newMessages = await AsyncStorage.getItem('@messages-' + uuid)
 			if (newMessages != null) {
 				setMessages(JSON.parse(newMessages))
 			} else {
 				setMessages(greeting)
-				await AsyncStorage.setItem('@messages', JSON.stringify(initialMessages))
+				await AsyncStorage.setItem(
+					'@messages-' + uuid,
+					JSON.stringify(initialMessages)
+				)
 			}
 		} catch (error) {
 			console.log(error)
@@ -129,6 +146,7 @@ export default function JournalPage() {
 		;(async () => {
 			try {
 				getUsername()
+				getUUID()
 				USER.name = username
 				if (messages != null) {
 					let firstMessageDate = new Date(
@@ -143,6 +161,7 @@ export default function JournalPage() {
 					recvMessages(greeting)
 				}
 				if (!storageReceived) {
+					console.log('receiving')
 					recvMessages()
 					alreadyReceived(true)
 				}
@@ -151,7 +170,6 @@ export default function JournalPage() {
 			}
 		})()
 	})
-
 	// helper method that sends a message
 	function handleSend(msg = []) {
 		let newMessages = [msg[0], ...messages]
