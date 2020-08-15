@@ -19,22 +19,16 @@ export default function SettingsPage({ navigation, route }) {
 			})
 	}
 
-	function testNav() {
-		navigation.reset({
-			index: 0,
-			routes: [{ name: 'Home' }],
-		})
-	}
-
 	useEffect(() => {
 		auth().onAuthStateChanged(function (user) {
 			if (!user) {
-				// navigation.reset({})
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'Login' }],
+				})
 			}
 		})
 	})
-
-	useEffect(() => (console.disableYellowBox = true), [])
 
 	return (
 		<View style={styles.container}>
@@ -65,7 +59,7 @@ export default function SettingsPage({ navigation, route }) {
 				/>
 			</View>
 			<View>
-				<Button title="Logout" onPress={() => testNav()} />
+				<Button title="Logout" onPress={() => logout()} />
 			</View>
 		</View>
 	)
