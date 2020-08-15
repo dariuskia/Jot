@@ -25,8 +25,6 @@ export default function DaysPage({ route, navigation }) {
 		})()
 	}, [])
 
-	useEffect(() => (console.disableYellowBox = true), [])
-
 	return (
 		<View style={{ flex: 1 }}>
 			<Header title={month.monthName} navigation={navigation} back />
