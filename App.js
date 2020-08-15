@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -56,13 +57,14 @@ function HomeTabs({ navigation }) {
 }
 
 export default function App() {
-	const [firstOpen, setFirstOpen] = useState(false)
+	const [firstOpen, setFirstOpen] = useState()
 	const [loggedIn, setLoggedIn] = useState()
 	const [displayName, setDisplayName] = useState()
+	const [ran, setRan] = useState(false)
 
 	const isFirstOpen = async () => {
 		try {
-			let recv = await AsyncStorage.getItem('@firstOpen')
+			let recv = await AsyncStorage.getItem('@opened')
 			return recv == null
 		} catch (error) {
 			console.log(error)
@@ -74,12 +76,29 @@ export default function App() {
 			if (user) {
 				setLoggedIn(true)
 				setDisplayName(auth().currentUser.displayName)
+				AsyncStorage.setItem('@opened', 'true')
 			} else {
 				setLoggedIn(false)
 				setDisplayName(null)
 			}
 		})
 	})
+	;(async function () {
+		if (!ran) {
+			try {
+				let recv = await AsyncStorage.getItem('@opened')
+				setFirstOpen(recv == null)
+			} catch (error) {
+				console.log(error)
+			}
+			setRan(true)
+		}
+	})()
+	// useEffect(() => {
+	// 	;(async function () {
+	// 		setFirstOpen(isFirstOpen())
+	// 	})()
+	// }, [])
 
 	if (loggedIn) {
 		if (displayName == null) {
@@ -103,11 +122,7 @@ export default function App() {
 			)
 		}
 	} else {
-		// (async function () {
-		// 	setFirstOpen(isFirstOpen())
-		// })()
-		if (firstOpen) {
-			console.log('firstOpen')
+		if (firstOpen === true) {
 			return (
 				<NavigationContainer>
 					<Stack.Navigator headerMode="none">
@@ -125,7 +140,7 @@ export default function App() {
 					</Stack.Navigator>
 				</NavigationContainer>
 			)
-		} else {
+		} else if (firstOpen === false) {
 			return (
 				<NavigationContainer>
 					<Stack.Navigator headerMode="none">
@@ -140,6 +155,9 @@ export default function App() {
 					</Stack.Navigator>
 				</NavigationContainer>
 			)
+		} else {
+			// implement loading screen
+			return <View></View>
 		}
 	}
 }
