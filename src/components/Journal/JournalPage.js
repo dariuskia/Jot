@@ -163,7 +163,6 @@ export default function JournalPage() {
 					recvMessages(greeting)
 				}
 				if (!storageReceived) {
-					console.log('receiving')
 					recvMessages()
 					alreadyReceived(true)
 				}
