@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 import Header from '../Global/Header/Header'
 import COLORS from '../../utils/Colors'
+import genResponse from './Bot/Bot.js'
 
 function genID(length = 30) {
 	var result = ''
@@ -162,7 +163,6 @@ export default function JournalPage() {
 					recvMessages(greeting)
 				}
 				if (!storageReceived) {
-					console.log('receiving')
 					recvMessages()
 					alreadyReceived(true)
 				}
@@ -172,22 +172,27 @@ export default function JournalPage() {
 		})()
 	})
 
+	function respond(text) {
+		genResponse(text).then((response) => {
+			if (response != 'No good match found in KB.')
+				setMessages((prevMessages) =>
+					GiftedChat.append(prevMessages, {
+						_id: genID(),
+						createdAt: new Date(),
+						text: response,
+						user: JOT,
+					})
+				)
+		})
+	}
+
 	// helper method that sends a message
 	function handleSend(msg = []) {
 		let newMessages = [msg[0], ...messages]
 		setMessages(newMessages)
 		updateMessages(newMessages)
 		let text = msg[0].text
-		if (text == 'gm') {
-			setMessages((prevMessages) =>
-				GiftedChat.append(prevMessages, {
-					_id: genID(),
-					createdAt: new Date(),
-					text: 'good morning!',
-					user: JOT,
-				})
-			)
-		}
+		respond(text)
 	}
 
 	const renderBubble = (props) => {
