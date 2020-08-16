@@ -59,8 +59,9 @@ export default function JournalPage() {
 
 	const clearMessages = async () => {
 		try {
+			let uuid = getUUID()
 			setMessages([])
-			await AsyncStorage.removeItem('@messages-' + UUID)
+			await AsyncStorage.removeItem('@messages-' + uuid)
 		} catch (error) {
 			console.log(error)
 		}
@@ -148,7 +149,7 @@ export default function JournalPage() {
 				getUsername()
 				getUUID()
 				USER.name = username
-				if (messages != null) {
+				if (!(messages == null || messages.length == 0)) {
 					let firstMessageDate = new Date(
 						messages[messages.length - 1]['createdAt']
 					).toDateString()
@@ -170,6 +171,7 @@ export default function JournalPage() {
 			}
 		})()
 	})
+
 	// helper method that sends a message
 	function handleSend(msg = []) {
 		let newMessages = [msg[0], ...messages]
