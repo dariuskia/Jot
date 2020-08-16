@@ -163,6 +163,7 @@ export default function JournalPage() {
 					recvMessages(greeting)
 				}
 				if (!storageReceived) {
+					console.log('receiving')
 					recvMessages()
 					alreadyReceived(true)
 				}
@@ -172,27 +173,25 @@ export default function JournalPage() {
 		})()
 	})
 
-	function respond(text) {
-		genResponse(text).then((response) => {
-			if (response != 'No good match found in KB.')
-				setMessages((prevMessages) =>
-					GiftedChat.append(prevMessages, {
-						_id: genID(),
-						createdAt: new Date(),
-						text: response,
-						user: JOT,
-					})
-				)
-		})
-	}
-
 	// helper method that sends a message
 	function handleSend(msg = []) {
 		let newMessages = [msg[0], ...messages]
 		setMessages(newMessages)
 		updateMessages(newMessages)
 		let text = msg[0].text
-		respond(text)
+		genResponse(text).then((response) => {
+			let nextMessages = [
+				{
+					_id: genID(),
+					createdAt: new Date(),
+					text: response,
+					user: JOT,
+				},
+				...newMessages,
+			]
+			setMessages(nextMessages)
+			updateMessages(nextMessages)
+		})
 	}
 
 	const renderBubble = (props) => {
