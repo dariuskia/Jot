@@ -14,6 +14,7 @@ import Entries from './src/components/Entries/Entries'
 import LoginPage from './src/components/Landing/Login/LoginPage'
 import RegisterPage from './src/components/Landing/Register/RegisterPage'
 import PersonalizePage from './src/components/Landing/Personalize/PersonalizePage'
+import AnalyticsPage from './src/components/Analytics/AnalyticsPage'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from './src/utils/Colors'
@@ -34,6 +35,8 @@ function HomeTabs({ navigation }) {
 						iconName = focused ? 'pencil' : 'pencil-outline'
 					} else if (route.name === 'Entries') {
 						iconName = focused ? 'bookmark' : 'bookmark-outline'
+					} else if (route.name === 'Analytics') {
+						iconName = focused ? 'chart-timeline-variant' : 'chart-line-variant'
 					}
 
 					return <Icon name={iconName} size={size} color={color} />
@@ -52,6 +55,7 @@ function HomeTabs({ navigation }) {
 			<Tab.Screen name="Home" component={HomePage} />
 			<Tab.Screen name="Journal" component={JournalPage} />
 			<Tab.Screen name="Entries" component={Entries} />
+			<Tab.Screen name="Analytics" component={AnalyticsPage} />
 		</Tab.Navigator>
 	)
 }
