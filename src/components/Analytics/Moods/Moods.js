@@ -68,7 +68,7 @@ export default function Mood() {
 	}, [])
 
 	return (
-		<ScrollView horizontal={true}>
+		<ScrollView horizontal={true} style={styles.container}>
 			{days.map((day) => (
 				<Card day={day.day} mood={day.sentiment && day.sentiment} />
 			))}
@@ -76,4 +76,8 @@ export default function Mood() {
 	)
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	container: {
+		marginTop: 15,
+	},
+})
