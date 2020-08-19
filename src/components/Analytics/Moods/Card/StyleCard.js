@@ -41,7 +41,7 @@ export const styles = (mood) => {
 		},
 		text: {
 			color: textColor,
-			fontFamily: 'Ubuntu',
+			fontFamily: 'Ubuntu Medium',
 			marginVertical: 20,
 			fontSize: 20,
 		},
