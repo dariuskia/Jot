@@ -10,6 +10,7 @@ const dark = {
 		greeting: '#add8e6',
 		settings: '#7C81B4',
 	},
+	gradient: ['#6C74BA', '#5D64A1', '#52588B', '#474C77'],
 }
 const light = {
 	primary: '#5391EF',
@@ -21,6 +22,7 @@ const light = {
 		greeting: 'rgba(255, 255, 255, 0.5)',
 		settings: 'rgba(255, 255, 255, 0.5)',
 	},
+	gradient: ['#62A0FF', '#5391EF', '#4B80D0', '#4972B0'],
 }
 
 export default {

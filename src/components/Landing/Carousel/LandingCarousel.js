@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import CarouselFirst from '../../../../assets/img/carousel1.svg'
-import CarouselSecond from '../../../../assets/img/carousel2.svg'
-import CarouselThird from '../../../../assets/img/carousel3.svg'
+import CarouselFirst from '../../../../assets/img/carousel/carousel1.svg'
+import CarouselSecond from '../../../../assets/img/carousel/carousel2.svg'
+import CarouselThird from '../../../../assets/img/carousel/carousel3.svg'
 import styles from './StylesLandingCarousel'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 

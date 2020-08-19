@@ -9,7 +9,6 @@ export default StyleSheet.create({
 		marginVertical: 15,
 	},
 	body: {
-		flex: 1,
 		padding: 30,
 	},
 	heading: {
