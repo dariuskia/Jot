@@ -70,7 +70,11 @@ export default function Mood() {
 	return (
 		<ScrollView horizontal={true} style={styles.container}>
 			{days.map((day) => (
-				<Card day={day.day} mood={day.sentiment && day.sentiment} />
+				<Card
+					key={day.day}
+					day={day.day}
+					mood={day.sentiment && day.sentiment}
+				/>
 			))}
 		</ScrollView>
 	)
