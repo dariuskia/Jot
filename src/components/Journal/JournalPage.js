@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 import Header from '../Global/Header/Header'
 import COLORS from '../../utils/Colors'
-import genResponse from './Bot/Bot.js'
+import genResponse from '../../apis/ChatBot/ChatBot.js'
 
 function genID(length = 30) {
 	var result = ''
