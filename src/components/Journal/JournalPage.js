@@ -77,9 +77,36 @@ export default function JournalPage() {
 		return uuid
 	}
 
+	const getHighestAndAvg = () => {
+		let output = { avg: null, highest: null }
+		let total = 0
+		let numItems = 0
+		for (let msg of messages) {
+			if (msg.user.name != 'JOT' && msg.sentiment != null) {
+				numItems++
+				total += msg.sentiment
+				if (output.highest == null) {
+					output.highest = msg
+				} else {
+					if (msg.sentiment > output.highest.sentiment) {
+						output.highest = msg
+					} else if (msg.sentiment == output.highest.sentiment) {
+						if (msg.text.length > output.highest.text.length) {
+							output.highest = msg
+						}
+					}
+				}
+			}
+		}
+		let avg = total / numItems
+		output.avg = parseFloat(avg.toFixed(2))
+		return output
+	}
+
 	//store messages
 	const storeMessages = async () => {
 		let uuid = getUUID()
+		let sentimentData = getHighestAndAvg()
 		let firstMessageDate = new Date(messages[messages.length - 1]['createdAt'])
 		let [entryYear, entryMonth, entryDay] = [
 			firstMessageDate.getFullYear(),
@@ -111,6 +138,8 @@ export default function JournalPage() {
 		await newEntryRef.set({
 			messages: JSON.stringify(messages),
 			dayNum: parseInt(entryDay),
+			highest: JSON.stringify(sentimentData.highest),
+			sentiment: sentimentData.avg,
 		})
 	}
 
@@ -126,7 +155,7 @@ export default function JournalPage() {
 		}
 	}
 
-	const recvMessages = async (initialMessages) => {
+	const recvMessages = async () => {
 		let uuid = getUUID()
 		try {
 			let newMessages = await AsyncStorage.getItem('@messages-' + uuid)
@@ -136,12 +165,19 @@ export default function JournalPage() {
 				setMessages(greeting)
 				await AsyncStorage.setItem(
 					'@messages-' + uuid,
-					JSON.stringify(initialMessages)
+					JSON.stringify(greeting)
 				)
 			}
 		} catch (error) {
 			console.log(error)
 		}
+	}
+
+	function isNewDay() {
+		let firstMessageDate = new Date(
+			messages[messages.length - 1]['createdAt']
+		).toDateString()
+		return firstMessageDate != new Date().toDateString()
 	}
 
 	const getUsername = () => {
@@ -155,16 +191,13 @@ export default function JournalPage() {
 				getUUID()
 				USER.name = username
 				if (!(messages == null || messages.length == 0)) {
-					let firstMessageDate = new Date(
-						messages[messages.length - 1]['createdAt']
-					).toDateString()
-					if (firstMessageDate != new Date().toDateString()) {
+					if (isNewDay()) {
 						storeMessages()
 						clearMessages()
-						recvMessages(greeting)
+						recvMessages()
 					}
 				} else {
-					recvMessages(greeting)
+					recvMessages()
 				}
 				if (!storageReceived) {
 					recvMessages()
@@ -254,19 +287,22 @@ export default function JournalPage() {
 		<View style={{ flex: 1 }}>
 			<Header title="Jot" locked={false} />
 			<GiftedChat
-				messages={
-					typeof messages !== 'undefined' && messages[0].user == USER
-						? [
-								{
-									_id: 'typing...',
-									createdAt: new Date(),
-									text: '',
-									user: JOT,
-								},
-								...messages,
-						  ]
-						: messages
-				}
+				messages={messages}
+				// messages={
+				// 	messages != null &&
+				// 	typeof messages !== 'undefined' &&
+				// 	messages[0].user == USER
+				// 		? [
+				// 				{
+				// 					_id: 'typing...',
+				// 					createdAt: new Date(),
+				// 					text: '',
+				// 					user: JOT,
+				// 				},
+				// 				...messages,
+				// 		  ]
+				// 		: messages
+				// }
 				onSend={(newMessage) => handleSend(newMessage)}
 				// renderInputToolbar={() => {
 				//   <TextInput editable={false} />
