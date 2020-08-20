@@ -15,7 +15,6 @@ import LoginPage from './src/components/Landing/Login/LoginPage'
 import RegisterPage from './src/components/Landing/Register/RegisterPage'
 import PersonalizePage from './src/components/Landing/Personalize/PersonalizePage'
 import AnalyticsPage from './src/components/Analytics/AnalyticsPage'
-import ClientPage from './src/api/SentimentAnalysis/Client'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from './src/utils/Colors'
@@ -122,7 +121,6 @@ export default function App() {
 					<Stack.Navigator headerMode="none">
 						<Stack.Screen name="Home" component={HomeTabs} />
 						<Stack.Screen name="Settings" component={SettingsPage} />
-						<Stack.Screen name="Client" component={ClientPage} />
 					</Stack.Navigator>
 				</NavigationContainer>
 			)
