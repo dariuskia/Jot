@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat'
 import { View } from 'react-native'
+import { TypingAnimation } from 'react-native-typing-animation'
 
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
@@ -8,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 import Header from '../Global/Header/Header'
 import COLORS from '../../utils/Colors'
-import genResponse from '../../apis/ChatBot/ChatBot.js'
+import genResponse from '../../api/ChatBot/ChatBot.js'
 
 function genID(length = 30) {
 	var result = ''
@@ -57,7 +58,9 @@ export default function JournalPage() {
 	const [username, setUsername] = useState(null)
 	const [messages, setMessages] = useState()
 	const [storageReceived, alreadyReceived] = useState(false)
+	const [reply, toggleReply] = useState(true)
 
+	//clear messages
 	const clearMessages = async () => {
 		try {
 			let uuid = getUUID()
@@ -73,6 +76,7 @@ export default function JournalPage() {
 		return uuid
 	}
 
+	//store messages
 	const storeMessages = async () => {
 		let uuid = getUUID()
 		let firstMessageDate = new Date(messages[messages.length - 1]['createdAt'])
@@ -178,6 +182,7 @@ export default function JournalPage() {
 		setMessages(newMessages)
 		updateMessages(newMessages)
 		let text = msg[0].text
+		// if (reply) {
 		genResponse(text).then((response) => {
 			let nextMessages = [
 				{
@@ -191,9 +196,38 @@ export default function JournalPage() {
 			setMessages(nextMessages)
 			updateMessages(nextMessages)
 		})
+		// }
 	}
 
+	const TypingIndicator = () => <TypingAnimation />
+
 	const renderBubble = (props) => {
+		if (props.currentMessage.id === 'typing...')
+			return (
+				<Bubble
+					{...props}
+					wrapperStyle={{
+						left: {
+							backgroundColor: COLORS.backgroundGray,
+						},
+						right: {
+							backgroundColor: COLORS.themed.secondary,
+						},
+					}}
+					textStyle={{
+						left: {
+							fontFamily: 'Rubik',
+							fontSize: 16,
+						},
+						right: {
+							fontFamily: 'Rubik',
+							fontSize: 16,
+						},
+					}}>
+					<TypingIndicator />
+				</Bubble>
+			)
+
 		return (
 			<Bubble
 				{...props}
@@ -224,6 +258,19 @@ export default function JournalPage() {
 			<Header title="Jot" locked={false} />
 			<GiftedChat
 				messages={messages}
+				// 	if (messages[0].user == USER) {
+				// 		return ([
+				// 				{
+				// 					_id: 'typing...',
+				// 					createdAt: new Date(),
+				// 					text: '',
+				// 					user: JOT,
+				// 				},
+				// 				...messages,
+				// 		  ])
+				// 		} else { return messages
+				// 		}
+				// }
 				onSend={(newMessage) => handleSend(newMessage)}
 				// renderInputToolbar={() => {
 				//   <TextInput editable={false} />
