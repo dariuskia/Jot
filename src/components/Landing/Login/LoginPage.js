@@ -40,6 +40,7 @@ function login(email, password) {
 	auth()
 		.signInWithEmailAndPassword(email, password)
 		.catch(function (error) {
+			alert(error.message)
 			console.log(error.code, error.message)
 		})
 }
