@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Header from '../Global/Header/Header'
 import COLORS from '../../utils/Colors'
 import genResponse from '../../api/ChatBot/ChatBot.js'
+import { sentimentAnalysis } from '../../api/SentimentAnalysis/SentimentAnalysis'
 
 function genID(length = 30) {
 	var result = ''
@@ -147,8 +148,7 @@ export default function JournalPage() {
 		let displayName = auth().currentUser.displayName
 		setUsername(displayName)
 	}
-
-	useEffect(() => {
+	let output = useEffect(() => {
 		;(async () => {
 			try {
 				getUsername()
@@ -178,9 +178,13 @@ export default function JournalPage() {
 
 	// helper method that sends a message
 	function handleSend(msg = []) {
-		let newMessages = [msg[0], ...messages]
-		setMessages(newMessages)
-		updateMessages(newMessages)
+		let newMessages
+		sentimentAnalysis(msg[0]).then((response) => {
+			msg[0].sentiment = response
+			newMessages = [msg[0], ...messages]
+			setMessages(newMessages)
+			updateMessages(newMessages)
+		})
 		let text = msg[0].text
 		// if (reply) {
 		genResponse(text).then((response) => {
@@ -199,33 +203,26 @@ export default function JournalPage() {
 		// }
 	}
 
-	const TypingIndicator = () => <TypingAnimation />
-
 	const renderBubble = (props) => {
-		if (props.currentMessage.id === 'typing...')
+		if (props.currentMessage._id === 'typing...')
 			return (
 				<Bubble
 					{...props}
-					wrapperStyle={{
-						left: {
-							backgroundColor: COLORS.backgroundGray,
-						},
-						right: {
-							backgroundColor: COLORS.themed.secondary,
-						},
-					}}
-					textStyle={{
-						left: {
-							fontFamily: 'Rubik',
-							fontSize: 16,
-						},
-						right: {
-							fontFamily: 'Rubik',
-							fontSize: 16,
-						},
-					}}>
-					<TypingIndicator />
-				</Bubble>
+					renderCustomView={() => (
+						<View
+							style={{
+								height: 30,
+								length: 30,
+							}}>
+							<TypingAnimation
+								dotMargin={5}
+								dotSpeed={0.1}
+								dotColor={'#aaaaaa'}
+							/>
+						</View>
+					)}
+					renderTime={() => <View />}
+				/>
 			)
 
 		return (
@@ -257,20 +254,19 @@ export default function JournalPage() {
 		<View style={{ flex: 1 }}>
 			<Header title="Jot" locked={false} />
 			<GiftedChat
-				messages={messages}
-				// 	if (messages[0].user == USER) {
-				// 		return ([
-				// 				{
-				// 					_id: 'typing...',
-				// 					createdAt: new Date(),
-				// 					text: '',
-				// 					user: JOT,
-				// 				},
-				// 				...messages,
-				// 		  ])
-				// 		} else { return messages
-				// 		}
-				// }
+				messages={
+					typeof messages !== 'undefined' && messages[0].user == USER
+						? [
+								{
+									_id: 'typing...',
+									createdAt: new Date(),
+									text: '',
+									user: JOT,
+								},
+								...messages,
+						  ]
+						: messages
+				}
 				onSend={(newMessage) => handleSend(newMessage)}
 				// renderInputToolbar={() => {
 				//   <TextInput editable={false} />
