@@ -48,10 +48,6 @@ export default function Header({ navigation }) {
 					</Text>
 					<Text style={styles.name}>{userName}</Text>
 				</View>
-				<Button
-					title="click me"
-					onPress={() => navigation.navigate('Client')}
-				/>
 				<TouchableOpacity
 					onPress={() => {
 						navigation.navigate('Settings', {
