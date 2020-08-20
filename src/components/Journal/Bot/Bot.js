@@ -2,7 +2,7 @@ export default function genResponse(question) {
 	const fetch = require('node-fetch')
 
 	const url =
-		'https://jotchatbot.azurewebsites.net/qnamaker/knowledgebases/5de52b51-0039-4283-a11e-501d4ea233a1/generateAnswer'
+		'https://jotmessagingbot.azurewebsites.net/qnamaker/knowledgebases/35b88baf-7111-48b0-ad0d-5f43da33bb2f/generateAnswer'
 
 	const data = {
 		question: question,
@@ -11,7 +11,7 @@ export default function genResponse(question) {
 	const params = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: 'EndpointKey 22cd3735-7846-4a41-ab2e-bbe208a45924',
+			Authorization: 'EndpointKey d9b74b19-567b-46e2-ad70-e5bb95a669cc',
 		},
 		method: 'POST',
 		body: JSON.stringify(data),
