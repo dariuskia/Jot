@@ -4,14 +4,27 @@ import styles from './StylesHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from '../../../utils/Colors'
 
-export default Header = ({ title, navigation, locked, back }) => {
+export default Header = ({
+	title,
+	navigation,
+	locked,
+	back,
+	enableChat,
+	onclick,
+	reply,
+}) => {
 	const toggleLock = function () {
 		console.log('lock')
 	}
 
 	return (
 		<View style={styles.container}>
-			<BackButton navigation={navigation} display={back} />
+			<BackButton
+				navigation={navigation}
+				onpress={onclick}
+				display={back}
+				reply={reply}
+			/>
 			<Text style={styles.title}>{title}</Text>
 			<TouchableOpacity onPress={toggleLock}>
 				{locked != null ? (
@@ -29,16 +42,45 @@ export default Header = ({ title, navigation, locked, back }) => {
 	)
 }
 
-function BackButton({ pageName, navigation, display }) {
+function BackButton({ pageName, navigation, display, onpress, reply }) {
 	if (!display) return <View style={{ width: 30, height: 30 }} />
-	return (
-		<TouchableOpacity onPress={() => navigation.goBack()}>
-			<Icon
-				name="chevron-left"
-				size={30}
-				color="white"
-				style={styles.back('Journal')}
-			/>
-		</TouchableOpacity>
-	)
+	if (display === 'entry') {
+		return (
+			<TouchableOpacity onPress={() => navigation.goBack()}>
+				<Icon
+					name="chevron-left"
+					size={30}
+					color="white"
+					style={styles.back('Journal')}
+				/>
+			</TouchableOpacity>
+		)
+	}
+	if (display === 'journal') {
+		return reply === true ? (
+			<TouchableOpacity
+				onPress={() => {
+					onpress()
+				}}>
+				<Icon
+					name="chat"
+					size={30}
+					color="white"
+					style={styles.back('Journal')}
+				/>
+			</TouchableOpacity>
+		) : (
+			<TouchableOpacity
+				onPress={() => {
+					onpress()
+				}}>
+				<Icon
+					name="chat-outline"
+					size={30}
+					color="white"
+					style={styles.back('Journal')}
+				/>
+			</TouchableOpacity>
+		)
+	}
 }

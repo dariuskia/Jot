@@ -60,6 +60,12 @@ export default function JournalPage() {
 	const [messages, setMessages] = useState()
 	const [storageReceived, alreadyReceived] = useState(false)
 	const [reply, toggleReply] = useState(true)
+	const [typing, setTyping] = useState(false)
+
+	const handleReply = () => {
+		toggleReply(!reply)
+		setTyping(false)
+	}
 
 	//clear messages
 	const clearMessages = async () => {
@@ -184,7 +190,7 @@ export default function JournalPage() {
 		let displayName = auth().currentUser.displayName
 		setUsername(displayName)
 	}
-	let output = useEffect(() => {
+	useEffect(() => {
 		;(async () => {
 			try {
 				getUsername()
@@ -219,21 +225,22 @@ export default function JournalPage() {
 			updateMessages(newMessages)
 		})
 		let text = msg[0].text
-		// if (reply) {
-		genResponse(text).then((response) => {
-			let nextMessages = [
-				{
-					_id: genID(),
-					createdAt: new Date(),
-					text: response,
-					user: JOT,
-				},
-				...newMessages,
-			]
-			setMessages(nextMessages)
-			updateMessages(nextMessages)
-		})
-		// }
+		if (reply) {
+			setTyping(true)
+			genResponse(text).then((response) => {
+				let nextMessages = [
+					{
+						_id: genID(),
+						createdAt: new Date(),
+						text: response,
+						user: JOT,
+					},
+					...newMessages,
+				]
+				setMessages(nextMessages)
+				updateMessages(nextMessages)
+			})
+		}
 	}
 
 	const renderBubble = (props) => {
@@ -285,24 +292,32 @@ export default function JournalPage() {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<Header title="Jot" locked={false} />
+			<Header
+				title="Jot"
+				locked={false}
+				onclick={handleReply}
+				enableChat={true}
+				back="journal"
+				reply={reply}
+			/>
 			<GiftedChat
-				messages={messages}
-				// messages={
-				// 	messages != null &&
-				// 	typeof messages !== 'undefined' &&
-				// 	messages[0].user == USER
-				// 		? [
-				// 				{
-				// 					_id: 'typing...',
-				// 					createdAt: new Date(),
-				// 					text: '',
-				// 					user: JOT,
-				// 				},
-				// 				...messages,
-				// 		  ]
-				// 		: messages
-				// }
+				// messages={messages}
+				messages={
+					messages != null &&
+					messages.length != 0 &&
+					messages[0].user == USER &&
+					typing
+						? [
+								{
+									_id: 'typing...',
+									createdAt: new Date(),
+									text: '',
+									user: JOT,
+								},
+								...messages,
+						  ]
+						: messages
+				}
 				onSend={(newMessage) => handleSend(newMessage)}
 				// renderInputToolbar={() => {
 				//   <TextInput editable={false} />
