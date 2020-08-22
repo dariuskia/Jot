@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
 import COLORS from '../../../utils/Colors'
 import styles from './StylesSummary'
@@ -6,6 +6,8 @@ import EntryEmoji from '../../../../assets/img/summary/entries.svg'
 import MessageEmoji from '../../../../assets/img/summary/messages.svg'
 import SentimentEmoji from '../../../../assets/img/summary/sentiment.svg'
 import GoalsEmoji from '../../../../assets/img/summary/goals.svg'
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 
 export default function Summary() {
 	return (
