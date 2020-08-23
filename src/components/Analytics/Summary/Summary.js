@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import COLORS from '../../../utils/Colors'
 import styles from './StylesSummary'
@@ -10,6 +10,23 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 
 export default function Summary() {
+	const [uuid, setuuid] = useState(auth().currentUser.uid)
+	const [metrics, setMetrics] = useState({
+		entries: 10,
+		messages: 420,
+		avgSentiment: 0.54,
+		goals: 19,
+	})
+
+	useEffect(() => {
+		;(async function () {
+			const ref = await firestore().collection('users').doc(uuid).get()
+			if (ref.exists) {
+				console.log(ref.data().entries == null)
+			}
+		})()
+	})
+
 	return (
 		<View style={styles.container}>
 			<View
@@ -23,7 +40,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Entries</Text>
-					<Text style={styles.value}>37</Text>
+					<Text style={styles.value}>{metrics.entries}</Text>
 				</View>
 			</View>
 			<View
@@ -33,7 +50,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Messages</Text>
-					<Text style={styles.value}>412</Text>
+					<Text style={styles.value}>{metrics.messages}</Text>
 				</View>
 			</View>
 			<View
@@ -43,7 +60,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Average sentiment</Text>
-					<Text style={styles.value}>0.61</Text>
+					<Text style={styles.value}>{metrics.avgSentiment}</Text>
 				</View>
 			</View>
 			<View
@@ -57,7 +74,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Goals completed</Text>
-					<Text style={styles.value}>23</Text>
+					<Text style={styles.value}>{metrics.goals}</Text>
 				</View>
 			</View>
 		</View>
