@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat'
 import { View } from 'react-native'
+
 import { TypingAnimation } from 'react-native-typing-animation'
+import FlashMessage from 'react-native-flash-message'
+import { showMessage, hideMessage } from 'react-native-flash-message'
 
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
@@ -63,8 +66,12 @@ export default function JournalPage() {
 	const [typing, setTyping] = useState(false)
 
 	const handleReply = () => {
+		let alert = !reply
+			? { message: 'Enabled chat bot responses', type: 'success' }
+			: { message: 'Disabled chat bot responses', type: 'danger' }
 		toggleReply(!reply)
 		setTyping(false)
+		showMessage(alert)
 	}
 
 	//clear messages
@@ -111,42 +118,46 @@ export default function JournalPage() {
 
 	//store messages
 	const storeMessages = async () => {
-		let uuid = getUUID()
-		let sentimentData = getHighestAndAvg()
-		let firstMessageDate = new Date(messages[messages.length - 1]['createdAt'])
-		let [entryYear, entryMonth, entryDay] = [
-			firstMessageDate.getFullYear(),
-			firstMessageDate.getMonth(),
-			firstMessageDate.getDate(),
-		].map((num) => num.toString())
+		if (messages.length > 1) {
+			let uuid = getUUID()
+			let sentimentData = getHighestAndAvg()
+			let firstMessageDate = new Date(
+				messages[messages.length - 1]['createdAt']
+			)
+			let [entryYear, entryMonth, entryDay] = [
+				firstMessageDate.getFullYear(),
+				firstMessageDate.getMonth(),
+				firstMessageDate.getDate(),
+			].map((num) => num.toString())
 
-		let usersRef = firestore().collection('users')
+			let usersRef = firestore().collection('users')
 
-		let messagesRef = usersRef.doc(uuid).collection('messages')
-		let monthRef = messagesRef
-			.doc(entryYear)
-			.collection('months')
-			.doc(entryMonth)
-		let newEntryRef = monthRef.collection('days').doc(entryDay)
+			let messagesRef = usersRef.doc(uuid).collection('messages')
+			let monthRef = messagesRef
+				.doc(entryYear)
+				.collection('months')
+				.doc(entryMonth)
+			let newEntryRef = monthRef.collection('days').doc(entryDay)
 
-		await usersRef.doc(uuid).set({
-			invisField: 'true',
-		})
+			await usersRef.doc(uuid).set({
+				invisField: 'true',
+			})
 
-		await messagesRef.doc(entryYear).set({
-			yearName: entryYear,
-		})
+			await messagesRef.doc(entryYear).set({
+				yearName: entryYear,
+			})
 
-		await monthRef.set({
-			monthName: monthNames[parseInt(entryMonth)],
-			monthNum: parseInt(entryMonth),
-		})
-		await newEntryRef.set({
-			messages: JSON.stringify(messages),
-			dayNum: parseInt(entryDay),
-			highest: JSON.stringify(sentimentData.highest),
-			sentiment: sentimentData.avg,
-		})
+			await monthRef.set({
+				monthName: monthNames[parseInt(entryMonth)],
+				monthNum: parseInt(entryMonth),
+			})
+			await newEntryRef.set({
+				messages: JSON.stringify(messages),
+				dayNum: parseInt(entryDay),
+				highest: JSON.stringify(sentimentData.highest),
+				sentiment: sentimentData.avg,
+			})
+		}
 	}
 
 	const updateMessages = async (newMessages) => {
@@ -297,8 +308,8 @@ export default function JournalPage() {
 				locked={false}
 				onclick={handleReply}
 				enableChat={true}
-				back="journal"
 				reply={reply}
+				pageName="journal"
 			/>
 			<GiftedChat
 				// messages={messages}
@@ -327,6 +338,7 @@ export default function JournalPage() {
 				showUserAvatar
 				renderBubble={renderBubble}
 			/>
+			<FlashMessage />
 		</View>
 	)
 }
