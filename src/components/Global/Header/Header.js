@@ -12,6 +12,7 @@ export default Header = ({
 	enableChat,
 	onclick,
 	reply,
+	pageName,
 }) => {
 	const toggleLock = function () {
 		console.log('lock')
@@ -24,6 +25,7 @@ export default Header = ({
 				onpress={onclick}
 				display={back}
 				reply={reply}
+				pageName={pageName}
 			/>
 			<Text style={styles.title}>{title}</Text>
 			<TouchableOpacity onPress={toggleLock}>
@@ -43,20 +45,7 @@ export default Header = ({
 }
 
 function BackButton({ pageName, navigation, display, onpress, reply }) {
-	if (!display) return <View style={{ width: 30, height: 30 }} />
-	if (display === 'entry') {
-		return (
-			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<Icon
-					name="chevron-left"
-					size={30}
-					color="white"
-					style={styles.back('Journal')}
-				/>
-			</TouchableOpacity>
-		)
-	}
-	if (display === 'journal') {
+	if (pageName === 'journal') {
 		return reply === true ? (
 			<TouchableOpacity
 				onPress={() => {
@@ -83,4 +72,16 @@ function BackButton({ pageName, navigation, display, onpress, reply }) {
 			</TouchableOpacity>
 		)
 	}
+	if (!display) return <View style={{ width: 30, height: 30 }} />
+
+	return (
+		<TouchableOpacity onPress={() => navigation.goBack()}>
+			<Icon
+				name="chevron-left"
+				size={30}
+				color="white"
+				style={styles.back('Journal')}
+			/>
+		</TouchableOpacity>
+	)
 }
