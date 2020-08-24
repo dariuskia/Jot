@@ -16,8 +16,6 @@ export default function Summary() {
 	const [avgSentiment, setAvgSentiment] = useState(0)
 	const [goals, setGoals] = useState(0)
 
-	console.log(new Date().getFullYear())
-
 	useEffect(() => {
 		;(async function () {
 			const ref = await firestore().collection('users').doc(uuid).get()
