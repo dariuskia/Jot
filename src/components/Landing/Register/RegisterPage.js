@@ -15,7 +15,9 @@ function register(email, password, confirmPassword) {
 				.catch(function (error) {
 					var errorCode = error.code
 					var errorMessage = error.message
-					console.log(errorCode, errorMessage)
+					Alert.alert('Error registering account', errorMessage, [
+						{ text: 'Ok' },
+					])
 				})
 		} else {
 			Alert.alert(
