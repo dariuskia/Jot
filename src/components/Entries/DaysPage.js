@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, ScrollView, View, TouchableOpacity } from 'react-native'
 //import styles from './Styles'
 import Day from './Day/Day'
 import Header from '../Global/Header/Header'
@@ -35,7 +35,7 @@ export default function DaysPage({ route, navigation }) {
 	return (
 		<View style={{ flex: 1 }}>
 			<Header title={month.monthName} navigation={navigation} back />
-			<View style={{ marginTop: 15 }}>
+			<ScrollView style={{ marginTop: 15 }}>
 				{days.map((day) => (
 					<TouchableOpacity
 						key={day.dayNum}
@@ -45,7 +45,7 @@ export default function DaysPage({ route, navigation }) {
 						<Day day={day} month={month} year={year} key={day.dayNum} />
 					</TouchableOpacity>
 				))}
-			</View>
+			</ScrollView>
 		</View>
 	)
 }

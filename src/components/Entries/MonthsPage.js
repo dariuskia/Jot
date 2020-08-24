@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, ScrollView, View, TouchableOpacity } from 'react-native'
 import styles from './Styles'
 import Month from './Month/Month'
 import Header from '../Global/Header/Header'
@@ -39,7 +39,7 @@ export default function MonthsPage({ navigation, route }) {
 	return months.length != 0 ? (
 		<View style={{ flex: 1 }}>
 			<Header title="Entries" />
-			<View style={{ marginTop: 15 }}>
+			<ScrollView style={{ marginTop: 15 }}>
 				<Picker
 					selectedValue={year}
 					style={{ height: 50, width: 120, marginLeft: 20 }}
@@ -60,7 +60,7 @@ export default function MonthsPage({ navigation, route }) {
 						/>
 					</TouchableOpacity>
 				))}
-			</View>
+			</ScrollView>
 		</View>
 	) : (
 		<View style={{ flex: 1 }}>
