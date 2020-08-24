@@ -4,7 +4,7 @@ import COLORS from '../../../utils/Colors'
 import styles from './StylesSummary'
 import EntryEmoji from '../../../../assets/img/summary/entries.svg'
 import MessageEmoji from '../../../../assets/img/summary/messages.svg'
-import SentimentEmoji from '../../../../assets/img/summary/sentiment.svg'
+import { Emoji } from '../Moods/Card/Card'
 import GoalsEmoji from '../../../../assets/img/summary/goals.svg'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
@@ -57,7 +57,7 @@ export default function Summary() {
 			<View
 				style={[styles.item, { backgroundColor: COLORS.themed.gradient[2] }]}>
 				<View style={styles.col}>
-					<SentimentEmoji />
+					<Emoji mood={Math.ceil(avgSentiment / 0.2)} />
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Average sentiment</Text>
