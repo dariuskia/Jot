@@ -275,29 +275,33 @@ export default function JournalPage() {
 	// helper method that sends a message
 	function handleSend(msg = []) {
 		let newMessages
-		sentimentAnalysis(msg[0]).then((response) => {
-			msg[0].sentiment = response
-			newMessages = [msg[0], ...messages]
-			setMessages(newMessages)
-			updateMessages(newMessages)
-		})
-		let text = msg[0].text
-		if (reply) {
-			setTyping(true)
-			genResponse(text).then((response) => {
-				let nextMessages = [
-					{
-						_id: genID(),
-						createdAt: new Date(),
-						text: response,
-						user: JOT,
-					},
-					...newMessages,
-				]
-				setMessages(nextMessages)
-				updateMessages(nextMessages)
+		sentimentAnalysis(msg[0])
+			.then((response) => {
+				msg[0].sentiment = response
+				newMessages = [msg[0], ...messages]
+				setMessages(newMessages)
+				updateMessages(newMessages)
+				let text = msg[0].text
+				if (reply) {
+					setTyping(true)
+					genResponse(text).then((response) => {
+						let nextMessages = [
+							{
+								_id: genID(),
+								createdAt: new Date(),
+								text: response,
+								user: JOT,
+							},
+							...newMessages,
+						]
+						setMessages(nextMessages)
+						updateMessages(nextMessages)
+					})
+				}
 			})
-		}
+			.catch((error) => {
+				console.log('ERROR-----------------------', error)
+			})
 	}
 
 	const renderBubble = (props) => {
