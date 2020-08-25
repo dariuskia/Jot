@@ -139,9 +139,36 @@ export default function JournalPage() {
 				.doc(entryMonth)
 			let newEntryRef = monthRef.collection('days').doc(entryDay)
 
-			await usersRef.doc(uuid).set({
-				invisField: 'true',
-			})
+			const userRef = usersRef.doc(uuid)
+			const userDoc = await userRef.get()
+			if (userDoc.exists) {
+				const [a, b, c, d] = [
+					userDoc.data().entries,
+					userDoc.data().messages,
+					userDoc.data().avgSentiment,
+					userDoc.data().goals,
+				]
+
+				const numMessages = (() => {
+					return messages.filter((msg) => msg.user.name != 'Jot').length
+				})()
+				const newAvgSentiment = (() => {
+					return (c * a + sentimentData.avg) / (a + 1)
+				})()
+				await userRef.set({
+					entries: a + 1,
+					messages: b + numMessages,
+					avgSentiment: newAvgSentiment,
+					goals: d,
+				})
+			} else {
+				await userRef.set({
+					entries: 1,
+					messages: numMessages,
+					avgSentiment: sentimentData.avg,
+					goals: 0,
+				})
+			}
 
 			await messagesRef.doc(entryYear).set({
 				yearName: entryYear,

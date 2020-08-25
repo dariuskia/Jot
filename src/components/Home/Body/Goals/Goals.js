@@ -11,6 +11,8 @@ import styles from './StylesGoals'
 import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from '../../../../utils/Colors'
+
+import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
 
 function genID(length = 30) {
@@ -36,8 +38,9 @@ export default function Goals() {
 		return uuid
 	}
 
+	const [uuid, setuuid] = useState(getUUID())
+
 	const addGoal = async (txt) => {
-		let uuid = getUUID()
 		let id = genID()
 		let newGoals = [...goals, { body: txt, completed: false, key: id }]
 		if (txt.length > 0) {
@@ -55,13 +58,11 @@ export default function Goals() {
 	}
 
 	const clearGoals = async () => {
-		let uuid = getUUID()
 		setGoals([])
 		await AsyncStorage.removeItem('@goals-' + uuid)
 	}
 
 	const updateGoals = async (listOfGoals) => {
-		let uuid = getUUID()
 		try {
 			await AsyncStorage.setItem('@goals-' + uuid, JSON.stringify(listOfGoals))
 		} catch (error) {
@@ -70,7 +71,6 @@ export default function Goals() {
 	}
 
 	const recvGoals = async () => {
-		let uuid = getUUID()
 		try {
 			let listOfGoals = await AsyncStorage.getItem('@goals-' + uuid)
 			if (listOfGoals != null) {
@@ -82,18 +82,45 @@ export default function Goals() {
 		}
 	}
 
-	const toggleCompleted = (key) => {
+	const toggleCompleted = async (key) => {
+		let inc
+
 		let newGoals = goals.map((goal) => {
 			if (goal.key == key) {
+				inc = goal.completed ? -1 : 1
 				return { body: goal.body, completed: !goal.completed, key: goal.key }
 			} else return goal
 		})
+
 		setGoals(newGoals)
 		updateGoals(newGoals)
+
+		const userRef = firestore().collection('users').doc(uuid)
+		const userDoc = await userRef.get()
+		if (userDoc.exists) {
+			const [a, b, c, d] = [
+				userDoc.data().entries,
+				userDoc.data().messages,
+				userDoc.data().avgSentiment,
+				userDoc.data().goals,
+			]
+			await userRef.set({
+				entries: a,
+				messages: b,
+				avgSentiment: c,
+				goals: d + inc,
+			})
+		} else {
+			await userRef.set({
+				entries: 0,
+				messages: 0,
+				avgSentiment: 0,
+				goals: 1,
+			})
+		}
 	}
 
 	const runFirst = async () => {
-		let uuid = getUUID()
 		if (!storageReceived) {
 			recvGoals()
 			let lastDate = await AsyncStorage.getItem('@lastGoalDate-' + uuid)

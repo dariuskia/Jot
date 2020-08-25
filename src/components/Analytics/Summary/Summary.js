@@ -11,21 +11,22 @@ import firestore from '@react-native-firebase/firestore'
 
 export default function Summary() {
 	const [uuid, setuuid] = useState(auth().currentUser.uid)
-	const [metrics, setMetrics] = useState({
-		entries: 10,
-		messages: 420,
-		avgSentiment: 0.54,
-		goals: 19,
-	})
+	const [entries, setEntries] = useState('...')
+	const [messages, setMessages] = useState('...')
+	const [avgSentiment, setAvgSentiment] = useState('...')
+	const [goals, setGoals] = useState('...')
 
 	useEffect(() => {
 		;(async function () {
 			const ref = await firestore().collection('users').doc(uuid).get()
 			if (ref.exists) {
-				console.log(ref.data().entries == null)
+				setEntries(ref.data().entries)
+				setMessages(ref.data().messages)
+				setAvgSentiment(ref.data().avgSentiment)
+				setGoals(ref.data().goals)
 			}
 		})()
-	})
+	}, [])
 
 	return (
 		<View style={styles.container}>
@@ -40,7 +41,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Entries</Text>
-					<Text style={styles.value}>{metrics.entries}</Text>
+					<Text style={styles.value}>{entries}</Text>
 				</View>
 			</View>
 			<View
@@ -50,7 +51,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Messages</Text>
-					<Text style={styles.value}>{metrics.messages}</Text>
+					<Text style={styles.value}>{messages}</Text>
 				</View>
 			</View>
 			<View
@@ -60,7 +61,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Average sentiment</Text>
-					<Text style={styles.value}>{metrics.avgSentiment}</Text>
+					<Text style={styles.value}>{avgSentiment}</Text>
 				</View>
 			</View>
 			<View
@@ -74,7 +75,7 @@ export default function Summary() {
 				</View>
 				<View style={styles.col}>
 					<Text style={styles.subheading}>Goals completed</Text>
-					<Text style={styles.value}>{metrics.goals}</Text>
+					<Text style={styles.value}>{goals}</Text>
 				</View>
 			</View>
 		</View>
