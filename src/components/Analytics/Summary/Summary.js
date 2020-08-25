@@ -11,10 +11,10 @@ import firestore from '@react-native-firebase/firestore'
 
 export default function Summary() {
 	const [uuid, setuuid] = useState(auth().currentUser.uid)
-	const [entries, setEntries] = useState('...')
-	const [messages, setMessages] = useState('...')
-	const [avgSentiment, setAvgSentiment] = useState('...')
-	const [goals, setGoals] = useState('...')
+	const [entries, setEntries] = useState(0)
+	const [messages, setMessages] = useState(0)
+	const [avgSentiment, setAvgSentiment] = useState(0)
+	const [goals, setGoals] = useState(0)
 
 	useEffect(() => {
 		;(async function () {
