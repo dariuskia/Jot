@@ -56,7 +56,7 @@ export default function Summary() {
 			</View>
 			<View
 				style={[styles.item, { backgroundColor: COLORS.themed.gradient[2] }]}>
-				<View style={styles.col}>
+				<View style={[styles.col, { paddingRight: 5 }]}>
 					<Emoji mood={Math.ceil(avgSentiment / 0.2)} />
 				</View>
 				<View style={styles.col}>
