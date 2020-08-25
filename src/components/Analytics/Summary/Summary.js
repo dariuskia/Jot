@@ -22,7 +22,7 @@ export default function Summary() {
 			if (ref.exists) {
 				setEntries(ref.data().entries)
 				setMessages(ref.data().messages)
-				setAvgSentiment(ref.data().avgSentiment)
+				setAvgSentiment(parseFloat(ref.data().avgSentiment.toFixed(2)))
 				setGoals(ref.data().goals)
 			}
 		})()

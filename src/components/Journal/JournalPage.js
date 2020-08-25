@@ -153,7 +153,8 @@ export default function JournalPage() {
 					return messages.filter((msg) => msg.user.name != 'Jot').length
 				})()
 				const newAvgSentiment = (() => {
-					return (c * a + sentimentData.avg) / (a + 1)
+					let newAvg = (c * a + sentimentData.avg) / (a + 1)
+					return parseFloat(newAvg.toFixed(2))
 				})()
 				await userRef.set({
 					entries: a + 1,
