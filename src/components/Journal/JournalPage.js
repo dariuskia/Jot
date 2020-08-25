@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat, Bubble, BubbleProps } from 'react-native-gifted-chat'
+import {
+	renderInputToolbar,
+	renderActions,
+	renderComposer,
+	renderSend,
+} from './Toolbar/InputToolbar'
 import { View } from 'react-native'
 
 import { TypingAnimation } from 'react-native-typing-animation'
@@ -200,6 +206,18 @@ export default function JournalPage() {
 		}
 	}
 
+	const imageHandler = (uri) => {
+		let newMsg = {
+			_id: genID(),
+			createdAt: new Date(),
+			image: uri,
+			user: USER,
+		}
+		let newMessages = [newMsg, ...messages]
+		updateMessages(newMessages)
+		setMessages(newMessages)
+	}
+
 	const recvMessages = async () => {
 		let uuid = getUUID()
 		try {
@@ -361,10 +379,15 @@ export default function JournalPage() {
 				// renderInputToolbar={() => {
 				//   <TextInput editable={false} />
 				// }}
+				renderInputToolbar={renderInputToolbar}
+				renderActions={renderActions}
+				renderComposer={renderComposer}
+				renderSend={renderSend}
 				user={USER}
 				placeholder="Type a message..."
 				showUserAvatar
 				renderBubble={renderBubble}
+				sendImage={imageHandler}
 			/>
 			<FlashMessage />
 		</View>
