@@ -207,6 +207,7 @@ export default function JournalPage() {
 	}
 
 	const imageHandler = (uri) => {
+		setTyping(false)
 		let newMsg = {
 			_id: genID(),
 			createdAt: new Date(),
@@ -283,6 +284,7 @@ export default function JournalPage() {
 				updateMessages(newMessages)
 				let text = msg[0].text
 				if (reply) {
+					console.log('---------------HERE---------------')
 					setTyping(true)
 					genResponse(text).then((response) => {
 						let nextMessages = [

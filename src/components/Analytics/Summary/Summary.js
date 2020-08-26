@@ -26,7 +26,7 @@ export default function Summary() {
 				setGoals(ref.data().goals)
 			}
 		})()
-	}, [])
+	})
 
 	return (
 		<View style={styles.container}>
