@@ -284,7 +284,6 @@ export default function JournalPage() {
 				updateMessages(newMessages)
 				let text = msg[0].text
 				if (reply) {
-					console.log('---------------HERE---------------')
 					setTyping(true)
 					genResponse(text).then((response) => {
 						let nextMessages = [
@@ -302,7 +301,7 @@ export default function JournalPage() {
 				}
 			})
 			.catch((error) => {
-				console.log('ERROR-----------------------', error)
+				console.log('ERROR', error)
 			})
 	}
 

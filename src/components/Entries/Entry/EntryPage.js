@@ -44,6 +44,8 @@ export default function EntryPage({ navigation, route }) {
 		)
 	}
 
+	navigation.navigate('Unlock')
+
 	return (
 		<View style={{ flex: 1 }}>
 			<Header title="Jot" locked={false} navigation={navigation} back />

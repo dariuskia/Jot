@@ -1,16 +1,24 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import {
+	createStackNavigator,
+	CardStyleInterpolators,
+} from '@react-navigation/stack'
 
 import MonthsPage from './MonthsPage'
 import DaysPage from './DaysPage'
 import EntryPage from './Entry/EntryPage'
+import Unlock from '../Vault/Unlock/Unlock'
+import CreatePIN from '../Vault/CreatePIN/CreatePIN'
 
 const Stack = createStackNavigator()
 
 export default function Entries({ navigation }) {
 	return (
-		<Stack.Navigator headerMode="none">
+		<Stack.Navigator
+			headerMode="none"
+			screenOptions={{
+				cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+			}}>
 			<Stack.Screen
 				name="MonthsPage"
 				component={MonthsPage}
@@ -18,6 +26,8 @@ export default function Entries({ navigation }) {
 			/>
 			<Stack.Screen name="DaysPage" component={DaysPage} />
 			<Stack.Screen name="EntryPage" component={EntryPage} />
+			<Stack.Screen name="Unlock" component={Unlock} />
+			<Stack.Screen name="CreatePIN" component={CreatePIN} />
 		</Stack.Navigator>
 	)
 }
