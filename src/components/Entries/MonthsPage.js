@@ -12,6 +12,7 @@ export default function MonthsPage({ navigation, route }) {
 	const [years, setYears] = useState()
 	const [year, setYear] = useState(new Date().getFullYear().toString())
 	const [months, setMonths] = useState([])
+	const [unlocked, setUnlocked] = useState(false)
 
 	const getUUID = () => {
 		let uuid = auth().currentUser.uid
@@ -51,7 +52,13 @@ export default function MonthsPage({ navigation, route }) {
 				</Picker>
 				{months.map((month) => (
 					<TouchableOpacity
-						onPress={() => navigation.navigate('DaysPage', { month: month })}
+						onPress={() =>
+							navigation.navigate('DaysPage', {
+								month: month,
+								monthUnlockHandler: setUnlocked,
+								monthUnlocked: unlocked,
+							})
+						}
 						key={month.monthName + year}>
 						<Month
 							month={month.monthName}

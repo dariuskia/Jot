@@ -3,7 +3,6 @@ import { View, TextInput } from 'react-native'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import AsyncStorage from '@react-native-community/async-storage'
 import auth from '@react-native-firebase/auth'
 
 import Header from '../../Global/Header/Header'
@@ -44,14 +43,18 @@ export default function EntryPage({ navigation, route }) {
 		)
 	}
 
-	navigation.navigate('Unlock')
+	navigation.navigate('CreatePIN')
+	// if (!route.params.unlocked)
+	// 	navigation.navigate('Unlock', {
+	// 		monthUnlockHandler: route.params.monthUnlockHandler,
+	// 		dayUnlockHandler: route.params.dayUnlockHandler,
+	// 	})
 
 	return (
 		<View style={{ flex: 1 }}>
 			<Header title="Jot" locked={false} navigation={navigation} back />
 			<GiftedChat
 				messages={messages}
-				// onSend={(newMessage) => handleSend(newMessage)}
 				renderInputToolbar={() => <TextInput editable={false} />}
 				user={{
 					_id: 1,

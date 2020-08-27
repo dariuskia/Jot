@@ -11,6 +11,7 @@ export default function DaysPage({ route, navigation }) {
 	const [month, setMonth] = useState(route.params.month)
 	const [days, setDays] = useState([])
 	const [storageReceived, setReceived] = useState(false)
+	const [unlocked, setUnlocked] = useState(false)
 
 	const getUUID = () => {
 		let uuid = auth().currentUser.uid
@@ -40,7 +41,12 @@ export default function DaysPage({ route, navigation }) {
 					<TouchableOpacity
 						key={day.dayNum}
 						onPress={() =>
-							navigation.navigate('EntryPage', { messages: day.messages })
+							navigation.navigate('EntryPage', {
+								messages: day.messages,
+								monthUnlockHandler: route.params.monthUnlockHandler,
+								dayUnlockHandler: setUnlocked,
+								unlocked: route.params.monthUnlocked || unlocked,
+							})
 						}>
 						<Day day={day} month={month} year={year} key={day.dayNum} />
 					</TouchableOpacity>
