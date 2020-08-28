@@ -4,18 +4,19 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	Button,
 	BackHandler,
 } from 'react-native'
 import styles from '../Styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import CreatePIN from '../CreatePIN/CreatePIN'
 
 export default function Unlock({ navigation, route }) {
 	BackHandler.addEventListener('hardwareBackPress', function () {
 		navigation.navigate({ name: 'DaysPage' })
 		return true
 	})
+
+	const pinLength = 4
+
 	const getPIN = () => {
 		return '1010'
 	}
@@ -27,7 +28,7 @@ export default function Unlock({ navigation, route }) {
 	const [wrongPIN, setWrong] = useState(false)
 
 	const verifyPIN = (x) => {
-		if (x.length == PIN.length) {
+		if (x.length == pinLength) {
 			if (x == PIN) {
 				route.params.monthUnlockHandler(true)
 				route.params.dayUnlockHandler(true)
@@ -52,7 +53,7 @@ export default function Unlock({ navigation, route }) {
 				placeholder="PIN"
 				textAlign={'center'}
 				value={input}
-				maxLength={4}
+				maxLength={pinLength}
 				autoFocus={true}
 				caretHidden={true}
 				keyboardType="number-pad"

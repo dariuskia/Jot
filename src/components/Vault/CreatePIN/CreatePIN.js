@@ -1,11 +1,49 @@
-import React, { useState } from 'react'
-import { View, TextInput, Text, Image, TouchableOpacity } from 'react-native'
-import styles from '../Styles.js'
+import React, { useState, useEffect } from 'react'
+import {
+	View,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	BackHandler,
+} from 'react-native'
+import styles from '../Styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import AsyncStorage from '@react-native-community/async-storage'
 
-export default function CreatePIN({ navigation }) {
+export default function Unlock({ navigation }) {
+	BackHandler.addEventListener('hardwareBackPress', function () {
+		navigation.navigate({ name: 'DaysPage' })
+		return true
+	})
+
+	const pinLength = 4
+
 	const [input, setInput] = useState('')
+
+	const [PIN, setPIN] = useState()
+
+	const [place, setPlace] = useState('Enter')
+
+	const [unmatchedPIN, setUnmatched] = useState(false)
+
+	const enterPIN = (x) => {
+		if (x.length == pinLength) {
+			if (PIN != null) {
+				if (x == PIN) {
+					navigation.goBack()
+				} else {
+					setUnmatched(true)
+					setPlace('Enter')
+					setPIN(null)
+				}
+				setInput('')
+			} else {
+				setPIN(x)
+				setPlace('Confirm')
+				setInput('')
+			}
+		}
+	}
+	console.log(PIN)
 
 	return (
 		<View style={styles.container}>
@@ -14,33 +52,32 @@ export default function CreatePIN({ navigation }) {
 				onPress={() => navigation.navigate({ name: 'DaysPage' })}>
 				<Icon name="chevron-left" color="#fff" size={40} />
 			</TouchableOpacity>
-			<Text style={styles.heading}>Create PIN</Text>
-			<Text style={styles.subheading}>
-				Hi, this is your first time storing an entry in the vault. Please create
-				a PIN to store your entries.
-			</Text>
+			<Text style={styles.heading}>Create a PIN for your vault</Text>
 			<TextInput
 				style={styles.pinContainer}
-				placeholder="PIN"
+				placeholder={place + ' PIN'}
 				textAlign={'center'}
 				value={input}
-				maxLength={4}
+				maxLength={pinLength}
 				autoFocus={true}
-				// caretHidden={true}
+				caretHidden={true}
 				keyboardType="number-pad"
 				placeholderTextColor="rgba(255, 255, 255, 0.5)"
+				onChangeText={(val) => {
+					let allowed = '0123456789'.split('')
+					let ret = true
+					for (let b of val) if (!allowed.includes(b)) ret = false
+					if (ret) {
+						setInput(val)
+						enterPIN(val)
+					}
+				}}
 			/>
-			<TextInput
-				style={styles.pinContainer}
-				placeholder="Confirm PIN"
-				textAlign={'center'}
-				value={input}
-				maxLength={4}
-				autoFocus={true}
-				// caretHidden={true}
-				keyboardType="number-pad"
-				placeholderTextColor="rgba(255, 255, 255, 0.5)"
-			/>
+			{unmatchedPIN && (
+				<View>
+					<Text style={styles.wrong}>PINs do not match, please try again.</Text>
+				</View>
+			)}
 		</View>
 	)
 }
