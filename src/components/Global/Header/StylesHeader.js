@@ -18,10 +18,4 @@ export default StyleSheet.create({
 		fontSize: 24,
 		fontFamily: 'Ubuntu Medium',
 	},
-	back: page => {
-		display: 'flex'
-	},
-	lock: {
-
-	},
 })

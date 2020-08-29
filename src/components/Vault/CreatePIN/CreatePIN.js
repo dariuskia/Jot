@@ -8,10 +8,12 @@ import {
 } from 'react-native'
 import styles from '../Styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 
-export default function Unlock({ navigation }) {
+export default function CreatePIN({ navigation, route }) {
 	BackHandler.addEventListener('hardwareBackPress', function () {
-		navigation.navigate({ name: 'DaysPage' })
+		navigation.navigate({ name: route.params.source })
 		return true
 	})
 
@@ -24,6 +26,11 @@ export default function Unlock({ navigation }) {
 	const [place, setPlace] = useState('Enter')
 
 	const [unmatchedPIN, setUnmatched] = useState(false)
+
+	const uploadPin = (PIN) => {
+		let user = auth().currentUser
+		user.updateProfile({ PIN: PIN })
+	}
 
 	const enterPIN = (x) => {
 		if (x.length == pinLength) {

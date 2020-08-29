@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
 import AsyncStorage from '@react-native-community/async-storage'
 
-import Header from '../Global/Header/Header'
+import Header from './Header/HeaderJournal'
 import COLORS from '../../utils/Colors'
 import genResponse from '../../api/ChatBot/ChatBot.js'
 import { sentimentAnalysis } from '../../api/SentimentAnalysis/SentimentAnalysis'
@@ -355,13 +355,9 @@ export default function JournalPage({ navigation }) {
 		<View style={{ flex: 1 }}>
 			<Header
 				title="Jot"
-				locked={false}
-				onclick={handleReply}
-				enableChat={true}
-				reply={reply}
-				pageName="journal"
+				replyHandler={handleReply}
+				replyEnabled={reply}
 				navigation={navigation}
-				source="Journal"
 			/>
 			<GiftedChat
 				// messages={messages}

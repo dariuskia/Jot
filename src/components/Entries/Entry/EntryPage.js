@@ -5,17 +5,22 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import auth from '@react-native-firebase/auth'
 
-import Header from '../../Global/Header/Header'
+import Header from './HeaderEntryPage'
 import COLORS from '../../../utils/Colors'
 
 export default function EntryPage({ navigation, route }) {
 	const [messages, setMessages] = useState(JSON.parse(route.params.messages))
 	const [username, setName] = useState()
+	const [locked, toggleLock] = useState(false)
 
 	useEffect(() => {
 		let displayName = auth().currentUser.displayName
 		setName(displayName)
 	}, [])
+
+	const handleLock = () => {
+		toggleLock(!locked)
+	}
 
 	const renderBubble = (props) => {
 		return (
@@ -43,16 +48,25 @@ export default function EntryPage({ navigation, route }) {
 		)
 	}
 
-	navigation.navigate('CreatePIN')
-	// if (!route.params.unlocked)
-	// 	navigation.navigate('Unlock', {
-	// 		monthUnlockHandler: route.params.monthUnlockHandler,
-	// 		dayUnlockHandler: route.params.dayUnlockHandler,
-	// 	})
+	if (route.params.locked) {
+		if (!route.params.unlocked) {
+			navigation.navigate('Unlock', {
+				monthUnlockHandler: route.params.monthUnlockHandler,
+				dayUnlockHandler: route.params.dayUnlockHandler,
+				source: 'DaysPage',
+			})
+		}
+	}
 
 	return (
 		<View style={{ flex: 1 }}>
-			<Header title="Jot" locked={false} navigation={navigation} back />
+			<Header
+				title="Jot"
+				locked={locked}
+				handleLock={handleLock}
+				navigation={navigation}
+				back
+			/>
 			<GiftedChat
 				messages={messages}
 				renderInputToolbar={() => <TextInput editable={false} />}

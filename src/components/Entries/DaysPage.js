@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Text, ScrollView, View, TouchableOpacity } from 'react-native'
 //import styles from './Styles'
 import Day from './Day/Day'
-import Header from '../Global/Header/Header'
+import Header from './HeaderDay'
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
 
@@ -46,9 +46,16 @@ export default function DaysPage({ route, navigation }) {
 								monthUnlockHandler: route.params.monthUnlockHandler,
 								dayUnlockHandler: setUnlocked,
 								unlocked: route.params.monthUnlocked || unlocked,
+								locked: day.locked,
 							})
 						}>
-						<Day day={day} month={month} year={year} key={day.dayNum} />
+						<Day
+							day={day}
+							month={month}
+							year={year}
+							key={day.dayNum}
+							locked={day.locked}
+						/>
 					</TouchableOpacity>
 				))}
 			</ScrollView>

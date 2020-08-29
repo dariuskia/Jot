@@ -2,10 +2,10 @@ import React from 'react'
 import { ScrollView, View, Text } from 'react-native'
 
 import styles from './StylesAnalyticsPage'
-import Header from '../Global/Header/Header'
 import Moods from './Moods/Moods'
 import Summary from './Summary/Summary'
 import Highlight from './Highlight/Highlight'
+import Header from './Header/HeaderAnalytics'
 
 export default function AnalyticsPage({ navigation }) {
 	return (

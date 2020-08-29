@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function Unlock({ navigation, route }) {
 	BackHandler.addEventListener('hardwareBackPress', function () {
-		navigation.navigate({ name: 'DaysPage' })
+		navigation.navigate({ name: route.params.source })
 		return true
 	})
 
@@ -44,7 +44,7 @@ export default function Unlock({ navigation, route }) {
 		<View style={styles.container}>
 			<TouchableOpacity
 				style={styles.back}
-				onPress={() => navigation.navigate({ name: 'DaysPage' })}>
+				onPress={() => navigation.navigate({ name: route.params.source })}>
 				<Icon name="chevron-left" color="#fff" size={40} />
 			</TouchableOpacity>
 			<Text style={styles.heading}>Please enter PIN to continue</Text>

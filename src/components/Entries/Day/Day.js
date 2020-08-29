@@ -3,8 +3,7 @@ import { StyleSheet, View, Button, Text } from 'react-native'
 import { styles } from './StylesDay'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function Day({ day, month, year }) {
-	const [locked, setLocked] = useState(true)
+export default function Day({ day, month, year, locked }) {
 	return (
 		<View>
 			<View style={styles().container}>
