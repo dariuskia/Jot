@@ -98,18 +98,8 @@ export default function Goals() {
 		const userRef = firestore().collection('users').doc(uuid)
 		const userDoc = await userRef.get()
 		if (userDoc.exists) {
-			const [a, b, c, d] = [
-				userDoc.data().entries,
-				userDoc.data().messages,
-				userDoc.data().avgSentiment,
-				userDoc.data().goals,
-			]
-			await userRef.set({
-				entries: a,
-				messages: b,
-				avgSentiment: c,
-				goals: d + inc,
-			})
+			const g = userDoc.data().goals
+			await userRef.update({ goals: g + inc })
 		} else {
 			await userRef.set({
 				entries: 0,

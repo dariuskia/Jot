@@ -162,14 +162,14 @@ export default function JournalPage({ navigation }) {
 					let newAvg = (c * a + sentimentData.avg) / (a + 1)
 					return parseFloat(newAvg.toFixed(2))
 				})()
-				await userRef.set({
+				await userRef.update({
 					entries: a + 1,
 					messages: b + numMessages,
 					avgSentiment: newAvgSentiment,
 					goals: d,
 				})
 			} else {
-				await userRef.set({
+				await userRef.update({
 					entries: 1,
 					messages: numMessages,
 					avgSentiment: sentimentData.avg,
