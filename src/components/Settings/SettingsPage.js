@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import { NavigationContainer } from '@react-navigation/native'
+import Header from './Header/HeaderSettings'
+import styles from './Styles'
 
 export default function SettingsPage({ navigation, route }) {
 	const [name, updateName] = useState()
@@ -32,16 +34,18 @@ export default function SettingsPage({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<View>
-				<Text style={styles.text}>Settings Page!</Text>
+			<Header navigation={navigation} title="Settings" />
+			<View style={styles.settingsContent}>
 				<View style={{ flexDirection: 'row' }}>
 					<TextInput
-						style={{ flexDirection: 'row' }}
+						style={styles.input}
 						placeholder="Enter a new name"
+						underlineColorAndroid="#A2A5BD"
+						placeholderTextColor="#A2A5BD"
 						onChangeText={(text) => updateName(text)}
 					/>
 					<Button
-						style={{ flexDirection: 'row' }}
+						// style={{ flexDirection: 'row' }}
 						title="Save"
 						onPress={() => {
 							if (name != null) setName(name)
@@ -49,7 +53,7 @@ export default function SettingsPage({ navigation, route }) {
 					/>
 				</View>
 			</View>
-			<View>
+			{/* <View>
 				<Button
 					title="Done"
 					onPress={() => {
@@ -57,21 +61,10 @@ export default function SettingsPage({ navigation, route }) {
 						navigation.goBack()
 					}}
 				/>
-			</View>
+			</View> */}
 			<View>
 				<Button title="Logout" onPress={() => logout()} />
 			</View>
 		</View>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	text: {
-		fontSize: 20,
-	},
-})
