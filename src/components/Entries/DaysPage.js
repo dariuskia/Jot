@@ -17,8 +17,7 @@ export default function DaysPage({ route, navigation }) {
 		let uuid = auth().currentUser.uid
 		return uuid
 	}
-
-	useEffect(() => {
+	const refresh = () => {
 		let uuid = getUUID()
 		;(async function () {
 			let messagesRef = firestore()
@@ -31,6 +30,10 @@ export default function DaysPage({ route, navigation }) {
 			let output = daysDoc.docs.map((doc) => doc.data())
 			setDays(output)
 		})()
+	}
+
+	useEffect(() => {
+		refresh()
 	}, [])
 
 	return (
@@ -47,6 +50,8 @@ export default function DaysPage({ route, navigation }) {
 								dayUnlockHandler: setUnlocked,
 								unlocked: route.params.monthUnlocked || unlocked,
 								locked: day.locked,
+								refreshDays: refresh,
+								ymd: [year, month.monthNum, day.dayNum],
 							})
 						}>
 						<Day

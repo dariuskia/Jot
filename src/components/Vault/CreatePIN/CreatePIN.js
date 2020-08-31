@@ -8,8 +8,8 @@ import {
 } from 'react-native'
 import styles from '../Styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
+import auth from '@react-native-firebase/auth'
 
 export default function CreatePIN({ navigation, route }) {
 	BackHandler.addEventListener('hardwareBackPress', function () {
@@ -27,30 +27,47 @@ export default function CreatePIN({ navigation, route }) {
 
 	const [unmatchedPIN, setUnmatched] = useState(false)
 
-	const uploadPin = (PIN) => {
-		let user = auth().currentUser
-		user.updateProfile({ PIN: PIN })
+	const uploadPin = async (val) => {
+		let uuid = auth().currentUser.uid
+		let ref = firestore().collection('users').doc(uuid)
+		let doc = await ref.get()
+		if (doc.exists) {
+			await ref.update({ PIN: val })
+		} else {
+			await ref.set({
+				entries: 0,
+				messages: 0,
+				avgSentiment: 0,
+				goals: 0,
+				PIN: val,
+			})
+		}
 	}
 
 	const enterPIN = (x) => {
 		if (x.length == pinLength) {
 			if (PIN != null) {
+				// confirm pin
 				if (x == PIN) {
+					// success
+					uploadPin(PIN)
+					route.params.callback()
 					navigation.goBack()
 				} else {
+					// confirm pin failed
 					setUnmatched(true)
 					setPlace('Enter')
 					setPIN(null)
 				}
 				setInput('')
 			} else {
+				// enter pin
 				setPIN(x)
 				setPlace('Confirm')
 				setInput('')
 			}
 		}
 	}
-	console.log(PIN)
 
 	return (
 		<View style={styles.container}>

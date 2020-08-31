@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from '../../Global/Header/StylesHeader'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import COLORS from '../../../utils/Colors'
+import { LongPressGestureHandler } from 'react-native-gesture-handler'
 
-export default Header = ({ title, navigation, locked }) => {
+export default Header = ({ title, locked, backHandler, lockHandler }) => {
 	return (
 		<View style={styles.container}>
 			<View>
-				<BackButton navigation={navigation} />
+				<BackButton handler={backHandler} />
 			</View>
 
 			<View>
@@ -16,33 +17,31 @@ export default Header = ({ title, navigation, locked }) => {
 			</View>
 
 			<View>
-				<Lock locked={locked} />
+				<Lock handler={lockHandler} locked={locked} />
 			</View>
 		</View>
 	)
 }
 
-const BackButton = ({ navigation }) => {
+const BackButton = ({ handler }) => {
 	return (
-		<TouchableOpacity onPress={() => navigation.goBack()}>
+		<TouchableOpacity onPress={() => handler()}>
 			<Icon name="chevron-left" size={30} color="white" />
 		</TouchableOpacity>
 	)
 }
-const Lock = ({ locked }) => {
-	const toggleLock = () => {
-		console.log('lock')
-	}
+const Lock = ({ locked, handler }) => {
 	const iconName = locked ? 'lock' : 'lock-open'
-
 	return (
-		<TouchableOpacity onPress={() => toggleLock()}>
-			<Icon
-				name={iconName}
-				size={30}
-				color={locked ? COLORS.themed.lighter : 'rgba(255, 255, 255, 0.8)'}
-				style={styles.lock}
-			/>
-		</TouchableOpacity>
+		<View>
+			<TouchableOpacity onPress={() => handler()}>
+				<Icon
+					name={iconName}
+					size={30}
+					color={locked ? COLORS.themed.lighter : 'rgba(255, 255, 255, 0.8)'}
+					style={styles.lock}
+				/>
+			</TouchableOpacity>
+		</View>
 	)
 }

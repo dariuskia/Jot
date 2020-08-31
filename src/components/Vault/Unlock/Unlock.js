@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import styles from '../Styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore'
 
 export default function Unlock({ navigation, route }) {
 	BackHandler.addEventListener('hardwareBackPress', function () {
@@ -17,17 +19,24 @@ export default function Unlock({ navigation, route }) {
 
 	const pinLength = 4
 
-	const getPIN = () => {
-		return '1010'
-	}
+	const [uuid, setUUID] = useState(() => auth().currentUser.uid)
 
 	const [input, setInput] = useState('')
 
-	const [PIN, setPIN] = useState(getPIN())
+	const [PIN, setPIN] = useState('0000')
+
+	useEffect(() => {
+		;(async () => {
+			console.log('effect')
+			let doc = await firestore().collection('users').doc(uuid).get()
+			setPIN(doc.data().PIN)
+		})()
+	})
 
 	const [wrongPIN, setWrong] = useState(false)
 
 	const verifyPIN = (x) => {
+		console.log(PIN)
 		if (x.length == pinLength) {
 			if (x == PIN) {
 				route.params.monthUnlockHandler(true)
