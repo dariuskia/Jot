@@ -12,11 +12,6 @@ import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
 
 export default function CreatePIN({ navigation, route }) {
-	BackHandler.addEventListener('hardwareBackPress', function () {
-		navigation.navigate({ name: route.params.source })
-		return true
-	})
-
 	const pinLength = 4
 
 	const [input, setInput] = useState('')
@@ -71,9 +66,7 @@ export default function CreatePIN({ navigation, route }) {
 
 	return (
 		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.back}
-				onPress={() => navigation.navigate({ name: 'DaysPage' })}>
+			<TouchableOpacity style={styles.back} onPress={() => navigation.goBack()}>
 				<Icon name="chevron-left" color="#fff" size={40} />
 			</TouchableOpacity>
 			<Text style={styles.heading}>Create a PIN for your vault</Text>

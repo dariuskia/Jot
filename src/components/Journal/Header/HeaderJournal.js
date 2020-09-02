@@ -16,11 +16,11 @@ const Chat = ({ enabled, handler }) => {
 	)
 }
 
-const Lock = ({ locked }) => {
+const Lock = ({ locked, handler }) => {
 	const iconName = locked ? 'lock' : 'lock-open'
 	return (
 		<View>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => handler()}>
 				<Icon
 					name={iconName}
 					size={30}
@@ -32,7 +32,13 @@ const Lock = ({ locked }) => {
 	)
 }
 
-export default Header = ({ title, replyEnabled, replyHandler }) => {
+export default Header = ({
+	title,
+	replyEnabled,
+	replyHandler,
+	locked,
+	lockHandler,
+}) => {
 	return (
 		<View style={styles.container}>
 			<View>
@@ -42,7 +48,7 @@ export default Header = ({ title, replyEnabled, replyHandler }) => {
 				<Text style={styles.title}>{title}</Text>
 			</View>
 			<View>
-				<Lock />
+				<Lock locked={locked} handler={lockHandler} />
 			</View>
 		</View>
 	)

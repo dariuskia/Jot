@@ -9,8 +9,10 @@ import {
 import { View } from 'react-native'
 
 import { TypingAnimation } from 'react-native-typing-animation'
-import FlashMessage from 'react-native-flash-message'
-import { showMessage, hideMessage } from 'react-native-flash-message'
+import FlashMessage, {
+	showMessage,
+	hideMessage,
+} from 'react-native-flash-message'
 
 import firestore from '@react-native-firebase/firestore'
 import auth from '@react-native-firebase/auth'
@@ -70,6 +72,41 @@ export default function JournalPage({ navigation }) {
 	const [storageReceived, alreadyReceived] = useState(false)
 	const [reply, toggleReply] = useState(true)
 	const [typing, setTyping] = useState(false)
+	const [locked, setLocked] = useState(false)
+	const [uuid, setUUID] = useState(auth().currentUser.uid)
+
+	const getLocked = async () => {
+		try {
+			let entryLocked = await AsyncStorage.getItem('@locked-' + uuid)
+			if (entryLocked != null) {
+				setLocked(entryLocked == 'true')
+			} else {
+				setLocked(false)
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const toggleLocked = async () => {
+		const opposite = !locked
+		await AsyncStorage.setItem('@locked-' + uuid, opposite.toString())
+		let alert = opposite
+			? { message: 'Entry locked', type: 'info' }
+			: { message: 'Entry unlocked', type: 'info' }
+		setLocked(opposite)
+		showMessage(alert)
+	}
+
+	const handleLock = async () => {
+		let doc = await firestore().collection('users').doc(uuid).get()
+
+		if (!locked && doc.data().PIN == null) {
+			navigation.navigate('CreatePIN', { callback: toggleLocked })
+		} else {
+			toggleLocked()
+		}
+	}
 
 	const handleReply = () => {
 		let alert = !reply
@@ -83,17 +120,11 @@ export default function JournalPage({ navigation }) {
 	//clear messages
 	const clearMessages = async () => {
 		try {
-			let uuid = getUUID()
 			setMessages([])
 			await AsyncStorage.removeItem('@messages-' + uuid)
 		} catch (error) {
 			console.log(error)
 		}
-	}
-
-	const getUUID = () => {
-		let uuid = auth().currentUser.uid
-		return uuid
 	}
 
 	const getHighestAndAvg = () => {
@@ -125,7 +156,6 @@ export default function JournalPage({ navigation }) {
 	//store messages
 	const storeMessages = async () => {
 		if (messages.length > 1) {
-			let uuid = getUUID()
 			let sentimentData = getHighestAndAvg()
 			let firstMessageDate = new Date(
 				messages[messages.length - 1]['createdAt']
@@ -147,6 +177,8 @@ export default function JournalPage({ navigation }) {
 
 			const userRef = usersRef.doc(uuid)
 			const userDoc = await userRef.get()
+
+			// update analytics
 			if (userDoc.exists) {
 				const [a, b, c, d] = [
 					userDoc.data().entries,
@@ -190,12 +222,12 @@ export default function JournalPage({ navigation }) {
 				dayNum: parseInt(entryDay),
 				highest: JSON.stringify(sentimentData.highest),
 				sentiment: sentimentData.avg,
+				locked: locked,
 			})
 		}
 	}
 
 	const updateMessages = async (newMessages) => {
-		let uuid = getUUID()
 		try {
 			await AsyncStorage.setItem(
 				'@messages-' + uuid,
@@ -220,7 +252,6 @@ export default function JournalPage({ navigation }) {
 	}
 
 	const recvMessages = async () => {
-		let uuid = getUUID()
 		try {
 			let newMessages = await AsyncStorage.getItem('@messages-' + uuid)
 			if (newMessages != null) {
@@ -251,7 +282,7 @@ export default function JournalPage({ navigation }) {
 		;(async () => {
 			try {
 				getUsername()
-				getUUID()
+				getLocked()
 				USER.name = username
 				if (!(messages == null || messages.length == 0)) {
 					if (isNewDay()) {
@@ -358,6 +389,8 @@ export default function JournalPage({ navigation }) {
 				replyHandler={handleReply}
 				replyEnabled={reply}
 				navigation={navigation}
+				locked={locked}
+				lockHandler={handleLock}
 			/>
 			<GiftedChat
 				// messages={messages}

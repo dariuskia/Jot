@@ -23,11 +23,10 @@ export default function Unlock({ navigation, route }) {
 
 	const [input, setInput] = useState('')
 
-	const [PIN, setPIN] = useState('0000')
+	const [PIN, setPIN] = useState()
 
 	useEffect(() => {
 		;(async () => {
-			console.log('effect')
 			let doc = await firestore().collection('users').doc(uuid).get()
 			setPIN(doc.data().PIN)
 		})()
@@ -36,7 +35,6 @@ export default function Unlock({ navigation, route }) {
 	const [wrongPIN, setWrong] = useState(false)
 
 	const verifyPIN = (x) => {
-		console.log(PIN)
 		if (x.length == pinLength) {
 			if (x == PIN) {
 				route.params.monthUnlockHandler(true)

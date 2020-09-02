@@ -5,6 +5,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
+import FlashMessage, {
+	showMessage,
+	hideMessage,
+} from 'react-native-flash-message'
 
 import Header from './HeaderEntryPage'
 import COLORS from '../../../utils/Colors'
@@ -22,6 +26,11 @@ export default function EntryPage({ navigation, route }) {
 	const [ymd, setymd] = useState(route.params.ymd)
 
 	const updateLocked = async () => {
+		setLocked(!locked)
+		let alert = !locked
+			? { message: 'Entry locked', type: 'info' }
+			: { message: 'Entry unlocked', type: 'info' }
+		showMessage({ message: 'test', type: 'default' })
 		let ref = firestore()
 			.collection('users')
 			.doc(uuid)
@@ -33,7 +42,6 @@ export default function EntryPage({ navigation, route }) {
 			.doc(ymd[2].toString())
 		await ref.update({ locked: !locked })
 		route.params.refreshDays()
-		setLocked(!locked)
 	}
 
 	const lockHandler = async () => {
@@ -112,6 +120,7 @@ export default function EntryPage({ navigation, route }) {
 				showUserAvatar
 				renderBubble={renderBubble}
 			/>
+			<FlashMessage position="top" />
 		</View>
 	)
 }
