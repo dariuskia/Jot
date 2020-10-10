@@ -2,8 +2,8 @@ export function sentimentAnalysis(message) {
 	const fetch = require('node-fetch')
 
 	const url =
-		'https://jotsentimentanalysis.cognitiveservices.azure.com/text/analytics/v3.0/sentiment'
-	const key = '7d9c38db6a7f4c39b9e4448134031db4'
+		'https://jotsentiment.cognitiveservices.azure.com/text/analytics/v3.0/sentiment'
+	const key = 'b0fdbe860c034a24858519335482e3e9'
 
 	function parseInput(input) {
 		input = { id: input['_id'], text: input.text }
