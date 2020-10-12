@@ -18,12 +18,12 @@ export default class LandingCarousel extends React.Component {
 					img: <CarouselFirst width={270} height={220} />,
 				},
 				{
-					text: 'Get points from writing entries.',
-					img: <CarouselSecond width={270} height={220} />,
-				},
-				{
 					text: 'Lock sensitive entries in a password protected vault.',
 					img: <CarouselThird width={270} height={220} />,
+				},
+				{
+					text: 'Get points from writing entries.',
+					img: <CarouselSecond width={270} height={220} />,
 				},
 			],
 		}
