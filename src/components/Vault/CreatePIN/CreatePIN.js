@@ -75,6 +75,7 @@ export default function CreatePIN({ navigation, route }) {
 				placeholder={place + ' PIN'}
 				textAlign={'center'}
 				value={input}
+				secureTextEntry={true}
 				maxLength={pinLength}
 				autoFocus={true}
 				caretHidden={true}

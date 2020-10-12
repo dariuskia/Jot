@@ -61,6 +61,7 @@ export default function Unlock({ navigation, route }) {
 				textAlign={'center'}
 				value={input}
 				maxLength={pinLength}
+				secureTextEntry={true}
 				autoFocus={true}
 				caretHidden={true}
 				keyboardType="number-pad"
