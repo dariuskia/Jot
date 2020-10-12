@@ -30,7 +30,7 @@ export default function EntryPage({ navigation, route }) {
 		let alert = !locked
 			? { message: 'Entry locked', type: 'info' }
 			: { message: 'Entry unlocked', type: 'info' }
-		showMessage({ message: 'test', type: 'default' })
+		showMessage(alert)
 		let ref = firestore()
 			.collection('users')
 			.doc(uuid)
